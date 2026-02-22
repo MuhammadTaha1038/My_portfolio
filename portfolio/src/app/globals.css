@@ -1,0 +1,238 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: #000000;
+  --color-foreground: #ffffff;
+  --color-accent: #F5C518;
+  --color-accent-dim: #D4A617;
+  --color-accent-light: #FFE066;
+  --color-card: rgba(15, 15, 20, 0.8);
+  --color-card-solid: #0d0d12;
+  --color-card-hover: rgba(20, 20, 28, 0.9);
+  --color-border: rgba(245, 197, 24, 0.08);
+  --color-border-hover: rgba(245, 197, 24, 0.25);
+  --color-surface: #08080c;
+  --color-surface-elevated: #111118;
+  --color-text-secondary: #a1a1aa;
+  --color-text-muted: #71717a;
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
+}
+
+/* === Base === */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: #000000;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+/* === GPU Acceleration for animated layers === */
+.glass-card,
+.gradient-border,
+.animate-float,
+.animate-float-delay,
+.animate-float-slow,
+.animate-pulse-glow,
+.shimmer,
+.grid-bg,
+.dot-bg,
+.noise-overlay {
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Ambient glow orbs — promote to own GPU layer so blur doesn't repaint on scroll */
+[class*="blur-["] {
+  contain: strict;
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* === Custom Scrollbar === */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #050508;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #F5C518 0%, #8B6914 100%);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #F5C518;
+}
+
+/* === Selection === */
+::selection {
+  background: rgba(245, 197, 24, 0.3);
+  color: #ffffff;
+}
+
+/* === Gradient Text === */
+.gradient-text {
+  background: linear-gradient(135deg, #F5C518 0%, #FFE066 40%, #F5C518 70%, #D4A617 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* === Section Backgrounds === */
+.section-dark {
+  background: linear-gradient(180deg, #000000 0%, #06060a 50%, #000000 100%);
+}
+.section-elevated {
+  background: linear-gradient(180deg, #06060a 0%, #0a0a10 50%, #06060a 100%);
+}
+
+/* === Grid Background (more visible) === */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(245, 197, 24, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245, 197, 24, 0.04) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* === Dot Background === */
+.dot-bg {
+  background-image: radial-gradient(rgba(245, 197, 24, 0.08) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* === Noise Texture Overlay === */
+.noise-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+/* === Section Divider === */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(245, 197, 24, 0.3) 30%, rgba(245, 197, 24, 0.5) 50%, rgba(245, 197, 24, 0.3) 70%, transparent 100%);
+}
+
+/* === Glassmorphism Card === */
+.glass-card {
+  background: rgba(12, 12, 18, 0.85);
+  border: 1px solid rgba(245, 197, 24, 0.08);
+  transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+.glass-card:hover {
+  border-color: rgba(245, 197, 24, 0.2);
+  background: rgba(15, 15, 22, 0.9);
+  box-shadow: 0 0 40px rgba(245, 197, 24, 0.05), inset 0 1px 0 rgba(245, 197, 24, 0.1);
+}
+
+/* === Glow Ring (for photo) === */
+.glow-ring {
+  box-shadow:
+    0 0 30px rgba(245, 197, 24, 0.15),
+    0 0 60px rgba(245, 197, 24, 0.08),
+    0 0 100px rgba(245, 197, 24, 0.04);
+}
+
+/* === Animated gradient border === */
+.gradient-border {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(245, 197, 24, 0.3), transparent 40%, transparent 60%, rgba(245, 197, 24, 0.3));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* === Skill Bar Animation === */
+.skill-bar {
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(245, 197, 24, 0.1);
+  overflow: hidden;
+}
+.skill-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #F5C518, #FFE066);
+  transform-origin: left;
+  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* === Floating animation === */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+.animate-float-delay {
+  animation: float 6s ease-in-out infinite 2s;
+}
+.animate-float-slow {
+  animation: float 8s ease-in-out infinite 1s;
+}
+
+/* === Pulse glow === */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(245, 197, 24, 0.1); }
+  50% { box-shadow: 0 0 40px rgba(245, 197, 24, 0.2), 0 0 80px rgba(245, 197, 24, 0.1); }
+}
+.animate-pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+/* === Shimmer Effect === */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(245, 197, 24, 0.06) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* === Counter animation === */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === Typing cursor === */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.typing-cursor::after {
+  content: '|';
+  color: #F5C518;
+  animation: blink 1s step-end infinite;
+  margin-left: 2px;
+  font-weight: 300;
+}
+
+/* === Smooth Anchor Scroll with Offset === */
+section[id] {
+  scroll-margin-top: 80px;
+}
+
