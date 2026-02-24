@@ -17,7 +17,7 @@ const jetbrainsMono = JetBrains_Mono({
   preload: false, // mono only used for code snippets — defer
 });
 
-const BASE_URL = "https://muhammadtaha.dev";
+const BASE_URL = "https://muhammadtahatech.me";
 
 export const viewport: Viewport = {
   themeColor: "#F5C518",
@@ -176,7 +176,7 @@ export default function RootLayout({
               "@type": "Person",
               name: "Muhammad Taha",
               jobTitle: "Applied Data Scientist & Backend Systems Engineer",
-              url: "https://muhammadtaha.dev",
+              url: "https://muhammadtahatech.me",
               sameAs: [
                 "https://github.com/MuhammadTaha1038",
                 "https://www.linkedin.com/in/muhammad-taha-b88807248",
