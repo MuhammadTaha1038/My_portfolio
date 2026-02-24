@@ -8,53 +8,64 @@ const STACK_CATEGORIES = [
   {
     icon: Server,
     title: "Backend Engineering",
-    color: "#F5C518",
     skills: [
-      { name: "FastAPI", level: 92 },
-      { name: "Django", level: 85 },
-      { name: "Node.js", level: 78 },
-      { name: "REST APIs", level: 95 },
-      { name: "JWT Auth", level: 90 },
-      { name: "PostgreSQL", level: 88 },
-      { name: "MySQL", level: 82 },
+      "FastAPI",
+      "Django",
+      "Node.js",
+      "RESTful API Design",
+      "JWT & RBAC Auth",
+      "PostgreSQL",
+      "MySQL",
+      "Input Validation",
+      "Middleware Design",
+      "API Error Handling",
     ],
   },
   {
     icon: BrainCircuit,
-    title: "Data & Machine Learning",
-    color: "#FFE066",
+    title: "Data Science & Applied ML",
     skills: [
-      { name: "Pandas", level: 90 },
-      { name: "NumPy", level: 88 },
-      { name: "Scikit-learn", level: 85 },
-      { name: "Feature Engineering", level: 82 },
-      { name: "Model Evaluation", level: 80 },
-      { name: "ML API Deployment", level: 88 },
+      "Applied Machine Learning",
+      "Supervised & Unsupervised Models",
+      "Feature Engineering",
+      "Model Evaluation",
+      "Statistical Analysis",
+      "Predictive Modeling",
+      "ML API Deployment",
+      "End-to-End ML Pipelines",
+      "Data Cleaning & Preprocessing",
+      "Business-Oriented Data Modeling",
     ],
   },
   {
     icon: Network,
     title: "System Architecture",
-    color: "#D4A617",
     skills: [
-      { name: "Microservices", level: 85 },
-      { name: "Secure Payouts", level: 88 },
-      { name: "Transaction Validation", level: 90 },
-      { name: "Decision Engines", level: 92 },
-      { name: "API Security", level: 87 },
+      "Modular System Architecture",
+      "Microservices Design",
+      "Database Schema Design",
+      "Decision Engine Modeling",
+      "API Security Design",
+      "Validation Pipelines",
+      "Role-Based Access Control",
+      "Business Logic Structuring",
+      "Scalable Backend Patterns",
     ],
   },
   {
     icon: Wrench,
-    title: "DevOps & Tooling",
-    color: "#F5C518",
+    title: "DevOps & Deployment",
     skills: [
-      { name: "Docker", level: 82 },
-      { name: "Git & GitHub", level: 95 },
-      { name: "GitHub Actions", level: 78 },
-      { name: "Linux", level: 80 },
-      { name: "Postman", level: 90 },
-      { name: "Vercel", level: 85 },
+      "Docker & Containerization",
+      "Git & GitHub Workflow",
+      "CI/CD Fundamentals",
+      "Linux Environment",
+      "API Testing & Debugging",
+      "Vercel Deployment",
+      "Hostinger VPS Deployment",
+      "Environment Configuration",
+      "Production Debugging",
+      "Version Control Best Practices",
     ],
   },
 ];
@@ -75,7 +86,7 @@ export default function TechStack() {
           <SectionHeading
             label="Tech Stack"
             title="Technical Arsenal"
-            description="Production-tested technologies across the full backend and ML deployment pipeline."
+            description="Production-tested technologies across the full data science and backend engineering pipeline."
           />
         </AnimatedSection>
 
@@ -88,37 +99,27 @@ export default function TechStack() {
 
                 <div className="relative">
                   {/* Header */}
-                  <div className="flex items-center gap-3 mb-8">
+                  <div className="flex items-center gap-3 mb-6">
                     <div className="p-3 rounded-xl bg-accent/10 text-accent group-hover:bg-accent/15 transition-colors">
                       <cat.icon className="w-5 h-5" />
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold">{cat.title}</h3>
                       <p className="text-xs text-text-muted font-mono">
-                        {cat.skills.length} technologies
+                        {cat.skills.length} capabilities
                       </p>
                     </div>
                   </div>
 
-                  {/* Skills with progress bars */}
-                  <div className="space-y-4">
+                  {/* Skill Tags */}
+                  <div className="flex flex-wrap gap-2">
                     {cat.skills.map((skill) => (
-                      <div key={skill.name} className="group/skill">
-                        <div className="flex items-center justify-between mb-1.5">
-                          <span className="text-sm text-text-secondary group-hover/skill:text-white transition-colors">
-                            {skill.name}
-                          </span>
-                          <span className="text-xs font-mono text-accent/60">
-                            {skill.level}%
-                          </span>
-                        </div>
-                        <div className="skill-bar">
-                          <div
-                            className="skill-bar-fill"
-                            style={{ width: `${skill.level}%` }}
-                          />
-                        </div>
-                      </div>
+                      <span
+                        key={skill}
+                        className="px-3 py-1.5 text-xs font-mono text-text-secondary bg-white/[0.03] border border-white/[0.07] rounded-lg hover:border-accent/30 hover:text-accent hover:bg-accent/5 transition-all duration-200 cursor-default"
+                      >
+                        {skill}
+                      </span>
                     ))}
                   </div>
                 </div>

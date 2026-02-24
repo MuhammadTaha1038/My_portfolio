@@ -3,20 +3,22 @@
 import AnimatedSection from "./AnimatedSection";
 import SectionHeading from "./SectionHeading";
 import Image from "next/image";
-import { GraduationCap, Target, Lightbulb, Zap, Code2 } from "lucide-react";
+import { GraduationCap, Target, Lightbulb, Zap, Code2, BrainCircuit } from "lucide-react";
 
 const FOCUS_ITEMS = [
-  { icon: Target, text: "Backend API Architecture" },
-  { icon: Zap, text: "Decision Intelligence Systems" },
-  { icon: Code2, text: "Secure Payout Logic Design" },
-  { icon: Lightbulb, text: "ML System Deployment" },
+  { icon: BrainCircuit, text: "Applied Machine Learning" },
+  { icon: Target, text: "Data-Driven System Design" },
+  { icon: Zap, text: "ML Deployment & API Integration" },
+  { icon: Code2, text: "Backend Architecture & Security" },
+  { icon: Lightbulb, text: "End-to-End Engineering Solutions" },
 ];
 
 const PHILOSOPHY = [
-  "Production-first mindset",
-  "Clean system architecture",
-  "Business-aware engineering",
-  "Security-focused implementation",
+  "Production-Oriented Thinking",
+  "Architecture Before Implementation",
+  "Analytical Precision",
+  "Security as a Foundation",
+  "Business-Aware Engineering",
 ];
 
 export default function Profile() {
@@ -32,7 +34,7 @@ export default function Profile() {
           <SectionHeading
             label="About Me"
             title="Engineering Profile"
-            description="Building systems that bridge the gap between raw data and production-ready intelligence."
+            description="Bridging data science and backend engineering to build production-ready, deployable systems."
           />
         </AnimatedSection>
 
@@ -48,7 +50,7 @@ export default function Profile() {
               {/* Photo */}
               <div className="relative w-full aspect-square max-w-[280px] mx-auto mb-6 rounded-2xl overflow-hidden border border-accent/20">
                 <Image
-                  src="/profile.png"
+                  src="/about-me.png"
                   alt="Muhammad Taha"
                   fill
                   className="object-cover object-top"
@@ -64,10 +66,13 @@ export default function Profile() {
                   <h3 className="text-lg font-semibold">Muhammad Taha</h3>
                 </div>
                 <p className="text-text-secondary text-sm leading-relaxed">
-                  Software Engineering student at <span className="text-accent">UET Taxila</span> with
-                  specialization in backend systems and data-driven architecture.
-                  Focused on building production-grade engineering solutions
-                  that solve real-world problems.
+                  Software Engineer at{" "}
+                  <a href="https://ummahtechinnovations.com/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">UmmahTech Innovations</a>,
+                  specializing in <span className="text-accent">Applied Data Science</span> and
+                  Backend Systems Engineering. Studying at <span className="text-accent">University of Engineering and Technology, Taxila</span>.
+                  I build end-to-end pipelines that move from data exploration to real-world
+                  deployment — integrating ML models into scalable backend architectures with
+                  production-grade APIs, authentication, and structured database design.
                 </p>
                 
                 {/* Location / Status*/}
@@ -79,7 +84,7 @@ export default function Profile() {
                     Remote Ready
                   </span>
                   <span className="px-3 py-1 text-xs font-mono text-accent bg-accent/10 rounded-full border border-accent/20">
-                    Freelancer
+                    Open to Work
                   </span>
                 </div>
               </div>

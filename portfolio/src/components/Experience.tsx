@@ -6,9 +6,24 @@ import { Briefcase, CheckCircle2, Calendar, MapPin } from "lucide-react";
 
 const EXPERIENCES = [
   {
+    role: "Software Engineer",
+    company: "UmmahTech Innovations",
+    companyUrl: "https://ummahtechinnovations.com/",
+    period: "2025 — Present",
+    location: "Pakistan (On-site / Remote)",
+    achievements: [
+      "Developing and maintaining production-grade backend systems and APIs for real-world client applications",
+      "Building full-stack features across Node.js/Express backends and React frontends with TailwindCSS",
+      "Deploying and managing applications on Hostinger VPS with production security hardening",
+      "Collaborating on system architecture, database design, and codebase quality standards",
+      "Integrating third-party services, payment gateways, and external APIs into enterprise workflows",
+    ],
+  },
+  {
     role: "Freelance Backend Engineer",
     company: "Self-Employed",
-    period: "2024 — Present",
+    companyUrl: undefined,
+    period: "2024 — 2025",
     location: "Remote",
     achievements: [
       "Designed scalable backend APIs for multiple client projects with production-level reliability",
@@ -65,7 +80,11 @@ export default function Experience() {
                         <h3 className="text-2xl font-bold">{exp.role}</h3>
                       </div>
                       <p className="text-accent font-mono text-sm ml-12 md:ml-[52px]">
-                        {exp.company}
+                        {exp.companyUrl ? (
+                          <a href={exp.companyUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                            {exp.company}
+                          </a>
+                        ) : exp.company}
                       </p>
                     </div>
 

@@ -5,7 +5,6 @@ import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const NAV_LINKS = [
-  { label: "Home", href: "#home" },
   { label: "About", href: "#profile" },
   { label: "Skills", href: "#stack" },
   { label: "Projects", href: "#projects" },
@@ -16,7 +15,7 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("#home");
+  const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -60,7 +59,7 @@ export default function Navbar() {
           {/* Logo */}
           <a href="#home" className="relative group">
             <span className="text-2xl font-bold tracking-tight">
-              M<span className="text-accent">.</span>Taha
+              M<span className="text-accent">.</span> Taha
             </span>
             <span className="absolute -bottom-1 left-0 h-px w-0 bg-accent group-hover:w-full transition-all duration-300" />
           </a>
@@ -89,16 +88,18 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Hire Me button (desktop) */}
+          {/* CTA button (desktop) */}
           <a
-            href="#contact"
+            href="https://wa.me/923432744101?text=I%20have%20visited%20your%20portfolio%20website%20and%20want%20to%20chat%20with%20you"
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden md:flex items-center gap-2 px-5 py-2 bg-accent/10 border border-accent/30 text-accent text-sm font-medium rounded-full hover:bg-accent/20 transition-all duration-300"
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
             </span>
-            Hire Me
+            Let&apos;s Connect
           </a>
 
           {/* Mobile Toggle */}
@@ -148,14 +149,15 @@ export default function Navbar() {
               </nav>
 
               <motion.a
-                href="#contact"
-                onClick={() => setMobileOpen(false)}
+                href="https://wa.me/923432744101?text=I%20have%20visited%20your%20portfolio%20website%20and%20want%20to%20chat%20with%20you"
+                target="_blank"
+                rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
                 className="mt-8 px-8 py-3.5 bg-accent text-black font-semibold rounded-xl text-lg"
               >
-                Hire Me
+                Let&apos;s Connect
               </motion.a>
             </div>
           </motion.div>

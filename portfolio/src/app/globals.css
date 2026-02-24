@@ -24,12 +24,51 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color-scheme: dark;
+  text-rendering: optimizeLegibility;
 }
 
 body {
   background: #000000;
   color: #ffffff;
   overflow-x: hidden;
+  /* Better tap highlight on mobile */
+  -webkit-tap-highlight-color: rgba(245, 197, 24, 0.1);
+}
+
+/* === Keyboard focus — visible only when using keyboard === */
+*:focus-visible {
+  outline: 2px solid #F5C518;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* === Touch — prevent double-tap zoom on buttons/links === */
+a, button {
+  touch-action: manipulation;
+}
+
+/* === Respect user motion preferences === */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* === Print styles === */
+@media print {
+  body { background: white; color: black; }
+  .noise-overlay, .grid-bg, .dot-bg, canvas { display: none !important; }
+  nav, footer { display: none !important; }
+  section { break-inside: avoid; }
+  a { color: black; text-decoration: underline; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.75em; }
 }
 
 /* === GPU Acceleration for animated layers === */
@@ -137,9 +176,9 @@ body {
 /* === Glow Ring (for photo) === */
 .glow-ring {
   box-shadow:
-    0 0 30px rgba(245, 197, 24, 0.15),
-    0 0 60px rgba(245, 197, 24, 0.08),
-    0 0 100px rgba(245, 197, 24, 0.04);
+    0 0 20px rgba(245, 197, 24, 0.08),
+    0 0 45px rgba(245, 197, 24, 0.04),
+    0 0 80px rgba(245, 197, 24, 0.02);
 }
 
 /* === Animated gradient border === */

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Download, Mail, ChevronDown, Github, Linkedin } from "lucide-react";
+import { ArrowRight, Mail, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import ParticleField from "./ParticleField";
 
@@ -32,20 +32,6 @@ export default function Hero() {
           
           {/* Left: Text Content */}
           <div className="order-2 lg:order-1">
-            {/* Status badge */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-accent/20 bg-accent/5 backdrop-blur-sm text-accent text-sm font-mono mb-8"
-            >
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent" />
-              </span>
-              Open to Opportunities
-            </motion.div>
-
             {/* Name */}
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
@@ -67,7 +53,7 @@ export default function Hero() {
             >
               <div className="h-px w-8 bg-accent/60" />
               <p className="text-accent font-mono text-sm md:text-base tracking-wide typing-cursor">
-                Backend & Decision Systems Engineer
+                Applied Data Scientist & Backend Systems Engineer
               </p>
             </motion.div>
 
@@ -78,8 +64,8 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.35 }}
               className="text-text-secondary text-base md:text-lg max-w-lg mb-10 leading-relaxed"
             >
-              I design scalable backend systems and intelligent decision engines
-              that transform raw data into production-grade infrastructure.
+              I build ML-powered backend systems that move from data to deployment —
+              trained, integrated, secured, and shipped.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -97,13 +83,6 @@ export default function Hero() {
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>
               <a
-                href="#"
-                className="group flex items-center gap-2.5 px-7 py-3.5 glass-card rounded-xl text-white hover:text-accent transition-all duration-300 hover:-translate-y-0.5"
-              >
-                <Download className="w-4 h-4" />
-                Resume
-              </a>
-              <a
                 href="#contact"
                 className="group flex items-center gap-2.5 px-7 py-3.5 glass-card rounded-xl text-white hover:text-accent transition-all duration-300 hover:-translate-y-0.5"
               >
@@ -112,32 +91,7 @@ export default function Hero() {
               </a>
             </motion.div>
 
-            {/* Social Links */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.55 }}
-              className="flex items-center gap-4"
-            >
-              <a
-                href="https://github.com/muhammadtaha"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2.5 rounded-lg border border-border hover:border-accent/40 hover:text-accent hover:bg-accent/5 transition-all text-text-muted"
-              >
-                <Github className="w-5 h-5" />
-              </a>
-              <a
-                href="https://linkedin.com/in/muhammadtaha"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2.5 rounded-lg border border-border hover:border-accent/40 hover:text-accent hover:bg-accent/5 transition-all text-text-muted"
-              >
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <div className="h-6 w-px bg-border mx-2" />
-              <span className="text-text-muted text-sm font-mono">taha@example.com</span>
-            </motion.div>
+
           </div>
 
           {/* Right: Photo + Stats */}
@@ -149,16 +103,16 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative mb-10"
             >
-              {/* Outer glow rings */}
-              <div className="absolute -inset-4 rounded-full bg-gradient-to-br from-accent/20 via-transparent to-accent/10 blur-xl animate-pulse-glow" />
-              <div className="absolute -inset-2 rounded-full bg-gradient-to-br from-accent/30 via-accent/5 to-accent/20 p-px">
+              {/* Outer glow rings — subtle */}
+              <div className="absolute -inset-4 rounded-full bg-gradient-to-br from-accent/10 via-transparent to-accent/5 blur-xl animate-pulse-glow" />
+              <div className="absolute -inset-2 rounded-full bg-gradient-to-br from-accent/15 via-accent/3 to-accent/10 p-px">
                 <div className="w-full h-full rounded-full bg-black" />
               </div>
 
               {/* Photo container */}
-              <div className="relative w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden border-2 border-accent/30 glow-ring">
+              <div className="relative w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden border border-accent/20" style={{boxShadow: '0 0 20px rgba(245,197,24,0.08), 0 0 40px rgba(245,197,24,0.04)'}}>
                 <Image
-                  src="/profile.png"
+                  src="/hero.png"
                   alt="Muhammad Taha — Backend & Decision Systems Engineer"
                   fill
                   className="object-cover object-top"
@@ -167,16 +121,7 @@ export default function Hero() {
                 />
               </div>
 
-              {/* Floating badges around photo */}
-              <div className="absolute -top-2 -right-2 px-3 py-1.5 glass-card rounded-lg text-accent text-xs font-mono animate-float">
-                FastAPI
-              </div>
-              <div className="absolute top-1/2 -left-6 px-3 py-1.5 glass-card rounded-lg text-accent text-xs font-mono animate-float-delay">
-                Python
-              </div>
-              <div className="absolute -bottom-2 right-4 px-3 py-1.5 glass-card rounded-lg text-accent text-xs font-mono animate-float-slow">
-                ML Ops
-              </div>
+              {/* No floating badges — clean professional look */}
             </motion.div>
 
             {/* Stats Grid */}
@@ -187,9 +132,9 @@ export default function Hero() {
               className="grid grid-cols-3 gap-6 w-full max-w-sm"
             >
               {[
-                { value: "4+", label: "Projects" },
-                { value: "10+", label: "Technologies" },
-                { value: "1+", label: "Year Exp" },
+                { value: "10+", label: "Projects Built" },
+                { value: "5+", label: "Technologies" },
+                { value: "2+", label: "Years Exp" },
               ].map((stat) => (
                 <div
                   key={stat.label}
@@ -198,7 +143,7 @@ export default function Hero() {
                   <div className="text-2xl md:text-3xl font-bold gradient-text font-mono">
                     {stat.value}
                   </div>
-                  <div className="text-[11px] text-text-muted mt-1 uppercase tracking-widest">
+                  <div className="text-[10px] leading-tight text-text-muted mt-1 uppercase tracking-wide break-words">
                     {stat.label}
                   </div>
                 </div>
