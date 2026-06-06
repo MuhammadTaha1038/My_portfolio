@@ -132,8 +132,8 @@ export default function Hero() {
               className="grid grid-cols-3 gap-6 w-full max-w-sm"
             >
               {[
-                { value: "10+", label: "Projects Built" },
-                { value: "5+", label: "Technologies" },
+                { value: "11+", label: "Projects Built" },
+                { value: "10+", label: "Technologies" },
                 { value: "2+", label: "Years Exp" },
               ].map((stat) => (
                 <div
