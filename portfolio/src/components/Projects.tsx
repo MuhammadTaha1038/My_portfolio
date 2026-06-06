@@ -149,7 +149,7 @@ const PROJECTS: Project[] = [
   },
 
   {
-    title: "Tatoo Inbo",
+    title: "Tatoo Inbox",
     description:
       "Backend system for a tattoo studio booking and inbox management platform. Handles appointment scheduling, client communication, and studio workflow management through a RESTful API architecture.",
     highlights: [
@@ -159,7 +159,21 @@ const PROJECTS: Project[] = [
       "Secure backend with authentication",
     ],
     tags: ["Node.js", "Express", "MongoDB", "REST API"],
-    image: "/projects/tatoo-inbo.png",
+    image: "/projects/tatoo-inbox.png",
+    category: "Backend Development",
+  },
+  {
+    title: "Make.com E-Commerce Email Pipeline",
+    description:
+      "Event-driven email automation system for an eCommerce business, solving the critical challenge of inbox deliverability — ensuring transactional and marketing emails bypass spam filters and reach customers reliably.",
+    highlights: [
+      "Webhook-driven event architecture for order & checkout triggers",
+      "Klaviyo integration for structured marketing event signals",
+      "Data normalization with iterators & text aggregators",
+      "Fault-tolerant delivery with error handling & retry mechanisms",
+    ],
+    tags: ["Make.com", "Klaviyo", "Webhooks", "Automation", "Email Deliverability"],
+    image: "/projects/makecom-flows.png",
     category: "Backend Development",
   },
 
