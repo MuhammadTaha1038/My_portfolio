@@ -132,7 +132,7 @@ export default function Hero() {
               className="grid grid-cols-3 gap-6 w-full max-w-sm"
             >
               {[
-                { value: "11+", label: "Projects Built" },
+                { value: "12+", label: "Projects Built" },
                 { value: "10+", label: "Technologies" },
                 { value: "2+", label: "Years Exp" },
               ].map((stat) => (

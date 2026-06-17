@@ -130,6 +130,21 @@ const PROJECTS: Project[] = [
     category: "Data Analysis",
     github: "https://github.com/MuhammadTaha1038/Importing-Data-in-Python",
   },
+  {
+    title: "Real-World Batch API Automation",
+    description:
+      "A stateful, cost-aware data ingestion system built on top of the BatchData API using Google Apps Script — engineered to solve the operational problems behind real-world data pipelines, not just fetch data.",
+    highlights: [
+      "Filters sheet UI layer mapping inputs to structured API payloads",
+      "Multi-key deduplication (Property ID + APN + address hashing)",
+      "Persistent skip-offset pagination via PropertiesService",
+      "Mock Mode for credit-safe testing & custom menu for non-technical users",
+    ],
+    tags: ["Google Apps Script", "BatchData API", "Google Sheets", "Data Pipeline", "Automation"],
+    image: "/projects/batch-data-project.png",
+    category: "Data Analysis",
+    github: "https://github.com/MuhammadTaha1038/Real-World-Batch-api-Automation.git",
+  },
 
   /* ── Backend Development ── */
   {
