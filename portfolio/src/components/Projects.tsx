@@ -71,6 +71,21 @@ const PROJECTS: Project[] = [
 
   /* ── Data Analysis ── */
   {
+    title: "Real-World Batch API Automation",
+    description:
+      "A stateful, cost-aware data ingestion system built on top of the BatchData API using Google Apps Script — engineered to solve the operational problems behind real-world data pipelines, not just fetch data.",
+    highlights: [
+      "Filters sheet UI layer mapping inputs to structured API payloads",
+      "Multi-key deduplication (Property ID + APN + address hashing)",
+      "Persistent skip-offset pagination via PropertiesService",
+      "Mock Mode for credit-safe testing & custom menu for non-technical users",
+    ],
+    tags: ["Google Apps Script", "BatchData API", "Google Sheets", "Data Pipeline", "Automation"],
+    image: "/projects/batch-data-project.png",
+    category: "Data Analysis",
+    github: "https://github.com/MuhammadTaha1038/Real-World-Batch-api-Automation.git",
+  },
+  {
     title: "Silver Price Forecasting 2026",
     description:
       "Comprehensive analysis and forecasting project for silver prices using Yahoo Finance API historical data. Includes EDA, visualization, and a 3-month forward price prediction model.",
@@ -129,21 +144,6 @@ const PROJECTS: Project[] = [
     image: "/projects/import-python.png",
     category: "Data Analysis",
     github: "https://github.com/MuhammadTaha1038/Importing-Data-in-Python",
-  },
-  {
-    title: "Real-World Batch API Automation",
-    description:
-      "A stateful, cost-aware data ingestion system built on top of the BatchData API using Google Apps Script — engineered to solve the operational problems behind real-world data pipelines, not just fetch data.",
-    highlights: [
-      "Filters sheet UI layer mapping inputs to structured API payloads",
-      "Multi-key deduplication (Property ID + APN + address hashing)",
-      "Persistent skip-offset pagination via PropertiesService",
-      "Mock Mode for credit-safe testing & custom menu for non-technical users",
-    ],
-    tags: ["Google Apps Script", "BatchData API", "Google Sheets", "Data Pipeline", "Automation"],
-    image: "/projects/batch-data-project.png",
-    category: "Data Analysis",
-    github: "https://github.com/MuhammadTaha1038/Real-World-Batch-api-Automation.git",
   },
 
   /* ── Backend Development ── */
