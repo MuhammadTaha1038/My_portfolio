@@ -206,7 +206,7 @@ const PROJECTS: Project[] = [
     tags: ["Full Stack", "Workflow Automation", "SendGrid", "Data Privacy", "Token Validation"],
     image: "/projects/automated-email-sending-system.png",
     category: "Full Stack",
-    live: "https://lnkd.in/d3yJBMzt",
+    github: "https://github.com/MuhammadTaha1038/Employee-Survey-Invitation-System-Case-Study.git",
   },
   {
     title: "International Tijarat",
