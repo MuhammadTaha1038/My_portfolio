@@ -194,6 +194,21 @@ const PROJECTS: Project[] = [
 
   /* ── Full Stack ── */
   {
+    title: "Employee Survey Invitation System",
+    description:
+      "An end-to-end token-driven, privacy-preserving workflow system that controls the entire employee survey lifecycle from invite generation to response mapping, instead of just sending emails.",
+    highlights: [
+      "Excel upload pipeline to normalize inconsistent employee data into structured records",
+      "Token generation system (32-byte + hashed storage) for secure, controlled access",
+      "Prefill mechanism injecting employee metadata directly into the survey flow",
+      "Controlled email workflows (SendGrid + fallback) with state tracking (sent/pending/completed)",
+    ],
+    tags: ["Full Stack", "Workflow Automation", "SendGrid", "Data Privacy", "Token Validation"],
+    image: "/projects/automated-email-sending-system.png",
+    category: "Full Stack",
+    live: "https://lnkd.in/d3yJBMzt",
+  },
+  {
     title: "International Tijarat",
     description:
       "Full-stack multi-vendor e-commerce platform with admin panel, vendor dashboard, order management, and commission tracking. Production-hardened with Redis caching (85%+ hit ratio), JWT auth, and load tested at 450+ RPS sustained throughput.",

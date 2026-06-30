@@ -29,7 +29,7 @@ export default function Hero() {
       {/* === Main Content === */}
       <div className="relative z-20 w-full max-w-7xl mx-auto px-6 lg:px-12 pt-24 pb-16">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-          
+
           {/* Left: Text Content */}
           <div className="order-2 lg:order-1">
             {/* Name */}
@@ -110,7 +110,7 @@ export default function Hero() {
               </div>
 
               {/* Photo container */}
-              <div className="relative w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden border border-accent/20" style={{boxShadow: '0 0 20px rgba(245,197,24,0.08), 0 0 40px rgba(245,197,24,0.04)'}}>
+              <div className="relative w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden border border-accent/20" style={{ boxShadow: '0 0 20px rgba(245,197,24,0.08), 0 0 40px rgba(245,197,24,0.04)' }}>
                 <Image
                   src="/hero.png"
                   alt="Muhammad Taha — Backend & Decision Systems Engineer"
@@ -132,7 +132,7 @@ export default function Hero() {
               className="grid grid-cols-3 gap-6 w-full max-w-sm"
             >
               {[
-                { value: "12+", label: "Projects Built" },
+                { value: "13+", label: "Projects Built" },
                 { value: "10+", label: "Technologies" },
                 { value: "2+", label: "Years Exp" },
               ].map((stat) => (
