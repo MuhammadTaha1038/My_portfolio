@@ -22,6 +22,38 @@ interface Project {
 
 /* ─── Project Data ───────────────────────────────────────────── */
 const PROJECTS: Project[] = [
+  /* ── Recent Projects ── */
+  {
+    title: "Employee Survey Invitation System",
+    description:
+      "An end-to-end token-driven, privacy-preserving workflow system that controls the entire employee survey lifecycle from invite generation to response mapping, instead of just sending emails.",
+    highlights: [
+      "Excel upload pipeline to normalize inconsistent employee data into structured records",
+      "Token generation system (32-byte + hashed storage) for secure, controlled access",
+      "Prefill mechanism injecting employee metadata directly into the survey flow",
+      "Controlled email workflows (SendGrid + fallback) with state tracking (sent/pending/completed)",
+    ],
+    tags: ["Full Stack", "Workflow Automation", "SendGrid", "Data Privacy", "Token Validation"],
+    image: "/projects/automated-email-sending-system.png",
+    category: "Full Stack",
+    github: "https://github.com/MuhammadTaha1038/Employee-Survey-Invitation-System-Case-Study.git",
+  },
+  {
+    title: "Real-World Batch API Automation",
+    description:
+      "A stateful, cost-aware data ingestion system built on top of the BatchData API using Google Apps Script — engineered to solve the operational problems behind real-world data pipelines, not just fetch data.",
+    highlights: [
+      "Filters sheet UI layer mapping inputs to structured API payloads",
+      "Multi-key deduplication (Property ID + APN + address hashing)",
+      "Persistent skip-offset pagination via PropertiesService",
+      "Mock Mode for credit-safe testing & custom menu for non-technical users",
+    ],
+    tags: ["Google Apps Script", "BatchData API", "Google Sheets", "Data Pipeline", "Automation"],
+    image: "/projects/batch-data-project.png",
+    category: "Data Analysis",
+    github: "https://github.com/MuhammadTaha1038/Real-World-Batch-api-Automation.git",
+  },
+
   /* ── Machine Learning ── */
   {
     title: "Credit Card Fraud Detection",
@@ -70,21 +102,6 @@ const PROJECTS: Project[] = [
   },
 
   /* ── Data Analysis ── */
-  {
-    title: "Real-World Batch API Automation",
-    description:
-      "A stateful, cost-aware data ingestion system built on top of the BatchData API using Google Apps Script — engineered to solve the operational problems behind real-world data pipelines, not just fetch data.",
-    highlights: [
-      "Filters sheet UI layer mapping inputs to structured API payloads",
-      "Multi-key deduplication (Property ID + APN + address hashing)",
-      "Persistent skip-offset pagination via PropertiesService",
-      "Mock Mode for credit-safe testing & custom menu for non-technical users",
-    ],
-    tags: ["Google Apps Script", "BatchData API", "Google Sheets", "Data Pipeline", "Automation"],
-    image: "/projects/batch-data-project.png",
-    category: "Data Analysis",
-    github: "https://github.com/MuhammadTaha1038/Real-World-Batch-api-Automation.git",
-  },
   {
     title: "Silver Price Forecasting 2026",
     description:
@@ -193,21 +210,6 @@ const PROJECTS: Project[] = [
   },
 
   /* ── Full Stack ── */
-  {
-    title: "Employee Survey Invitation System",
-    description:
-      "An end-to-end token-driven, privacy-preserving workflow system that controls the entire employee survey lifecycle from invite generation to response mapping, instead of just sending emails.",
-    highlights: [
-      "Excel upload pipeline to normalize inconsistent employee data into structured records",
-      "Token generation system (32-byte + hashed storage) for secure, controlled access",
-      "Prefill mechanism injecting employee metadata directly into the survey flow",
-      "Controlled email workflows (SendGrid + fallback) with state tracking (sent/pending/completed)",
-    ],
-    tags: ["Full Stack", "Workflow Automation", "SendGrid", "Data Privacy", "Token Validation"],
-    image: "/projects/automated-email-sending-system.png",
-    category: "Full Stack",
-    github: "https://github.com/MuhammadTaha1038/Employee-Survey-Invitation-System-Case-Study.git",
-  },
   {
     title: "International Tijarat",
     description:
