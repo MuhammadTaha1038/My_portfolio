@@ -17,7 +17,7 @@ const jetbrainsMono = JetBrains_Mono({
   preload: false, // mono only used for code snippets — defer
 });
 
-const BASE_URL = "https://muhammadtahatech.me";
+const BASE_URL = "https://www.muhammadtahatech.me";
 
 export const viewport: Viewport = {
   themeColor: "#F5C518",
