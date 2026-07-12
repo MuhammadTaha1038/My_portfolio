@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import AnimatedSection from "./AnimatedSection";
 import SectionHeading from "./SectionHeading";
-import { Github, CheckCircle2, ArrowUpRight, ExternalLink } from "lucide-react";
+import { Github, CheckCircle2, ArrowUpRight, ExternalLink, LayoutGrid, Presentation } from "lucide-react";
 
 /* ─── Types ─────────────────────────────────────────────────── */
 type Category = "All" | "Machine Learning" | "Data Analysis" | "Backend Development" | "Full Stack";
@@ -239,9 +239,19 @@ const CATEGORIES: Category[] = [
 /* ─── Component ─────────────────────────────────────────────── */
 export default function Projects() {
   const [active, setActive] = useState<Category>("All");
+  const [viewMode, setViewMode] = useState<"featured" | "grid">("featured");
+  const [featuredIndex, setFeaturedIndex] = useState(0);
 
   const filtered =
     active === "All" ? PROJECTS : PROJECTS.filter((p) => p.category === active);
+
+  // Safety catch if featuredIndex is out of bounds after category change
+  const currentFeatured = filtered[featuredIndex] || filtered[0];
+
+  const handleCategoryChange = (cat: Category) => {
+    setActive(cat);
+    setFeaturedIndex(0); // Reset featured index when changing categories
+  };
 
   return (
     <section
@@ -265,44 +275,205 @@ export default function Projects() {
           />
         </AnimatedSection>
 
-        {/* ── Category Tabs ── */}
+        {/* ── Controls Row (Categories & View Toggle) ── */}
         <AnimatedSection delay={0.05}>
-          <div className="flex flex-wrap gap-2 mb-10">
-            {CATEGORIES.map((cat) => (
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+            {/* Category Tabs */}
+            <div className="flex flex-wrap gap-2">
+              {CATEGORIES.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => handleCategoryChange(cat)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all border ${
+                    active === cat
+                      ? "bg-accent text-black border-accent"
+                      : "bg-black/30 text-text-muted border-border hover:border-accent/40 hover:text-text-primary"
+                  }`}
+                >
+                  {cat}
+                  {cat !== "All" && (
+                    <span
+                      className={`ml-1.5 text-xs ${
+                        active === cat ? "text-black/60" : "text-text-muted"
+                      }`}
+                    >
+                      ({PROJECTS.filter((p) => p.category === cat).length})
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+
+            {/* View Mode Toggle */}
+            <div className="flex items-center bg-black/40 border border-border rounded-full p-1 shrink-0">
               <button
-                key={cat}
-                onClick={() => setActive(cat)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all border ${
-                  active === cat
-                    ? "bg-accent text-black border-accent"
-                    : "bg-black/30 text-text-muted border-border hover:border-accent/40 hover:text-text-primary"
+                onClick={() => setViewMode("featured")}
+                className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-sm transition-colors ${
+                  viewMode === "featured"
+                    ? "bg-accent/10 text-accent font-medium"
+                    : "text-text-muted hover:text-text-primary"
                 }`}
               >
-                {cat}
-                {cat !== "All" && (
-                  <span
-                    className={`ml-1.5 text-xs ${
-                      active === cat ? "text-black/60" : "text-text-muted"
-                    }`}
-                  >
-                    ({PROJECTS.filter((p) => p.category === cat).length})
-                  </span>
-                )}
+                <Presentation className="w-4 h-4" />
+                <span>Featured</span>
               </button>
-            ))}
+              <button
+                onClick={() => setViewMode("grid")}
+                className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-sm transition-colors ${
+                  viewMode === "grid"
+                    ? "bg-accent/10 text-accent font-medium"
+                    : "text-text-muted hover:text-text-primary"
+                }`}
+              >
+                <LayoutGrid className="w-4 h-4" />
+                <span>Grid View</span>
+              </button>
+            </div>
           </div>
         </AnimatedSection>
 
-        {/* ── Project Grid ── */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
-          {filtered.map((project, i) => (
-            <AnimatedSection key={project.title} delay={i * 0.07}>
-              <ProjectCard project={project} />
-            </AnimatedSection>
-          ))}
-        </div>
+        {/* ── Layout Modes ── */}
+        {viewMode === "featured" ? (
+          <div className="flex flex-col gap-8 animate-in fade-in zoom-in-95 duration-500">
+            {/* Massive Hero Card for Featured Project */}
+            {currentFeatured && (
+              <FeaturedProjectCard project={currentFeatured} />
+            )}
+
+            {/* Horizontal Scroller for remaining projects in category */}
+            {filtered.length > 1 && (
+              <div className="mt-4">
+                <h4 className="text-sm font-mono text-text-muted mb-4 uppercase tracking-widest pl-2 border-l-2 border-accent/30">
+                  More in {active}
+                </h4>
+                <div className="flex overflow-x-auto gap-4 pb-6 scrollbar-hide snap-x">
+                  {filtered.map((project, idx) => (
+                    <button
+                      key={project.title}
+                      onClick={() => setFeaturedIndex(idx)}
+                      className={`relative flex-shrink-0 w-[280px] h-[120px] rounded-xl overflow-hidden group border-2 transition-all snap-start text-left ${
+                        idx === featuredIndex
+                          ? "border-accent ring-2 ring-accent/20"
+                          : "border-transparent opacity-60 hover:opacity-100"
+                      }`}
+                    >
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-colors" />
+                      <div className="absolute inset-0 p-4 flex flex-col justify-end">
+                        <span className="text-xs font-mono text-accent mb-1 drop-shadow-md">
+                          {project.category}
+                        </span>
+                        <h5 className="font-semibold text-sm leading-tight line-clamp-2 drop-shadow-md">
+                          {project.title}
+                        </h5>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        ) : (
+          /* Grid View */
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7 animate-in fade-in slide-in-from-bottom-8 duration-500">
+            {filtered.map((project, i) => (
+              <AnimatedSection key={project.title} delay={i * 0.05}>
+                <ProjectCard project={project} />
+              </AnimatedSection>
+            ))}
+          </div>
+        )}
       </div>
     </section>
+  );
+}
+
+/* ─── Featured Project Hero Card ──────────────────────────────── */
+function FeaturedProjectCard({ project }: { project: Project }) {
+  const isLive = !!project.live;
+
+  return (
+    <div className="flex flex-col lg:flex-row glass-card rounded-3xl overflow-hidden border border-white/[0.08] shadow-2xl relative gradient-border">
+      {/* Left: Image Showcase */}
+      <div className="lg:w-[55%] relative min-h-[300px] lg:min-h-[450px] bg-black/50 group">
+        <Image
+          src={project.image}
+          alt={project.title}
+          fill
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-black/90" />
+        
+        {/* Category Floating Badge */}
+        <div className="absolute top-6 left-6 px-4 py-1.5 bg-black/60 backdrop-blur-md rounded-full border border-accent/30 text-accent text-xs font-mono tracking-widest shadow-xl">
+          {project.category}
+        </div>
+      </div>
+
+      {/* Right: Content Details */}
+      <div className="lg:w-[45%] p-8 lg:p-12 flex flex-col justify-center relative bg-black/80 backdrop-blur-sm z-10">
+        <h3 className="text-3xl lg:text-4xl font-bold mb-4 tracking-tight leading-tight">
+          {project.title}
+        </h3>
+        <p className="text-text-secondary text-base lg:text-lg mb-8 leading-relaxed">
+          {project.description}
+        </p>
+
+        {/* Highlights */}
+        <ul className="space-y-4 mb-10">
+          {project.highlights.map((h) => (
+            <li key={h} className="flex items-start gap-3 text-sm text-text-primary/90">
+              <CheckCircle2 className="w-5 h-5 text-accent shrink-0 mt-0.5" />
+              <span className="leading-snug">{h}</span>
+            </li>
+          ))}
+        </ul>
+
+        {/* Tech Stack */}
+        <div className="flex flex-wrap gap-2 mb-10">
+          {project.tags.map((tag) => (
+            <span
+              key={tag}
+              className="px-3 py-1 text-xs font-mono text-accent/90 bg-accent/10 rounded-lg border border-accent/20"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex flex-wrap items-center gap-4 mt-auto">
+          {project.live && (
+            <a
+              href={project.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-6 py-3 bg-accent text-black font-semibold rounded-xl hover:bg-accent/90 transition-all shadow-lg hover:shadow-accent/20 hover:-translate-y-0.5"
+            >
+              <span>View Live Project</span>
+              <ArrowUpRight className="w-4 h-4" />
+            </a>
+          )}
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-6 py-3 border border-border rounded-xl hover:border-accent hover:text-accent transition-all hover:bg-accent/5"
+            >
+              <Github className="w-4 h-4" />
+              <span>Source Code</span>
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }
 
