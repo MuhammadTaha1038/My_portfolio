@@ -52,6 +52,11 @@ export const metadata: Metadata = {
     "Express.js",
     "MongoDB",
     "React Developer",
+    "Google Apps Script Automation",
+    "System Architecture",
+    "Data Privacy",
+    "SendGrid",
+    "Redis Caching",
   ],
   authors: [{ name: "Muhammad Taha", url: BASE_URL }],
   creator: "Muhammad Taha",
@@ -67,6 +72,15 @@ export const metadata: Metadata = {
     description:
       "Software Engineer at UmmahTech Innovations. Building ML-powered backend systems that move from data to deployment — trained, integrated, secured, and shipped.",
     siteName: "Muhammad Taha Portfolio",
+    images: [
+      {
+        url: `${BASE_URL}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: "Muhammad Taha - Applied Data Scientist & Backend Systems Engineer",
+        type: "image/png",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -74,6 +88,7 @@ export const metadata: Metadata = {
     description:
       "Software Engineer at UmmahTech Innovations. Building ML-powered backend systems that move from data to deployment.",
     creator: "@M_Taha093589350",
+    images: [`${BASE_URL}/opengraph-image`],
   },
   robots: {
     index: true,
@@ -153,29 +168,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Person",
-              name: "Muhammad Taha",
-              jobTitle: "Applied Data Scientist & Backend Systems Engineer",
-              url: "https://muhammadtahatech.me",
-              sameAs: [
-                "https://github.com/MuhammadTaha1038",
-                "https://www.linkedin.com/in/muhammad-taha-b88807248",
-                "https://www.kaggle.com/muhammadtaha1038",
-              ],
-              knowsAbout: [
-                "Applied Data Science",
-                "Machine Learning",
-                "Backend Engineering",
-                "FastAPI",
-                "Django",
-                "ML Deployment",
-                "Python",
-                "Feature Engineering",
-                "Scikit-learn",
-              ],
-            }),
+            __html: JSON.stringify(jsonLd),
           }}
         />
       </head>

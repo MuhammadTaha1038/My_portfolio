@@ -52,9 +52,9 @@ export default function Hero() {
               className="flex items-center gap-3 mb-6"
             >
               <div className="h-px w-8 bg-accent/60" />
-              <p className="text-accent font-mono text-sm md:text-base tracking-wide typing-cursor">
+              <h2 className="text-accent font-mono text-sm md:text-base tracking-wide typing-cursor m-0">
                 Applied Data Scientist & Backend Systems Engineer
-              </p>
+              </h2>
             </motion.div>
 
             {/* Subtitle */}

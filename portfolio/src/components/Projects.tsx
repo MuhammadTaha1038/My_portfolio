@@ -309,6 +309,9 @@ export default function Projects() {
 /* ─── Project Card ───────────────────────────────────────────── */
 function ProjectCard({ project }: { project: Project }) {
   const isLive = !!project.live;
+  
+  // SEO-optimized alt text
+  const imageAltText = `${project.title} - ${project.category} Project built with ${project.tags.slice(0, 3).join(', ')}`;
 
   return (
     <div className="group h-full flex flex-col glass-card rounded-2xl relative overflow-hidden gradient-border">
@@ -316,7 +319,7 @@ function ProjectCard({ project }: { project: Project }) {
       <div className="relative h-48 overflow-hidden bg-black/40">
         <Image
           src={project.image}
-          alt={project.title}
+          alt={imageAltText}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="object-cover transition-transform duration-500 group-hover:scale-105"
