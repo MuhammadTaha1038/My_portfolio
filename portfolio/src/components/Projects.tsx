@@ -252,13 +252,6 @@ export default function Projects() {
     return () => clearInterval(timer);
   }, [viewMode, filtered.length, featuredIndex]);
 
-  // Safety catch if featuredIndex is out of bounds after category change
-  const currentFeatured = filtered[featuredIndex] || filtered[0];
-
-  const handleCategoryChange = (cat: Category) => {
-    setActive(cat);
-    setFeaturedIndex(0); // Reset featured index when changing categories
-  };
 
   return (
     <section
