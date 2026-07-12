@@ -1,0 +1,1 @@
+const https = require('https'); https.get('https://www.muhammadtahatech.me/', (res) => { let data = ''; res.on('data', (c) => data += c); res.on('end', () => console.log(data.match(/<title>.*?<\/title>|<meta[^>]+property=.og:[^>]+>|<meta[^>]+name=.twitter:[^>]+>/gi))); });
