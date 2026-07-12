@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import AnimatedSection from "./AnimatedSection";
 import SectionHeading from "./SectionHeading";
@@ -22,7 +22,37 @@ interface Project {
 
 /* ─── Project Data ───────────────────────────────────────────── */
 const PROJECTS: Project[] = [
-  /* ── Recent Projects ── */
+  {
+    title: "International Tijarat",
+    description:
+      "Full-stack multi-vendor e-commerce platform with admin panel, vendor dashboard, order management, and commission tracking. Production-hardened with Redis caching (85%+ hit ratio), JWT auth, and load tested at 450+ RPS sustained throughput.",
+    highlights: [
+      "Multi-vendor system with admin & vendor dashboards",
+      "Redis caching — 85%+ hit ratio, 7.6ms avg response",
+      "Load tested at 450+ RPS sustained",
+      "JWT auth, rate limiting, Helmet security headers",
+    ],
+    tags: ["Node.js", "Express", "MongoDB", "React", "Vite", "Redis", "TailwindCSS"],
+    image: "/projects/international-tijarat.png",
+    category: "Full Stack",
+    live: "https://internationaltijarat.com/",
+    github: "https://github.com/MuhammadTaha1038/International-Tijarat",
+  },
+  {
+    title: "Market Pulse",
+    description:
+      "Production-grade CLO (Collateralized Loan Obligation) color data processing system for traders and analysts. Features automated scheduling, rules engine, Oracle/S3 integration, and an Angular dashboard — built as a client service project.",
+    highlights: [
+      "FastAPI backend with pluggable Oracle/Excel data sources",
+      "AWS S3 output destination abstraction",
+      "Rules engine, presets & cron job scheduling",
+      "Angular 20 frontend with CLO-based column visibility",
+    ],
+    tags: ["Python", "FastAPI", "Angular", "Oracle DB", "AWS S3"],
+    image: "/projects/market-pulse.png",
+    category: "Backend Development",
+    github: "https://github.com/MuhammadTaha1038/Market-Pulse",
+  },
   {
     title: "Employee Survey Invitation System",
     description:
@@ -53,23 +83,6 @@ const PROJECTS: Project[] = [
     category: "Data Analysis",
     github: "https://github.com/MuhammadTaha1038/Real-World-Batch-api-Automation.git",
   },
-
-  /* ── Machine Learning ── */
-  {
-    title: "Credit Card Fraud Detection",
-    description:
-      "A complete fraud detection case study focusing on business interpretability, cost-sensitive threshold tuning, and real-world deployment considerations — not just raw accuracy metrics.",
-    highlights: [
-      "Business-interpretable model design",
-      "Cost-sensitive threshold tuning",
-      "Real-world deployment considerations",
-      "End-to-end case study pipeline",
-    ],
-    tags: ["Python", "Scikit-learn", "Machine Learning", "Data Science"],
-    image: "/projects/credit-card-fraud.png",
-    category: "Machine Learning",
-    github: "https://github.com/MuhammadTaha1038/Credit-Card-Fraud-Detection",
-  },
   {
     title: "Customer Segmentation App",
     description:
@@ -86,6 +99,50 @@ const PROJECTS: Project[] = [
     github: "https://github.com/MuhammadTaha1038/Customer-Segmentation-App",
   },
   {
+    title: "Categorical Data Analysis",
+    description:
+      "Exploration of categorical data handling in Python — covering One-Hot, Label, and Ordinal encoding techniques, missing value strategies, memory optimization, and visualization best practices.",
+    highlights: [
+      "One-Hot, Label & Ordinal encoding",
+      "Missing value handling strategies",
+      "Memory optimization techniques",
+      "Visualization of categorical distributions",
+    ],
+    tags: ["Python", "Pandas", "Scikit-learn", "Data Wrangling"],
+    image: "/projects/categorical-data.png",
+    category: "Data Analysis",
+    github: "https://github.com/MuhammadTaha1038/Categorical-Data-Analysis",
+  },
+  {
+    title: "Make.com E-Commerce Email Pipeline",
+    description:
+      "Event-driven email automation system for an eCommerce business, solving the critical challenge of inbox deliverability — ensuring transactional and marketing emails bypass spam filters and reach customers reliably.",
+    highlights: [
+      "Webhook-driven event architecture for order & checkout triggers",
+      "Klaviyo integration for structured marketing event signals",
+      "Data normalization with iterators & text aggregators",
+      "Fault-tolerant delivery with error handling & retry mechanisms",
+    ],
+    tags: ["Make.com", "Klaviyo", "Webhooks", "Automation", "Email Deliverability"],
+    image: "/projects/makecom-flows.png",
+    category: "Backend Development",
+  },
+  {
+    title: "Credit Card Fraud Detection",
+    description:
+      "A complete fraud detection case study focusing on business interpretability, cost-sensitive threshold tuning, and real-world deployment considerations — not just raw accuracy metrics.",
+    highlights: [
+      "Business-interpretable model design",
+      "Cost-sensitive threshold tuning",
+      "Real-world deployment considerations",
+      "End-to-end case study pipeline",
+    ],
+    tags: ["Python", "Scikit-learn", "Machine Learning", "Data Science"],
+    image: "/projects/credit-card-fraud.png",
+    category: "Machine Learning",
+    github: "https://github.com/MuhammadTaha1038/Credit-Card-Fraud-Detection",
+  },
+  {
     title: "Survival Prediction App",
     description:
       "ML-powered web app built with Streamlit to predict survival likelihood based on age, gender, and socio-economic status — demonstrating end-to-end ML model integration into a web interface.",
@@ -100,8 +157,6 @@ const PROJECTS: Project[] = [
     category: "Machine Learning",
     github: "https://github.com/MuhammadTaha1038/CodeAlpha_Survival-Prediction-App",
   },
-
-  /* ── Data Analysis ── */
   {
     title: "Silver Price Forecasting 2026",
     description:
@@ -133,21 +188,6 @@ const PROJECTS: Project[] = [
     github: "https://github.com/MuhammadTaha1038/Analysis-of-Crimes-in-Los-Angeles",
   },
   {
-    title: "Categorical Data Analysis",
-    description:
-      "Exploration of categorical data handling in Python — covering One-Hot, Label, and Ordinal encoding techniques, missing value strategies, memory optimization, and visualization best practices.",
-    highlights: [
-      "One-Hot, Label & Ordinal encoding",
-      "Missing value handling strategies",
-      "Memory optimization techniques",
-      "Visualization of categorical distributions",
-    ],
-    tags: ["Python", "Pandas", "Scikit-learn", "Data Wrangling"],
-    image: "/projects/categorical-data.png",
-    category: "Data Analysis",
-    github: "https://github.com/MuhammadTaha1038/Categorical-Data-Analysis",
-  },
-  {
     title: "Importing Data in Python",
     description:
       "Beginner-friendly Jupyter Notebook demonstrating practical data import techniques in Python — reading flat files, CSV, and structured formats using built-in methods and pandas.",
@@ -162,24 +202,6 @@ const PROJECTS: Project[] = [
     category: "Data Analysis",
     github: "https://github.com/MuhammadTaha1038/Importing-Data-in-Python",
   },
-
-  /* ── Backend Development ── */
-  {
-    title: "Market Pulse",
-    description:
-      "Production-grade CLO (Collateralized Loan Obligation) color data processing system for traders and analysts. Features automated scheduling, rules engine, Oracle/S3 integration, and an Angular dashboard — built as a client service project.",
-    highlights: [
-      "FastAPI backend with pluggable Oracle/Excel data sources",
-      "AWS S3 output destination abstraction",
-      "Rules engine, presets & cron job scheduling",
-      "Angular 20 frontend with CLO-based column visibility",
-    ],
-    tags: ["Python", "FastAPI", "Angular", "Oracle DB", "AWS S3"],
-    image: "/projects/market-pulse.png",
-    category: "Backend Development",
-    github: "https://github.com/MuhammadTaha1038/Market-Pulse",
-  },
-
   {
     title: "Tatoo Inbox",
     description:
@@ -193,38 +215,6 @@ const PROJECTS: Project[] = [
     tags: ["Node.js", "Express", "MongoDB", "REST API"],
     image: "/projects/tatoo-inbox.png",
     category: "Backend Development",
-  },
-  {
-    title: "Make.com E-Commerce Email Pipeline",
-    description:
-      "Event-driven email automation system for an eCommerce business, solving the critical challenge of inbox deliverability — ensuring transactional and marketing emails bypass spam filters and reach customers reliably.",
-    highlights: [
-      "Webhook-driven event architecture for order & checkout triggers",
-      "Klaviyo integration for structured marketing event signals",
-      "Data normalization with iterators & text aggregators",
-      "Fault-tolerant delivery with error handling & retry mechanisms",
-    ],
-    tags: ["Make.com", "Klaviyo", "Webhooks", "Automation", "Email Deliverability"],
-    image: "/projects/makecom-flows.png",
-    category: "Backend Development",
-  },
-
-  /* ── Full Stack ── */
-  {
-    title: "International Tijarat",
-    description:
-      "Full-stack multi-vendor e-commerce platform with admin panel, vendor dashboard, order management, and commission tracking. Production-hardened with Redis caching (85%+ hit ratio), JWT auth, and load tested at 450+ RPS sustained throughput.",
-    highlights: [
-      "Multi-vendor system with admin & vendor dashboards",
-      "Redis caching — 85%+ hit ratio, 7.6ms avg response",
-      "Load tested at 450+ RPS sustained",
-      "JWT auth, rate limiting, Helmet security headers",
-    ],
-    tags: ["Node.js", "Express", "MongoDB", "React", "Vite", "Redis", "TailwindCSS"],
-    image: "/projects/international-tijarat.png",
-    category: "Full Stack",
-    live: "https://internationaltijarat.com/",
-    github: "https://github.com/MuhammadTaha1038/International-Tijarat",
   },
 ];
 
@@ -244,6 +234,23 @@ export default function Projects() {
 
   const filtered =
     active === "All" ? PROJECTS : PROJECTS.filter((p) => p.category === active);
+
+  // Safety catch if featuredIndex is out of bounds after category change
+  const currentFeatured = filtered[featuredIndex] || filtered[0];
+
+  const handleCategoryChange = (cat: Category) => {
+    setActive(cat);
+    setFeaturedIndex(0); // Reset featured index when changing categories
+  };
+
+  // Auto-play the featured projects
+  useEffect(() => {
+    if (viewMode !== "featured" || filtered.length <= 1) return;
+    const timer = setInterval(() => {
+      setFeaturedIndex((prev) => (prev + 1) % filtered.length);
+    }, 6000); // 6 seconds per slide
+    return () => clearInterval(timer);
+  }, [viewMode, filtered.length, featuredIndex]);
 
   // Safety catch if featuredIndex is out of bounds after category change
   const currentFeatured = filtered[featuredIndex] || filtered[0];
@@ -334,7 +341,7 @@ export default function Projects() {
 
         {/* ── Layout Modes ── */}
         {viewMode === "featured" ? (
-          <div className="flex flex-col gap-8 animate-in fade-in zoom-in-95 duration-500">
+          <div className="flex flex-col gap-6 animate-in fade-in zoom-in-95 duration-500">
             {/* Massive Hero Card for Featured Project */}
             {currentFeatured && (
               <FeaturedProjectCard project={currentFeatured} />
@@ -342,19 +349,19 @@ export default function Projects() {
 
             {/* Horizontal Scroller for remaining projects in category */}
             {filtered.length > 1 && (
-              <div className="mt-4">
-                <h4 className="text-sm font-mono text-text-muted mb-4 uppercase tracking-widest pl-2 border-l-2 border-accent/30">
+              <div className="mt-2">
+                <h4 className="text-xs font-mono text-text-muted mb-3 uppercase tracking-widest pl-2 border-l-2 border-accent/30">
                   More in {active}
                 </h4>
-                <div className="flex overflow-x-auto gap-4 pb-6 scrollbar-hide snap-x">
+                <div className="flex overflow-x-auto gap-3 pb-4 scrollbar-hide snap-x">
                   {filtered.map((project, idx) => (
                     <button
                       key={project.title}
                       onClick={() => setFeaturedIndex(idx)}
-                      className={`relative flex-shrink-0 w-[280px] h-[158px] rounded-xl overflow-hidden group border-2 transition-all snap-start text-left ${
+                      className={`relative flex-shrink-0 w-[220px] h-[124px] rounded-xl overflow-hidden group border-2 transition-all snap-start text-left ${
                         idx === featuredIndex
                           ? "border-accent ring-2 ring-accent/20"
-                          : "border-transparent opacity-60 hover:opacity-100"
+                          : "border-transparent opacity-50 hover:opacity-100"
                       }`}
                     >
                       <Image
@@ -396,47 +403,64 @@ export default function Projects() {
 /* ─── Featured Project Hero Card ──────────────────────────────── */
 function FeaturedProjectCard({ project }: { project: Project }) {
   const [showDetails, setShowDetails] = useState(false);
+  
+  const linkHref = project.live || project.github || "#";
 
   return (
     <div className="flex flex-col glass-card rounded-3xl overflow-hidden border border-white/[0.08] shadow-2xl relative gradient-border transition-all duration-500">
       
       {/* Top: Full-Screen Image Showcase */}
-      <div className="relative w-full aspect-video lg:aspect-[21/9] bg-[#050505] group flex items-center justify-center p-4 lg:p-8">
-        <div className="relative w-full h-full rounded-xl overflow-hidden shadow-2xl border border-white/5">
+      <div className="relative w-full aspect-video lg:aspect-[21/8] bg-[#050505] group flex items-center justify-center p-3 lg:p-6">
+        <a 
+          href={linkHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="relative w-full h-full rounded-xl overflow-hidden shadow-2xl border border-white/5 cursor-pointer block"
+          title={`View ${project.title}`}
+        >
           <Image
             src={project.image}
             alt={project.title}
             fill
-            className="object-contain transition-transform duration-700 group-hover:scale-105"
+            className="object-contain transition-transform duration-700 group-hover:scale-[1.02]"
             priority
           />
-        </div>
+        </a>
         
         {/* Gradient Overlay for bottom text readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent pointer-events-none" />
-        
-        {/* Category Floating Badge */}
-        <div className="absolute top-6 left-6 lg:top-8 lg:left-8 px-4 py-1.5 bg-black/60 backdrop-blur-md rounded-full border border-accent/30 text-accent text-xs font-mono tracking-widest shadow-xl">
-          {project.category}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent pointer-events-none" />
+
+        {/* Details & Toggle Container (Bottom Left) */}
+        <div className="absolute bottom-5 left-5 lg:bottom-6 lg:left-6 right-8 flex flex-col items-start gap-3 z-20">
+          
+          {/* Title Overlay */}
+          {!showDetails && (
+            <div className="animate-in fade-in slide-in-from-bottom-2 duration-300 pointer-events-none">
+              <h3 className="text-xl lg:text-3xl font-bold tracking-tight leading-tight text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]">
+                {project.title}
+              </h3>
+            </div>
+          )}
+
+          {/* Sleek View Details Button */}
+          <button
+            onClick={() => setShowDetails(!showDetails)}
+            className="flex items-center gap-2 px-5 py-2 bg-black/60 backdrop-blur-md text-white/90 border border-white/20 rounded-full text-sm font-medium hover:bg-black/80 hover:text-white hover:border-accent/50 transition-all shadow-lg"
+            aria-label={showDetails ? "Hide details" : "Show details"}
+          >
+            {showDetails ? (
+              <>
+                <span>Hide Details</span>
+                <ChevronUp className="w-4 h-4 text-accent" />
+              </>
+            ) : (
+              <>
+                <span>View Details</span>
+                <ChevronDown className="w-4 h-4 text-accent" />
+              </>
+            )}
+          </button>
         </div>
-
-        {/* Title Overlay (Visible when details are hidden) */}
-        {!showDetails && (
-          <div className="absolute bottom-6 left-6 lg:bottom-8 lg:left-8 right-24 pointer-events-none animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <h3 className="text-2xl lg:text-4xl font-bold tracking-tight leading-tight text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]">
-              {project.title}
-            </h3>
-          </div>
-        )}
-
-        {/* Dropdown Toggle Button */}
-        <button
-          onClick={() => setShowDetails(!showDetails)}
-          className="absolute bottom-6 right-6 lg:bottom-8 lg:right-8 flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 bg-accent text-black rounded-full shadow-[0_0_20px_rgba(245,197,24,0.3)] hover:scale-110 hover:shadow-[0_0_30px_rgba(245,197,24,0.5)] transition-all z-20"
-          aria-label={showDetails ? "Hide details" : "Show details"}
-        >
-          {showDetails ? <ChevronUp className="w-6 h-6 lg:w-8 lg:h-8" /> : <ChevronDown className="w-6 h-6 lg:w-8 lg:h-8" />}
-        </button>
       </div>
 
       {/* Bottom: Expandable Content Details */}
