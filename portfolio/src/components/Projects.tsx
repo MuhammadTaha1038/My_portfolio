@@ -351,7 +351,7 @@ export default function Projects() {
                     <button
                       key={project.title}
                       onClick={() => setFeaturedIndex(idx)}
-                      className={`relative flex-shrink-0 w-[280px] h-[120px] rounded-xl overflow-hidden group border-2 transition-all snap-start text-left ${
+                      className={`relative flex-shrink-0 w-[280px] h-[158px] rounded-xl overflow-hidden group border-2 transition-all snap-start text-left ${
                         idx === featuredIndex
                           ? "border-accent ring-2 ring-accent/20"
                           : "border-transparent opacity-60 hover:opacity-100"
@@ -361,7 +361,7 @@ export default function Projects() {
                         src={project.image}
                         alt={project.title}
                         fill
-                        className="object-cover"
+                        className="object-cover object-top"
                       />
                       <div className="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-colors" />
                       <div className="absolute inset-0 p-4 flex flex-col justify-end">
@@ -398,15 +398,17 @@ function FeaturedProjectCard({ project }: { project: Project }) {
   return (
     <div className="flex flex-col lg:flex-row glass-card rounded-3xl overflow-hidden border border-white/[0.08] shadow-2xl relative gradient-border">
       {/* Left: Image Showcase */}
-      <div className="lg:w-[55%] relative min-h-[300px] lg:min-h-[450px] bg-black/50 group">
-        <Image
-          src={project.image}
-          alt={project.title}
-          fill
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-black/90" />
+      <div className="lg:w-[60%] relative aspect-[4/3] lg:aspect-auto lg:min-h-[500px] bg-[#0a0a0a] group flex items-center justify-center p-4 lg:p-8">
+        <div className="relative w-full h-full rounded-xl overflow-hidden shadow-2xl border border-white/5">
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            className="object-contain lg:object-cover lg:object-left-top transition-transform duration-700 group-hover:scale-105"
+            priority
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-black/95 pointer-events-none" />
         
         {/* Category Floating Badge */}
         <div className="absolute top-6 left-6 px-4 py-1.5 bg-black/60 backdrop-blur-md rounded-full border border-accent/30 text-accent text-xs font-mono tracking-widest shadow-xl">
@@ -415,7 +417,7 @@ function FeaturedProjectCard({ project }: { project: Project }) {
       </div>
 
       {/* Right: Content Details */}
-      <div className="lg:w-[45%] p-8 lg:p-12 flex flex-col justify-center relative bg-black/80 backdrop-blur-sm z-10">
+      <div className="lg:w-[40%] p-8 lg:p-12 flex flex-col justify-center relative bg-transparent lg:-ml-12 z-10">
         <h3 className="text-3xl lg:text-4xl font-bold mb-4 tracking-tight leading-tight">
           {project.title}
         </h3>
