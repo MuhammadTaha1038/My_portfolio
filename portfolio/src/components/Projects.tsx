@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import AnimatedSection from "./AnimatedSection";
 import SectionHeading from "./SectionHeading";
-import { Github, CheckCircle2, ArrowUpRight, ExternalLink, LayoutGrid, Presentation } from "lucide-react";
+import { Github, CheckCircle2, ArrowUpRight, ExternalLink, LayoutGrid, Presentation, ChevronDown, ChevronUp } from "lucide-react";
 
 /* ─── Types ─────────────────────────────────────────────────── */
 type Category = "All" | "Machine Learning" | "Data Analysis" | "Backend Development" | "Full Stack";
@@ -395,84 +395,109 @@ export default function Projects() {
 
 /* ─── Featured Project Hero Card ──────────────────────────────── */
 function FeaturedProjectCard({ project }: { project: Project }) {
+  const [showDetails, setShowDetails] = useState(false);
+
   return (
-    <div className="flex flex-col lg:flex-row glass-card rounded-3xl overflow-hidden border border-white/[0.08] shadow-2xl relative gradient-border">
-      {/* Left: Image Showcase */}
-      <div className="lg:w-[60%] relative aspect-[4/3] lg:aspect-auto lg:min-h-[500px] bg-[#0a0a0a] group flex items-center justify-center p-4 lg:p-8">
+    <div className="flex flex-col glass-card rounded-3xl overflow-hidden border border-white/[0.08] shadow-2xl relative gradient-border transition-all duration-500">
+      
+      {/* Top: Full-Screen Image Showcase */}
+      <div className="relative w-full aspect-video lg:aspect-[21/9] bg-[#050505] group flex items-center justify-center p-4 lg:p-8">
         <div className="relative w-full h-full rounded-xl overflow-hidden shadow-2xl border border-white/5">
           <Image
             src={project.image}
             alt={project.title}
             fill
-            className="object-contain lg:object-cover lg:object-left-top transition-transform duration-700 group-hover:scale-105"
+            className="object-contain transition-transform duration-700 group-hover:scale-105"
             priority
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-black/95 pointer-events-none" />
+        
+        {/* Gradient Overlay for bottom text readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent pointer-events-none" />
         
         {/* Category Floating Badge */}
-        <div className="absolute top-6 left-6 px-4 py-1.5 bg-black/60 backdrop-blur-md rounded-full border border-accent/30 text-accent text-xs font-mono tracking-widest shadow-xl">
+        <div className="absolute top-6 left-6 lg:top-8 lg:left-8 px-4 py-1.5 bg-black/60 backdrop-blur-md rounded-full border border-accent/30 text-accent text-xs font-mono tracking-widest shadow-xl">
           {project.category}
         </div>
+
+        {/* Title Overlay (Visible when details are hidden) */}
+        {!showDetails && (
+          <div className="absolute bottom-6 left-6 lg:bottom-8 lg:left-8 right-24 pointer-events-none animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <h3 className="text-2xl lg:text-4xl font-bold tracking-tight leading-tight text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]">
+              {project.title}
+            </h3>
+          </div>
+        )}
+
+        {/* Dropdown Toggle Button */}
+        <button
+          onClick={() => setShowDetails(!showDetails)}
+          className="absolute bottom-6 right-6 lg:bottom-8 lg:right-8 flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 bg-accent text-black rounded-full shadow-[0_0_20px_rgba(245,197,24,0.3)] hover:scale-110 hover:shadow-[0_0_30px_rgba(245,197,24,0.5)] transition-all z-20"
+          aria-label={showDetails ? "Hide details" : "Show details"}
+        >
+          {showDetails ? <ChevronUp className="w-6 h-6 lg:w-8 lg:h-8" /> : <ChevronDown className="w-6 h-6 lg:w-8 lg:h-8" />}
+        </button>
       </div>
 
-      {/* Right: Content Details */}
-      <div className="lg:w-[40%] p-8 lg:p-12 flex flex-col justify-center relative bg-transparent lg:-ml-12 z-10">
-        <h3 className="text-3xl lg:text-4xl font-bold mb-4 tracking-tight leading-tight">
-          {project.title}
-        </h3>
-        <p className="text-text-secondary text-base lg:text-lg mb-8 leading-relaxed">
-          {project.description}
-        </p>
+      {/* Bottom: Expandable Content Details */}
+      {showDetails && (
+        <div className="w-full p-8 lg:p-12 bg-black/95 backdrop-blur-xl border-t border-white/10 animate-in slide-in-from-top-4 fade-in duration-300">
+          <h3 className="text-3xl lg:text-4xl font-bold mb-4 tracking-tight leading-tight text-white">
+            {project.title}
+          </h3>
+          <p className="text-text-secondary text-base lg:text-lg mb-8 leading-relaxed max-w-4xl">
+            {project.description}
+          </p>
 
-        {/* Highlights */}
-        <ul className="space-y-4 mb-10">
-          {project.highlights.map((h) => (
-            <li key={h} className="flex items-start gap-3 text-sm text-text-primary/90">
-              <CheckCircle2 className="w-5 h-5 text-accent shrink-0 mt-0.5" />
-              <span className="leading-snug">{h}</span>
-            </li>
-          ))}
-        </ul>
+          {/* Highlights */}
+          <ul className="space-y-4 mb-10 max-w-4xl">
+            {project.highlights.map((h) => (
+              <li key={h} className="flex items-start gap-3 text-sm text-text-primary/90">
+                <CheckCircle2 className="w-5 h-5 text-accent shrink-0 mt-0.5" />
+                <span className="leading-snug">{h}</span>
+              </li>
+            ))}
+          </ul>
 
-        {/* Tech Stack */}
-        <div className="flex flex-wrap gap-2 mb-10">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className="px-3 py-1 text-xs font-mono text-accent/90 bg-accent/10 rounded-lg border border-accent/20"
-            >
-              {tag}
-            </span>
-          ))}
+          {/* Tech Stack */}
+          <div className="flex flex-wrap gap-2 mb-10">
+            {project.tags.map((tag) => (
+              <span
+                key={tag}
+                className="px-3 py-1 text-xs font-mono text-accent/90 bg-accent/10 rounded-lg border border-accent/20"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex flex-wrap items-center gap-4">
+            {project.live && (
+              <a
+                href={project.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-6 py-3 bg-accent text-black font-semibold rounded-xl hover:bg-accent/90 transition-all shadow-lg hover:shadow-accent/20 hover:-translate-y-0.5"
+              >
+                <span>View Live Project</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </a>
+            )}
+            {project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-6 py-3 border border-border rounded-xl hover:border-accent hover:text-accent transition-all hover:bg-accent/5"
+              >
+                <Github className="w-4 h-4" />
+                <span>Source Code</span>
+              </a>
+            )}
+          </div>
         </div>
-
-        {/* Action Buttons */}
-        <div className="flex flex-wrap items-center gap-4 mt-auto">
-          {project.live && (
-            <a
-              href={project.live}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-6 py-3 bg-accent text-black font-semibold rounded-xl hover:bg-accent/90 transition-all shadow-lg hover:shadow-accent/20 hover:-translate-y-0.5"
-            >
-              <span>View Live Project</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </a>
-          )}
-          {project.github && (
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-6 py-3 border border-border rounded-xl hover:border-accent hover:text-accent transition-all hover:bg-accent/5"
-            >
-              <Github className="w-4 h-4" />
-              <span>Source Code</span>
-            </a>
-          )}
-        </div>
-      </div>
+      )}
     </div>
   );
 }
