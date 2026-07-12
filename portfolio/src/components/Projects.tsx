@@ -395,8 +395,6 @@ export default function Projects() {
 
 /* ─── Featured Project Hero Card ──────────────────────────────── */
 function FeaturedProjectCard({ project }: { project: Project }) {
-  const isLive = !!project.live;
-
   return (
     <div className="flex flex-col lg:flex-row glass-card rounded-3xl overflow-hidden border border-white/[0.08] shadow-2xl relative gradient-border">
       {/* Left: Image Showcase */}
