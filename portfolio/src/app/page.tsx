@@ -1,4 +1,5 @@
 import Hero from "@/components/Hero";
+export const dynamic = "force-dynamic";
 import Profile from "@/components/Profile";
 import TechStack from "@/components/TechStack";
 import Projects from "@/components/Projects";
