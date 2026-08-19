@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
+import ConditionalNavbar from "@/components/ConditionalNavbar";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -175,7 +175,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased bg-black text-white`}
       >
-        <Navbar />
+        <ConditionalNavbar />
         {children}
       </body>
     </html>
