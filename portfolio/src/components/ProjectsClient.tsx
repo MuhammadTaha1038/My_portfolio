@@ -299,7 +299,7 @@ function FeaturedProjectCard({ project }: { project: Project }) {
           <div className="flex flex-wrap items-center gap-4">
             {project.live && (
               <a
-                href={project.live}
+                href={project.live ?? undefined}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-6 py-3 bg-accent text-black font-semibold rounded-xl hover:bg-accent/90 transition-all shadow-lg hover:shadow-accent/20 hover:-translate-y-0.5"
@@ -310,7 +310,7 @@ function FeaturedProjectCard({ project }: { project: Project }) {
             )}
             {project.github && (
               <a
-                href={project.github}
+                href={project.github ?? undefined}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-6 py-3 border border-border rounded-xl hover:border-accent hover:text-accent transition-all hover:bg-accent/5"
@@ -356,7 +356,7 @@ function ProjectCard({ project }: { project: Project }) {
         {/* Live site hover overlay (Full Stack) */}
         {isLive && (
           <a
-            href={project.live}
+            href={project.live ?? undefined}
             target="_blank"
             rel="noopener noreferrer"
             className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -377,7 +377,7 @@ function ProjectCard({ project }: { project: Project }) {
           <h3 className="text-base md:text-lg font-semibold group-hover:text-accent transition-colors leading-snug">
             {isLive ? (
               <a
-                href={project.live}
+                href={project.live ?? undefined}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-accent transition-colors"
@@ -392,7 +392,7 @@ function ProjectCard({ project }: { project: Project }) {
           <div className="flex gap-1.5 shrink-0 mt-0.5">
             {project.github && (
               <a
-                href={project.github}
+                href={project.github ?? undefined}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-1.5 rounded-lg border border-border hover:border-accent/40 hover:text-accent hover:bg-accent/5 transition-all text-text-muted"
@@ -403,7 +403,7 @@ function ProjectCard({ project }: { project: Project }) {
             )}
             {project.live && (
               <a
-                href={project.live}
+                href={project.live ?? undefined}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-1.5 rounded-lg border border-accent/30 text-accent hover:bg-accent/10 transition-all"
