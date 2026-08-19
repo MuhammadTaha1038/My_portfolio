@@ -19,8 +19,8 @@ interface Project {
   id?: string;
   createdAt?: Date;
   updatedAt?: Date;
-  github?: string;
-  live?: string;
+  github?: string | null;
+  live?: string | null;
 }
 
 const CATEGORIES: Category[] = [
