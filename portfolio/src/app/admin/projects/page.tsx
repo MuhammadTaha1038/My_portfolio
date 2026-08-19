@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client"
+export const dynamic = "force-dynamic"
 import Link from "next/link"
 import { Plus, Trash2, Edit } from "lucide-react"
 import { deleteProject } from "@/actions/projects"

@@ -2,9 +2,7 @@ import { auth } from "@/auth"
 export const dynamic = "force-dynamic"
 import Link from "next/link"
 import { FolderKanban, Code2, Briefcase } from "lucide-react"
-import { PrismaClient } from "@prisma/client"
-
-const prisma = new PrismaClient()
+import { prisma } from "@/lib/prisma";
 
 export default async function AdminOverview() {
   const session = await auth()
