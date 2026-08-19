@@ -96,6 +96,7 @@ const PROJECTS: Project[] = [
     tags: ["Machine Learning", "Python", "Data Analysis", "Predictive Modeling"],
     image: "/projects/tasty_bytes.png",
     category: "Machine Learning",
+    github: "https://github.com/MuhammadTaha1038/Predicting-Recipe-Site-Traffic",
   },
   {
     title: "Customer Segmentation App",
