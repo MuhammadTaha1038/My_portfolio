@@ -84,6 +84,20 @@ const PROJECTS: Project[] = [
     github: "https://github.com/MuhammadTaha1038/Real-World-Batch-api-Automation.git",
   },
   {
+    title: "Tasty Bytes: Recipe Site Traffic Prediction",
+    description:
+      "A precision-first machine learning project that predicts whether a recipe is likely to generate high traffic. Combines data quality work, exploratory analysis, model comparison, and business-driven threshold optimization to achieve over 95% precision for homepage recipe selection.",
+    highlights: [
+      "Binary classification for high-traffic prediction",
+      "Logistic Regression threshold optimized to 0.66",
+      "Precision prioritized over accuracy (95.92% precision achieved)",
+      "End-to-end exploratory analysis and model comparison",
+    ],
+    tags: ["Machine Learning", "Python", "Data Analysis", "Predictive Modeling"],
+    image: "/projects/tasty_bytes.png",
+    category: "Machine Learning",
+  },
+  {
     title: "Customer Segmentation App",
     description:
       "End-to-end ML project performing customer segmentation using KMeans clustering, with an interactive Streamlit dashboard for real-time segment analysis and business insight extraction.",
