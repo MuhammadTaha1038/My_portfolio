@@ -1,9 +1,9 @@
-import { PrismaClient } from "@prisma/client"
+import { prisma } from "@/lib/prisma";
 import SkillForm from "@/components/SkillForm"
 import { deleteSkill } from "@/actions/skills"
 import { Trash2 } from "lucide-react"
 
-const prisma = new PrismaClient()
+
 
 export default async function SkillsAdminPage() {
   const skills = await prisma.skill.findMany({

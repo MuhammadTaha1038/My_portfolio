@@ -1,11 +1,11 @@
-import { PrismaClient } from "@prisma/client"
+import { prisma } from "@/lib/prisma";
 export const dynamic = "force-dynamic"
 import Link from "next/link"
 import { Plus, Trash2, Edit } from "lucide-react"
 import { deleteProject } from "@/actions/projects"
 import Image from "next/image"
 
-const prisma = new PrismaClient()
+
 
 export default async function ProjectsAdminPage() {
   const projects = await prisma.project.findMany({

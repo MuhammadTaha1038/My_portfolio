@@ -1,9 +1,9 @@
-import { PrismaClient } from "@prisma/client"
+import { prisma } from "@/lib/prisma";
 import ExperienceForm from "@/components/ExperienceForm"
 import { deleteExperience } from "@/actions/experience"
 import { Trash2 } from "lucide-react"
 
-const prisma = new PrismaClient()
+
 
 export default async function ExperienceAdminPage() {
   const experiences = await prisma.experience.findMany({
