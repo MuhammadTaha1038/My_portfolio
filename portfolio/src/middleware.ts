@@ -5,17 +5,16 @@ export default auth((req) => {
   const { nextUrl } = req;
   const isAuthenticated = !!req.auth;
   
-  const isAdminRoute = nextUrl.pathname.startsWith("/admin");
-  const isAuthRoute = nextUrl.pathname === "/admin/login";
-
-  if (isAuthRoute) {
+  // Allow access to login page
+  if (nextUrl.pathname.startsWith("/admin/login")) {
     if (isAuthenticated) {
       return NextResponse.redirect(new URL("/admin", nextUrl));
     }
     return NextResponse.next();
   }
 
-  if (isAdminRoute && !isAuthenticated) {
+  // Protect all other /admin routes
+  if (nextUrl.pathname.startsWith("/admin") && !isAuthenticated) {
     return NextResponse.redirect(new URL("/admin/login", nextUrl));
   }
 
@@ -23,5 +22,5 @@ export default auth((req) => {
 });
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  matcher: ["/admin/:path*"],
 };
