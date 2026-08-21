@@ -1,15 +1,18 @@
 import { prisma } from "@/lib/prisma";
 export const dynamic = "force-dynamic"
 import Link from "next/link"
-import { Plus, Trash2, Edit } from "lucide-react"
-import { deleteProject } from "@/actions/projects"
+import { Plus, Trash2, Edit, ArrowUp, ArrowDown } from "lucide-react"
+import { deleteProject, moveProject } from "@/actions/projects"
 import Image from "next/image"
 
 
 
 export default async function ProjectsAdminPage() {
   const projects = await prisma.project.findMany({
-    orderBy: { createdAt: "desc" }
+    orderBy: [
+      { order: "asc" },
+      { createdAt: "desc" }
+    ]
   })
 
   return (
@@ -46,16 +49,36 @@ export default async function ProjectsAdminPage() {
                 </td>
               </tr>
             )}
-            {projects.map((project) => (
+            {projects.map((project, index) => (
               <tr key={project.id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
                 <td className="p-4">
-                  <div className="w-16 h-10 relative rounded overflow-hidden bg-black/50">
-                    <Image 
-                      src={project.image} 
-                      alt={project.title}
-                      fill
-                      className="object-cover"
-                    />
+                  <div className="flex items-center gap-4">
+                    <div className="flex flex-col gap-1">
+                      <form action={async () => {
+                        "use server"
+                        await moveProject(project.id, "up")
+                      }}>
+                        <button type="submit" className={`p-1 rounded transition-colors ${index === 0 ? "text-gray-700 cursor-not-allowed" : "text-gray-400 hover:text-white hover:bg-white/10"}`} disabled={index === 0}>
+                          <ArrowUp className="w-4 h-4" />
+                        </button>
+                      </form>
+                      <form action={async () => {
+                        "use server"
+                        await moveProject(project.id, "down")
+                      }}>
+                        <button type="submit" className={`p-1 rounded transition-colors ${index === projects.length - 1 ? "text-gray-700 cursor-not-allowed" : "text-gray-400 hover:text-white hover:bg-white/10"}`} disabled={index === projects.length - 1}>
+                          <ArrowDown className="w-4 h-4" />
+                        </button>
+                      </form>
+                    </div>
+                    <div className="w-16 h-10 relative rounded overflow-hidden bg-black/50">
+                      <Image 
+                        src={project.image} 
+                        alt={project.title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
                   </div>
                 </td>
                 <td className="p-4 font-medium text-white">{project.title}</td>

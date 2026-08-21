@@ -51,3 +51,46 @@ export async function deleteProject(id: string) {
   revalidatePath("/");
   revalidatePath("/admin/projects");
 }
+
+export async function moveProject(id: string, direction: "up" | "down") {
+  const session = await auth();
+  if (!session?.user) throw new Error("Unauthorized");
+
+  const projects = await prisma.project.findMany({
+    orderBy: [
+      { order: "asc" },
+      { createdAt: "desc" }
+    ]
+  });
+
+  const updates = projects.map((p, index) => {
+    return { id: p.id, currentOrder: index + 1 };
+  });
+
+  const currentIndex = updates.findIndex(u => u.id === id);
+  if (currentIndex === -1) return;
+
+  if (direction === "up" && currentIndex > 0) {
+    const temp = updates[currentIndex].currentOrder;
+    updates[currentIndex].currentOrder = updates[currentIndex - 1].currentOrder;
+    updates[currentIndex - 1].currentOrder = temp;
+  } else if (direction === "down" && currentIndex < updates.length - 1) {
+    const temp = updates[currentIndex].currentOrder;
+    updates[currentIndex].currentOrder = updates[currentIndex + 1].currentOrder;
+    updates[currentIndex + 1].currentOrder = temp;
+  } else {
+    return;
+  }
+
+  await prisma.$transaction(
+    updates.map(u => 
+      prisma.project.update({
+        where: { id: u.id },
+        data: { order: u.currentOrder }
+      })
+    )
+  );
+
+  revalidatePath("/");
+  revalidatePath("/admin/projects");
+}
