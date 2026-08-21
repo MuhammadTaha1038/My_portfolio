@@ -52,41 +52,65 @@ export async function deleteProject(id: string) {
   revalidatePath("/admin/projects");
 }
 
-export async function moveProject(id: string, direction: "up" | "down") {
+export async function moveProject(id: string, direction: "up" | "down", categoryFilter: string = "All") {
   const session = await auth();
   if (!session?.user) throw new Error("Unauthorized");
 
-  const projects = await prisma.project.findMany({
+  const allProjects = await prisma.project.findMany({
     orderBy: [
       { order: "asc" },
       { createdAt: "desc" }
     ]
   });
 
-  const updates = projects.map((p, index) => {
+  // Ensure all projects have explicit global orders assigned
+  const globalUpdates = allProjects.map((p, index) => {
     return { id: p.id, currentOrder: index + 1 };
   });
 
-  const currentIndex = updates.findIndex(u => u.id === id);
+  // Map the global order values to the projects
+  const projectsWithOrder = allProjects.map(p => ({
+    ...p,
+    currentOrder: globalUpdates.find(u => u.id === p.id)!.currentOrder
+  }));
+
+  // Filter projects by category
+  const categoryProjects = categoryFilter === "All" 
+    ? projectsWithOrder 
+    : projectsWithOrder.filter(p => p.category === categoryFilter);
+
+  const currentIndex = categoryProjects.findIndex(p => p.id === id);
   if (currentIndex === -1) return;
 
+  const updatesToExecute: {id: string, order: number}[] = [];
+
   if (direction === "up" && currentIndex > 0) {
-    const temp = updates[currentIndex].currentOrder;
-    updates[currentIndex].currentOrder = updates[currentIndex - 1].currentOrder;
-    updates[currentIndex - 1].currentOrder = temp;
-  } else if (direction === "down" && currentIndex < updates.length - 1) {
-    const temp = updates[currentIndex].currentOrder;
-    updates[currentIndex].currentOrder = updates[currentIndex + 1].currentOrder;
-    updates[currentIndex + 1].currentOrder = temp;
+    // Swap global orders with the previous project in the category
+    const prevProject = categoryProjects[currentIndex - 1];
+    const currProject = categoryProjects[currentIndex];
+    
+    updatesToExecute.push({ id: currProject.id, order: prevProject.currentOrder });
+    updatesToExecute.push({ id: prevProject.id, order: currProject.currentOrder });
+
+  } else if (direction === "down" && currentIndex < categoryProjects.length - 1) {
+    // Swap global orders with the next project in the category
+    const nextProject = categoryProjects[currentIndex + 1];
+    const currProject = categoryProjects[currentIndex];
+
+    updatesToExecute.push({ id: currProject.id, order: nextProject.currentOrder });
+    updatesToExecute.push({ id: nextProject.id, order: currProject.currentOrder });
+
   } else {
+    // Cannot move further
     return;
   }
 
+  // Update in database using a transaction
   await prisma.$transaction(
-    updates.map(u => 
+    updatesToExecute.map(u => 
       prisma.project.update({
         where: { id: u.id },
-        data: { order: u.currentOrder }
+        data: { order: u.order }
       })
     )
   );
