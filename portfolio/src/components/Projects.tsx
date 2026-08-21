@@ -5,7 +5,10 @@ import ProjectsClient from "./ProjectsClient"
 
 export default async function Projects() {
   const projects = await prisma.project.findMany({
-    orderBy: { createdAt: "desc" }
+    orderBy: [
+      { order: "asc" },
+      { createdAt: "desc" }
+    ]
   })
 
   const jsonLd = projects.map(project => ({
