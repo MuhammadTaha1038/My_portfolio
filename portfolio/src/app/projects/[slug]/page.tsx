@@ -10,6 +10,24 @@ const MarkdownPreview = dynamic(
   { ssr: false }
 )
 
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const project = await prisma.project.findUnique({
+    where: { slug: params.slug }
+  });
+
+  if (!project) return { title: "Project Not Found" };
+
+  return {
+    title: project.title,
+    description: project.description,
+    openGraph: {
+      title: `${project.title} | Case Study`,
+      description: project.description,
+      images: [{ url: project.image }],
+    },
+  };
+}
+
 export default async function CaseStudyPage({ params }: { params: { slug: string } }) {
   const project = await prisma.project.findUnique({
     where: { slug: params.slug }

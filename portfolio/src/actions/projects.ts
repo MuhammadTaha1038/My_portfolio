@@ -16,12 +16,16 @@ export async function createProject(formData: FormData) {
   const image = formData.get("image") as string; // from cloudinary
   const github = formData.get("github") as string | null;
   const live = formData.get("live") as string | null;
+  const content = formData.get("content") as string | null;
   
   const highlightsString = formData.get("highlights") as string;
   const tagsString = formData.get("tags") as string;
 
   const highlights = highlightsString.split(",").map(s => s.trim()).filter(Boolean);
   const tags = tagsString.split(",").map(s => s.trim()).filter(Boolean);
+
+  // Generate a basic slug
+  const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
 
   await prisma.project.create({
     data: {
@@ -32,11 +36,14 @@ export async function createProject(formData: FormData) {
       highlights,
       tags,
       github,
-      live
+      live,
+      content,
+      slug
     }
   });
 
   revalidatePath("/");
+  revalidatePath("/projects");
   revalidatePath("/admin/projects");
 }
 

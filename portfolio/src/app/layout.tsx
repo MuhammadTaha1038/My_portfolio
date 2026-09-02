@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import ConditionalNavbar from "@/components/ConditionalNavbar";
 import ConditionalFooter from "@/components/ConditionalFooter";
+import CommandMenu from "@/components/CommandMenu";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -177,6 +178,7 @@ export default function RootLayout({
         className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased bg-black text-white flex flex-col min-h-screen`}
       >
         <ConditionalNavbar />
+        <CommandMenu />
         <div className="flex-1">
           {children}
         </div>
