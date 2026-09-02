@@ -1,14 +1,10 @@
 import { ImageResponse } from "next/og";
-import { readFileSync } from "fs";
-import path from "path";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+export const runtime = "edge";
 
-export default function OgImage() {
-  const imgBuffer = readFileSync(path.join(process.cwd(), "public/hero.png"));
-  const imgBase64 = `data:image/png;base64,${imgBuffer.toString("base64")}`;
-
+export default async function OgImage() {
   return new ImageResponse(
     (
       <div
@@ -25,7 +21,7 @@ export default function OgImage() {
       >
         {/* Profile photo */}
         <img
-          src={imgBase64}
+          src="https://www.muhammadtahatech.me/hero.png"
           width={380}
           height={380}
           style={{
