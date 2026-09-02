@@ -105,7 +105,7 @@ export default async function CaseStudyPage({ params }: { params: { slug: string
             <p className="text-gray-400 italic">No detailed case study available for this project yet.</p>
           )}
         </article>
-      </div>
+      </article>
     </main>
   )
 }
