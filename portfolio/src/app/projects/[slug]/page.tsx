@@ -3,12 +3,7 @@ import { notFound } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowLeft, Github, Globe } from "lucide-react"
-import dynamic from "next/dynamic"
-
-const MarkdownPreview = dynamic(
-  () => import("@uiw/react-markdown-preview").then((mod) => mod.default),
-  { ssr: false }
-)
+import MarkdownPreviewClient from "@/components/MarkdownPreviewClient"
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const project = await prisma.project.findUnique({
@@ -103,10 +98,8 @@ export default async function CaseStudyPage({ params }: { params: { slug: string
 
         <article className="prose prose-invert prose-yellow max-w-none bg-transparent" data-color-mode="dark">
           {project.content ? (
-            <MarkdownPreview 
+            <MarkdownPreviewClient 
               source={project.content} 
-              className="bg-transparent text-gray-300" 
-              style={{ backgroundColor: 'transparent' }}
             />
           ) : (
             <p className="text-gray-400 italic">No detailed case study available for this project yet.</p>
