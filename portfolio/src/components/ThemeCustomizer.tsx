@@ -9,36 +9,36 @@ const themes = [
     name: "Gold (Default)",
     color: "#F5C518",
     vars: {
-      "--color-accent": "#F5C518",
-      "--color-accent-dim": "#D4A617",
-      "--color-accent-light": "#FFE066",
+      "--theme-accent": "#F5C518",
+      "--theme-accent-dim": "#D4A617",
+      "--theme-accent-light": "#FFE066",
     }
   },
   {
     name: "Emerald",
     color: "#10b981",
     vars: {
-      "--color-accent": "#10b981",
-      "--color-accent-dim": "#059669",
-      "--color-accent-light": "#34d399",
+      "--theme-accent": "#10b981",
+      "--theme-accent-dim": "#059669",
+      "--theme-accent-light": "#34d399",
     }
   },
   {
     name: "Cyberpunk",
     color: "#d946ef",
     vars: {
-      "--color-accent": "#d946ef",
-      "--color-accent-dim": "#c026d3",
-      "--color-accent-light": "#e879f9",
+      "--theme-accent": "#d946ef",
+      "--theme-accent-dim": "#c026d3",
+      "--theme-accent-light": "#e879f9",
     }
   },
   {
     name: "Ocean Blue",
     color: "#3b82f6",
     vars: {
-      "--color-accent": "#3b82f6",
-      "--color-accent-dim": "#2563eb",
-      "--color-accent-light": "#60a5fa",
+      "--theme-accent": "#3b82f6",
+      "--theme-accent-dim": "#2563eb",
+      "--theme-accent-light": "#60a5fa",
     }
   }
 ];

@@ -1,11 +1,17 @@
 @import "tailwindcss";
 
+:root {
+  --theme-accent: #F5C518;
+  --theme-accent-dim: #D4A617;
+  --theme-accent-light: #FFE066;
+}
+
 @theme inline {
   --color-background: #000000;
   --color-foreground: #ffffff;
-  --color-accent: #F5C518;
-  --color-accent-dim: #D4A617;
-  --color-accent-light: #FFE066;
+  --color-accent: var(--theme-accent);
+  --color-accent-dim: var(--theme-accent-dim);
+  --color-accent-light: var(--theme-accent-light);
   --color-card: rgba(15, 15, 20, 0.8);
   --color-card-solid: #0d0d12;
   --color-card-hover: rgba(20, 20, 28, 0.9);

@@ -12,7 +12,7 @@ interface CertificatesClientProps {
 
 export default function CertificatesClient({ certificates }: CertificatesClientProps) {
   return (
-    <main className="pt-32 pb-20 min-h-screen">
+    <main className="pt-24 pb-20 min-h-screen">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <SectionHeading 
           label="Credentials"

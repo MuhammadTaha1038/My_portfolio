@@ -14,7 +14,7 @@ type ExperienceType = {
 
 export default function ExperienceClient({ experiences }: { experiences: ExperienceType[] }) {
   return (
-    <section id="experience" className="relative py-24 md:py-32 section-dark overflow-hidden">
+    <section id="experience" className="relative pt-12 pb-16 md:pt-16 md:pb-24 section-dark overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 grid-bg pointer-events-none opacity-40" />
       <div className="noise-overlay" />

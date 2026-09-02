@@ -35,8 +35,8 @@ export default async function CaseStudyPage({ params }: { params: { slug: string
   const tags = project.tags;
 
   return (
-    <main className="pt-32 pb-20 min-h-screen">
-      <div className="max-w-4xl mx-auto px-6 lg:px-12">
+    <main className="pt-24 pb-20 min-h-screen">
+      <article className="max-w-4xl mx-auto px-6 lg:px-12">
         <Link 
           href="/projects" 
           className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-8"

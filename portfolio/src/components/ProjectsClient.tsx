@@ -63,7 +63,7 @@ export default function ProjectsClient({ initialProjects }: { initialProjects: P
   return (
     <section
       id="projects"
-      className="relative py-24 md:py-32 section-elevated overflow-hidden"
+      className="relative pt-12 pb-16 md:pt-16 md:pb-24 section-elevated overflow-hidden"
     >
       {/* Background */}
       <div className="absolute inset-0 dot-bg pointer-events-none opacity-50" />
