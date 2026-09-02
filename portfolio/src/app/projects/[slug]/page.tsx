@@ -32,7 +32,7 @@ export default async function CaseStudyPage({ params }: { params: { slug: string
     notFound()
   }
 
-  const tags = project.tags.split(",").map((t) => t.trim())
+  const tags = project.tags;
 
   return (
     <main className="pt-32 pb-20 min-h-screen">
