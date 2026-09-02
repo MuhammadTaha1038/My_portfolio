@@ -31,11 +31,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "Muhammad Taha | Software Engineer & Applied Data Scientist",
+    default: "Muhammad Taha | Applied Data Scientist & Backend Engineer",
     template: "%s | Muhammad Taha",
   },
   description:
-    "Software Engineer at UmmahTech Innovations. Applied Data Scientist & Backend Systems Engineer specializing in ML pipelines, scalable APIs, FastAPI, Node.js, and production-grade architectures.",
+    "Muhammad Taha is an Applied Data Scientist and Backend Engineer building ML-powered APIs, data-driven systems, and production-ready applications.",
   keywords: [
     "Muhammad Taha",
     "Software Engineer Pakistan",
@@ -54,11 +54,8 @@ export const metadata: Metadata = {
     "Express.js",
     "MongoDB",
     "React Developer",
-    "Google Apps Script Automation",
     "System Architecture",
     "Data Privacy",
-    "SendGrid",
-    "Redis Caching",
   ],
   authors: [{ name: "Muhammad Taha", url: BASE_URL }],
   creator: "Muhammad Taha",
@@ -70,16 +67,16 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: BASE_URL,
-    title: "Muhammad Taha | Software Engineer & Applied Data Scientist",
+    title: "Muhammad Taha | Applied Data Scientist & Backend Engineer",
     description:
-      "Software Engineer at UmmahTech Innovations. Building ML-powered backend systems that move from data to deployment — trained, integrated, secured, and shipped.",
+      "Muhammad Taha is an Applied Data Scientist and Backend Engineer building ML-powered APIs, data-driven systems, and production-ready applications.",
     siteName: "Muhammad Taha Portfolio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Muhammad Taha | Software Engineer & Applied Data Scientist",
+    title: "Muhammad Taha | Applied Data Scientist & Backend Engineer",
     description:
-      "Software Engineer at UmmahTech Innovations. Building ML-powered backend systems that move from data to deployment.",
+      "Muhammad Taha is an Applied Data Scientist and Backend Engineer building ML-powered APIs, data-driven systems, and production-ready applications.",
     creator: "@M_Taha093589350",
   },
   robots: {

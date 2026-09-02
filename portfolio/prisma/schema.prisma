@@ -29,6 +29,7 @@ model Project {
   live        String?
   github      String?
   order       Int      @default(0) // For custom sorting
+  tier        Int      @default(2) // 1: Featured, 2: Selected, 3: Experiment
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

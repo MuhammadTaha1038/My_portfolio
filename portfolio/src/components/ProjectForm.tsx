@@ -83,6 +83,21 @@ export default function ProjectForm() {
         </div>
       </div>
 
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">Display Tier</label>
+          <select required name="tier" defaultValue="2" className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#F5C518] appearance-none">
+            <option value="1">Tier 1: Featured (Large Cards)</option>
+            <option value="2">Tier 2: Selected (Medium Cards)</option>
+            <option value="3">Tier 3: Experiment (Minimal List)</option>
+          </select>
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">Order</label>
+          <input required name="order" type="number" defaultValue="0" className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#F5C518]" placeholder="0" />
+        </div>
+      </div>
+
       <div>
         <label className="block text-sm font-medium text-gray-300 mb-2">Description</label>
         <textarea required name="description" rows={3} className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#F5C518]" placeholder="Short summary for the project card..." />

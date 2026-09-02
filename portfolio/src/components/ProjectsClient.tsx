@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import AnimatedSection from "./AnimatedSection";
 import SectionHeading from "./SectionHeading";
-import { Github, CheckCircle2, ArrowUpRight, ExternalLink, LayoutGrid, Presentation, ChevronDown, ChevronUp, BookOpen } from "lucide-react";
+import { Github, CheckCircle2, ArrowUpRight, ExternalLink, Presentation, ChevronDown, ChevronUp, BookOpen, Layers } from "lucide-react";
 
 /* ─── Types ─────────────────────────────────────────────────── */
 type Category = "All" | "Machine Learning" | "Data Analysis" | "Backend Development" | "Full Stack";
@@ -23,6 +23,7 @@ interface Project {
   updatedAt?: Date;
   github?: string | null;
   live?: string | null;
+  tier?: number; // 1: Featured, 2: Selected, 3: Experiment
 }
 
 const CATEGORIES: Category[] = [
@@ -36,56 +37,54 @@ const CATEGORIES: Category[] = [
 /* ─── Component ─────────────────────────────────────────────── */
 export default function ProjectsClient({ initialProjects }: { initialProjects: Project[] }) {
   const [active, setActive] = useState<Category>("All");
-  const [viewMode, setViewMode] = useState<"featured" | "grid">("featured");
   const [featuredIndex, setFeaturedIndex] = useState(0);
 
-  const filtered =
-    active === "All" ? initialProjects : initialProjects.filter((p) => p.category === active);
+  const filtered = active === "All" ? initialProjects : initialProjects.filter((p) => p.category === active);
 
-  // Safety catch if featuredIndex is out of bounds after category change
-  const currentFeatured = filtered[featuredIndex] || filtered[0];
+  // Group by Tiers
+  const tier1 = filtered.filter(p => p.tier === 1);
+  const tier2 = filtered.filter(p => p.tier === 2 || p.tier === undefined);
+  const tier3 = filtered.filter(p => p.tier === 3);
+
+  const currentFeatured = tier1[featuredIndex] || tier1[0];
 
   const handleCategoryChange = (cat: Category) => {
     setActive(cat);
-    setFeaturedIndex(0); // Reset featured index when changing categories
+    setFeaturedIndex(0);
   };
 
   // Auto-play the featured projects
   useEffect(() => {
-    if (viewMode !== "featured" || filtered.length <= 1) return;
+    if (tier1.length <= 1) return;
     const timer = setInterval(() => {
-      setFeaturedIndex((prev) => (prev + 1) % filtered.length);
-    }, 6000); // 6 seconds per slide
+      setFeaturedIndex((prev) => (prev + 1) % tier1.length);
+    }, 6000);
     return () => clearInterval(timer);
-  }, [viewMode, filtered.length, featuredIndex]);
-
+  }, [tier1.length, featuredIndex]);
 
   return (
     <section
       id="projects"
       className="relative pt-12 pb-16 md:pt-16 md:pb-24 section-elevated overflow-hidden"
     >
-      {/* Background */}
       <div className="absolute inset-0 dot-bg pointer-events-none opacity-50" />
       <div className="noise-overlay" />
       <div className="absolute top-40 -left-40 w-[350px] h-[350px] bg-accent/3 rounded-full blur-[100px] pointer-events-none" />
 
-      {/* Top divider */}
       <div className="section-divider" />
 
       <div className="relative max-w-7xl mx-auto px-6 lg:px-12 pt-8">
         <AnimatedSection>
           <SectionHeading
             label="Projects"
-            title="Engineering Projects"
-            description="Production-first thinking across ML systems, data analysis, backend APIs, and full-stack platforms."
+            title="Engineering Work"
+            description="From ML models to production-ready APIs."
           />
         </AnimatedSection>
 
-        {/* ── Controls Row (Categories & View Toggle) ── */}
+        {/* ── Controls Row (Categories) ── */}
         <AnimatedSection delay={0.05}>
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
-            {/* Category Tabs */}
             <div className="flex flex-wrap gap-2">
               {CATEGORIES.map((cat) => (
                 <button
@@ -110,130 +109,106 @@ export default function ProjectsClient({ initialProjects }: { initialProjects: P
                 </button>
               ))}
             </div>
-
-            {/* View Mode Toggle */}
-            <div className="flex items-center bg-black/40 border border-border rounded-full p-1 shrink-0">
-              <button
-                onClick={() => setViewMode("featured")}
-                className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-sm transition-colors ${
-                  viewMode === "featured"
-                    ? "bg-accent/10 text-accent font-medium"
-                    : "text-text-muted hover:text-text-primary"
-                }`}
-              >
-                <Presentation className="w-4 h-4" />
-                <span>Featured</span>
-              </button>
-              <button
-                onClick={() => setViewMode("grid")}
-                className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-sm transition-colors ${
-                  viewMode === "grid"
-                    ? "bg-accent/10 text-accent font-medium"
-                    : "text-text-muted hover:text-text-primary"
-                }`}
-              >
-                <LayoutGrid className="w-4 h-4" />
-                <span>Grid View</span>
-              </button>
-            </div>
           </div>
         </AnimatedSection>
 
-        {/* ── Layout Modes ── */}
-        {viewMode === "featured" ? (
-          <div className="flex flex-col gap-6 animate-in fade-in zoom-in-95 duration-500">
-            {/* Massive Hero Card for Featured Project */}
-            {currentFeatured && (
-              <FeaturedProjectCard project={currentFeatured} />
-            )}
-
-            {/* Horizontal Scroller for remaining projects in category */}
-            {filtered.length > 1 && (
-              <div className="mt-2">
-                <h4 className="text-xs font-mono text-text-muted mb-3 uppercase tracking-widest pl-2 border-l-2 border-accent/30">
-                  More in {active}
-                </h4>
-                <div className="flex overflow-x-auto gap-3 pb-4 scrollbar-hide snap-x">
-                  {filtered.map((project, idx) => (
-                    <button
-                      key={project.title}
-                      onClick={() => setFeaturedIndex(idx)}
-                      className={`relative flex-shrink-0 w-[220px] h-[124px] rounded-xl overflow-hidden group border-2 transition-all snap-start text-left ${
-                        idx === featuredIndex
-                          ? "border-accent ring-2 ring-accent/20"
-                          : "border-transparent opacity-50 hover:opacity-100"
-                      }`}
-                    >
-                      <Image
-                        src={project.image}
-                        alt={project.title}
-                        fill
-                        className="object-cover object-top"
-                      />
-                      <div className="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-colors" />
-                      <div className="absolute inset-0 p-4 flex flex-col justify-end">
-                        <span className="text-xs font-mono text-accent mb-1 drop-shadow-md">
-                          {project.category}
-                        </span>
-                        <h5 className="font-semibold text-sm leading-tight line-clamp-2 drop-shadow-md">
-                          {project.title}
-                        </h5>
-                      </div>
-                    </button>
-                  ))}
-                </div>
+        <div className="flex flex-col gap-16">
+          {/* ── Tier 1: Featured Projects ── */}
+          {tier1.length > 0 && (
+            <div className="animate-in fade-in zoom-in-95 duration-500">
+              <div className="flex items-center gap-2 mb-6 text-accent">
+                <Presentation className="w-5 h-5" />
+                <h3 className="text-xl font-bold tracking-wide">Featured Work</h3>
               </div>
-            )}
-          </div>
-        ) : (
-          /* Grid View */
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7 animate-in fade-in slide-in-from-bottom-8 duration-500">
-            {filtered.map((project, i) => (
-              <AnimatedSection key={project.title} delay={i * 0.05}>
-                <ProjectCard project={project} />
-              </AnimatedSection>
-            ))}
-          </div>
-        )}
+              
+              {currentFeatured && <FeaturedProjectCard project={currentFeatured} />}
+
+              {/* Horizontal Scroller for remaining tier 1 projects */}
+              {tier1.length > 1 && (
+                <div className="mt-4">
+                  <div className="flex overflow-x-auto gap-3 pb-4 scrollbar-hide snap-x">
+                    {tier1.map((project, idx) => (
+                      <button
+                        key={project.title}
+                        onClick={() => setFeaturedIndex(idx)}
+                        className={`relative flex-shrink-0 w-[220px] h-[124px] rounded-xl overflow-hidden group border-2 transition-all snap-start text-left ${
+                          idx === featuredIndex
+                            ? "border-accent ring-2 ring-accent/20"
+                            : "border-transparent opacity-50 hover:opacity-100"
+                        }`}
+                      >
+                        <Image src={project.image} alt={project.title} fill className="object-cover object-top" />
+                        <div className="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-colors" />
+                        <div className="absolute inset-0 p-4 flex flex-col justify-end">
+                          <span className="text-xs font-mono text-accent mb-1 drop-shadow-md">{project.category}</span>
+                          <h5 className="font-semibold text-sm leading-tight line-clamp-2 drop-shadow-md">{project.title}</h5>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* ── Tier 2: Selected Projects ── */}
+          {tier2.length > 0 && (
+            <AnimatedSection delay={0.1}>
+              <div className="flex items-center gap-2 mb-6 text-white/90 border-b border-white/5 pb-4">
+                <Layers className="w-5 h-5" />
+                <h3 className="text-xl font-bold tracking-wide">Selected Projects</h3>
+              </div>
+              
+              {/* Mobile: Horizontal Scroll | Desktop: Grid */}
+              <div className="flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7 pb-6 md:pb-0 scrollbar-hide snap-x md:snap-none w-full">
+                {tier2.map((project) => (
+                  <div key={project.title} className="w-[85vw] md:w-auto shrink-0 snap-center md:snap-align-none h-full">
+                    <ProjectCard project={project} />
+                  </div>
+                ))}
+              </div>
+            </AnimatedSection>
+          )}
+
+          {/* ── Tier 3: Experiments ── */}
+          {tier3.length > 0 && (
+            <AnimatedSection delay={0.2}>
+              <div className="flex items-center gap-2 mb-6 text-white/70 border-b border-white/5 pb-4">
+                <Github className="w-5 h-5" />
+                <h3 className="text-lg font-semibold tracking-wide">Experiments & Scripts</h3>
+              </div>
+              <div className="flex flex-col gap-3">
+                {tier3.map((project) => (
+                  <MinimalProjectCard key={project.title} project={project} />
+                ))}
+              </div>
+            </AnimatedSection>
+          )}
+
+          {filtered.length === 0 && (
+            <div className="text-center py-20 text-text-muted">
+              No projects found in this category.
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );
 }
 
-/* ─── Featured Project Hero Card ──────────────────────────────── */
+/* ─── Featured Project Hero Card (Tier 1) ──────────────────────────────── */
 function FeaturedProjectCard({ project }: { project: Project }) {
   const [showDetails, setShowDetails] = useState(false);
-  
   const linkHref = project.slug ? `/projects/${project.slug}` : (project.live || project.github || "#");
 
   return (
     <div className="flex flex-col glass-card rounded-3xl overflow-hidden border border-white/[0.08] shadow-2xl relative gradient-border transition-all duration-500">
-      
-      {/* Top: Full-Screen Image Showcase */}
       <div className="relative w-full aspect-video lg:aspect-[21/8] bg-[#050505] group flex items-center justify-center p-3 lg:p-6">
-        <Link 
-          href={linkHref}
-          className="relative w-full h-full rounded-xl overflow-hidden shadow-2xl border border-white/5 cursor-pointer block"
-          title={`View ${project.title}`}
-        >
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            sizes="(max-width: 1024px) 100vw, 66vw"
-            className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
-            priority
-            quality={85}
-          />
+        <Link href={linkHref} className="relative w-full h-full rounded-xl overflow-hidden shadow-2xl border border-white/5 cursor-pointer block">
+          <Image src={project.image} alt={project.title} fill sizes="(max-width: 1024px) 100vw, 66vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.02]" priority quality={85} />
         </Link>
-        
-        {/* Gradient Overlay for bottom text readability */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent pointer-events-none" />
-
-        {/* Details & Toggle Container (Bottom Left) */}
         <div className="absolute bottom-5 left-5 lg:bottom-6 lg:left-6 right-8 flex flex-col items-start gap-3 z-20">
-          
-          {/* Title Overlay */}
           {!showDetails && (
             <div className="animate-in fade-in slide-in-from-bottom-2 duration-300 pointer-events-none">
               <h3 className="text-xl lg:text-3xl font-bold tracking-tight leading-tight text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]">
@@ -241,39 +216,19 @@ function FeaturedProjectCard({ project }: { project: Project }) {
               </h3>
             </div>
           )}
-
-          {/* Sleek View Details Button */}
-          <button
-            onClick={() => setShowDetails(!showDetails)}
-            className="flex items-center gap-2 px-5 py-2 bg-black/60 backdrop-blur-md text-white/90 border border-white/20 rounded-full text-sm font-medium hover:bg-black/80 hover:text-white hover:border-accent/50 transition-all shadow-lg"
-            aria-label={showDetails ? "Hide details" : "Show details"}
-          >
+          <button onClick={() => setShowDetails(!showDetails)} className="flex items-center gap-2 px-5 py-2 bg-black/60 backdrop-blur-md text-white/90 border border-white/20 rounded-full text-sm font-medium hover:bg-black/80 hover:text-white hover:border-accent/50 transition-all shadow-lg">
             {showDetails ? (
-              <>
-                <span>Hide Details</span>
-                <ChevronUp className="w-4 h-4 text-accent" />
-              </>
+              <><span className="hidden sm:inline">Hide Details</span><ChevronUp className="w-4 h-4 text-accent" /></>
             ) : (
-              <>
-                <span>View Details</span>
-                <ChevronDown className="w-4 h-4 text-accent" />
-              </>
+              <><span className="hidden sm:inline">View Details</span><ChevronDown className="w-4 h-4 text-accent" /></>
             )}
           </button>
         </div>
       </div>
-
-      {/* Bottom: Expandable Content Details */}
       {showDetails && (
-        <div className="w-full p-8 lg:p-12 bg-black/95 backdrop-blur-xl border-t border-white/10 animate-in slide-in-from-top-4 fade-in duration-300">
-          <h3 className="text-3xl lg:text-4xl font-bold mb-4 tracking-tight leading-tight text-white">
-            {project.title}
-          </h3>
-          <p className="text-text-secondary text-base lg:text-lg mb-8 leading-relaxed max-w-4xl">
-            {project.description}
-          </p>
-
-          {/* Highlights */}
+        <div className="w-full p-6 lg:p-12 bg-black/95 backdrop-blur-xl border-t border-white/10 animate-in slide-in-from-top-4 fade-in duration-300">
+          <h3 className="text-2xl lg:text-4xl font-bold mb-4 tracking-tight leading-tight text-white">{project.title}</h3>
+          <p className="text-text-secondary text-sm lg:text-lg mb-8 leading-relaxed max-w-4xl">{project.description}</p>
           <ul className="space-y-4 mb-10 max-w-4xl">
             {project.highlights.map((h) => (
               <li key={h} className="flex items-start gap-3 text-sm text-text-primary/90">
@@ -282,50 +237,20 @@ function FeaturedProjectCard({ project }: { project: Project }) {
               </li>
             ))}
           </ul>
-
-          {/* Tech Stack */}
           <div className="flex flex-wrap gap-2 mb-10">
             {project.tags.map((tag) => (
-              <span
-                key={tag}
-                className="px-3 py-1 text-xs font-mono text-accent/90 bg-accent/10 rounded-lg border border-accent/20"
-              >
-                {tag}
-              </span>
+              <span key={tag} className="px-3 py-1 text-xs font-mono text-accent/90 bg-accent/10 rounded-lg border border-accent/20">{tag}</span>
             ))}
           </div>
-
-          {/* Action Buttons */}
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex flex-wrap items-center gap-3">
             {project.slug && (
-              <Link
-                href={`/projects/${project.slug}`}
-                className="flex items-center gap-2 px-6 py-3 bg-accent text-black font-semibold rounded-xl hover:bg-accent/90 transition-all shadow-lg hover:shadow-accent/20 hover:-translate-y-0.5"
-              >
-                <BookOpen className="w-4 h-4" />
-                <span>Read Case Study</span>
+              <Link href={`/projects/${project.slug}`} className="flex items-center gap-2 px-5 py-2.5 bg-accent text-black font-semibold rounded-xl hover:bg-accent/90 transition-all shadow-lg text-sm">
+                <BookOpen className="w-4 h-4" /><span>Read Case Study</span>
               </Link>
             )}
-            {project.live && (
-              <a
-                href={project.live ?? undefined}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-6 py-3 border border-accent/30 text-accent font-semibold rounded-xl hover:bg-accent/10 transition-all"
-              >
-                <span>Live Project</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </a>
-            )}
             {project.github && (
-              <a
-                href={project.github ?? undefined}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-6 py-3 border border-border rounded-xl hover:border-accent hover:text-accent transition-all hover:bg-accent/5"
-              >
-                <Github className="w-4 h-4" />
-                <span>Source Code</span>
+              <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-5 py-2.5 border border-border rounded-xl hover:border-accent hover:text-accent transition-all hover:bg-accent/5 text-sm">
+                <Github className="w-4 h-4" /><span>Code</span>
               </a>
             )}
           </div>
@@ -335,114 +260,64 @@ function FeaturedProjectCard({ project }: { project: Project }) {
   );
 }
 
-/* ─── Project Card ───────────────────────────────────────────── */
+/* ─── Project Card (Tier 2) ───────────────────────────────────────────── */
 function ProjectCard({ project }: { project: Project }) {
-  const isLive = !!project.live;
-  
-  // SEO-optimized alt text
   const imageAltText = `${project.title} - ${project.category} Project built with ${project.tags.slice(0, 3).join(', ')}`;
-
   const linkHref = project.slug ? `/projects/${project.slug}` : (project.live || project.github || "#");
 
   return (
     <div className="group h-full flex flex-col glass-card rounded-2xl relative overflow-hidden gradient-border">
-      {/* ── Banner Image ── */}
       <div className="relative h-48 overflow-hidden bg-black/40">
-        <Image
-          src={project.image}
-          alt={imageAltText}
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
-          loading="lazy"
-        />
-        {/* Gradient overlay */}
+        <Image src={project.image} alt={imageAltText} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-
-        {/* Category badge */}
-        <div className="absolute top-3 left-3 px-2.5 py-1 bg-black/60 backdrop-blur-sm rounded-full border border-accent/20 text-accent text-[10px] font-mono tracking-wide">
-          {project.category}
-        </div>
-
-        {/* Live site hover overlay (Full Stack) */}
+        <div className="absolute top-3 left-3 px-2.5 py-1 bg-black/60 backdrop-blur-sm rounded-full border border-accent/20 text-accent text-[10px] font-mono tracking-wide">{project.category}</div>
         {project.slug && (
-          <Link
-            href={linkHref}
-            className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            aria-label="Read Case Study"
-          >
+          <Link href={linkHref} className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <div className="flex items-center gap-2 px-4 py-2.5 bg-accent text-black font-semibold text-sm rounded-full shadow-lg hover:scale-105 transition-transform">
-              <BookOpen className="w-4 h-4" />
-              <span>Case Study</span>
+              <BookOpen className="w-4 h-4" /><span>Case Study</span>
             </div>
           </Link>
         )}
       </div>
-
-      {/* ── Content ── */}
       <div className="flex flex-col flex-grow p-5 md:p-6">
-        {/* Title + action icons */}
         <div className="flex items-start justify-between gap-3 mb-3">
           <h3 className="text-base md:text-lg font-semibold group-hover:text-accent transition-colors leading-snug">
-            <Link
-              href={linkHref}
-              className="hover:text-accent transition-colors"
-            >
-              {project.title}
-            </Link>
+            <Link href={linkHref} className="hover:text-accent transition-colors">{project.title}</Link>
           </h3>
-
           <div className="flex gap-1.5 shrink-0 mt-0.5">
-            {project.github && (
-              <a
-                href={project.github ?? undefined}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-1.5 rounded-lg border border-border hover:border-accent/40 hover:text-accent hover:bg-accent/5 transition-all text-text-muted"
-                aria-label="GitHub repository"
-              >
-                <Github className="w-3.5 h-3.5" />
-              </a>
-            )}
-            {project.live && (
-              <a
-                href={project.live ?? undefined}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-1.5 rounded-lg border border-accent/30 text-accent hover:bg-accent/10 transition-all"
-                aria-label="Live site"
-              >
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-            )}
+            {project.github && <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg border border-border hover:border-accent/40 hover:text-accent hover:bg-accent/5 transition-all text-text-muted"><Github className="w-3.5 h-3.5" /></a>}
+            {project.live && <a href={project.live} target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg border border-accent/30 text-accent hover:bg-accent/10 transition-all"><ExternalLink className="w-3.5 h-3.5" /></a>}
           </div>
         </div>
-
-        <p className="text-text-secondary text-sm mb-4 leading-relaxed line-clamp-3">
-          {project.description}
-        </p>
-
-        {/* Highlights */}
-        <ul className="space-y-2 mb-5 flex-grow">
-          {project.highlights.map((h) => (
-            <li key={h} className="flex items-start gap-2 text-xs text-text-muted">
-              <CheckCircle2 className="w-3.5 h-3.5 text-accent mt-0.5 shrink-0" />
-              <span>{h}</span>
-            </li>
-          ))}
-        </ul>
-
-        {/* Tags */}
-        <div className="flex flex-wrap gap-1.5 pt-4 border-t border-white/[0.06]">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className="px-2.5 py-0.5 text-[10px] font-mono text-accent/80 bg-accent/5 rounded-full border border-accent/10"
-            >
-              {tag}
-            </span>
+        <p className="text-text-secondary text-sm mb-4 leading-relaxed line-clamp-3">{project.description}</p>
+        <div className="flex flex-wrap gap-1.5 pt-4 border-t border-white/[0.06] mt-auto">
+          {project.tags.slice(0,4).map((tag) => (
+            <span key={tag} className="px-2 py-0.5 text-[10px] font-mono text-accent/80 bg-accent/5 rounded-full border border-accent/10">{tag}</span>
           ))}
         </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Minimal Project Card (Tier 3) ───────────────────────────────────────────── */
+function MinimalProjectCard({ project }: { project: Project }) {
+  const linkHref = project.slug ? `/projects/${project.slug}` : (project.live || project.github || "#");
+  
+  return (
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-colors group">
+      <div>
+        <h4 className="font-semibold text-white group-hover:text-accent transition-colors">
+          <Link href={linkHref}>{project.title}</Link>
+        </h4>
+        <p className="text-xs text-text-muted mt-1">{project.description}</p>
+      </div>
+      <div className="flex items-center gap-2 shrink-0">
+        {project.tags.slice(0,2).map(tag => (
+           <span key={tag} className="hidden sm:inline-block px-2 py-0.5 text-[10px] font-mono text-text-muted bg-black/40 rounded border border-white/5">{tag}</span>
+        ))}
+        {project.github && <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg hover:text-accent transition-colors text-text-muted"><Github className="w-4 h-4" /></a>}
+        {project.slug && <Link href={linkHref} className="p-1.5 rounded-lg hover:text-accent transition-colors text-text-muted"><ArrowUpRight className="w-4 h-4" /></Link>}
       </div>
     </div>
   );

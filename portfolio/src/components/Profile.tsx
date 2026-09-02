@@ -14,11 +14,22 @@ const FOCUS_ITEMS = [
 ];
 
 const PHILOSOPHY = [
-  "Production-Oriented Thinking",
-  "Architecture Before Implementation",
-  "Analytical Precision",
-  "Security as a Foundation",
-  "Business-Aware Engineering",
+  {
+    title: "Production-Oriented",
+    desc: "Systems are built with deployment, scaling, and maintainability in mind."
+  },
+  {
+    title: "Security by Design",
+    desc: "Authentication, authorization, validation and secure data handling are considered from the architecture stage."
+  },
+  {
+    title: "Architecture Before Code",
+    desc: "Data models and API contracts are defined before implementation begins."
+  },
+  {
+    title: "Business-Aware Engineering",
+    desc: "Technical decisions are aligned with practical business requirements and timelines."
+  }
 ];
 
 export default function Profile() {
@@ -72,7 +83,7 @@ export default function Profile() {
                   Backend Systems Engineering. Studying at <span className="text-accent">University of Engineering and Technology, Taxila</span>.
                   I build end-to-end pipelines that move from data exploration to real-world
                   deployment — integrating ML models into scalable backend architectures with
-                  production-grade APIs, authentication, and structured database design.
+                  APIs, authentication, and structured database design.
                 </p>
                 
                 {/* Location / Status*/}
@@ -132,18 +143,20 @@ export default function Profile() {
                   <div className="p-2 rounded-lg bg-accent/10 text-accent">
                     <Lightbulb className="w-5 h-5" />
                   </div>
-                  Engineering Philosophy
+                  How I approach engineering problems
                 </h3>
 
-                <div className="grid sm:grid-cols-2 gap-3">
+                <div className="grid sm:grid-cols-2 gap-4">
                   {PHILOSOPHY.map((item, i) => (
                     <div
-                      key={item}
-                      className="flex items-center gap-3 p-3 rounded-lg shimmer relative"
-                      style={{ animationDelay: `${i * 0.5}s` }}
+                      key={item.title}
+                      className="flex flex-col gap-1 p-4 rounded-xl border border-white/5 bg-white/[0.01]"
                     >
-                      <div className="w-2 h-2 rounded-full bg-accent shrink-0" />
-                      <span className="text-sm text-text-secondary">{item}</span>
+                      <div className="flex items-center gap-2 mb-1">
+                        <div className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
+                        <span className="text-sm font-semibold text-white">{item.title}</span>
+                      </div>
+                      <span className="text-xs text-text-muted leading-relaxed pl-3.5 border-l border-white/5">{item.desc}</span>
                     </div>
                   ))}
                 </div>

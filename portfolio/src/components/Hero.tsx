@@ -42,6 +42,7 @@ export default function Hero() {
               Muhammad
               <br />
               <span className="gradient-text">Taha</span>
+              <span className="sr-only"> — Applied Data Scientist & Backend Engineer</span>
             </motion.h1>
 
             {/* Title */}
@@ -53,7 +54,7 @@ export default function Hero() {
             >
               <div className="h-px w-8 bg-accent/60" />
               <h2 className="text-accent font-mono text-sm md:text-base tracking-wide typing-cursor m-0">
-                Applied Data Scientist & Backend Systems Engineer
+                Applied Data Scientist & Backend Engineer
               </h2>
             </motion.div>
 
@@ -64,8 +65,7 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.35 }}
               className="text-text-secondary text-base md:text-lg max-w-lg mb-10 leading-relaxed"
             >
-              I build ML-powered backend systems that move from data to deployment —
-              trained, integrated, secured, and shipped.
+              I build data-driven backend systems — from ML models and APIs to production-ready applications.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -133,7 +133,7 @@ export default function Hero() {
             >
               {[
                 { value: "13+", label: "Projects Built" },
-                { value: "10+", label: "Technologies" },
+                { value: "3", label: "Engineering Domains" },
                 { value: "2+", label: "Years Exp" },
               ].map((stat) => (
                 <div

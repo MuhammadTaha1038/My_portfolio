@@ -75,12 +75,12 @@ export default function Contact() {
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 tracking-tight leading-tight">
             Let&apos;s Build
             <br />
-            <span className="gradient-text">Intelligent Systems</span>
+            <span className="gradient-text">Something Useful</span>
           </h2>
 
           <p className="text-text-secondary text-base md:text-lg max-w-xl mx-auto mb-14 leading-relaxed">
-            Looking for a backend engineer who thinks in systems?
-            Let&apos;s connect and discuss how we can build something extraordinary together.
+            Have a data, ML, or backend problem to solve? 
+            Let&apos;s discuss the architecture and turn it into a working system.
           </p>
         </AnimatedSection>
 
@@ -113,7 +113,7 @@ export default function Contact() {
             className="group inline-flex items-center gap-3 px-8 py-4 bg-accent text-black font-semibold text-lg rounded-xl hover:bg-accent-light transition-all duration-300 hover:shadow-[0_0_50px_rgba(245,197,24,0.3)] hover:-translate-y-0.5"
           >
             <Send className="w-5 h-5" />
-            Send Email
+            Start a Conversation
           </a>
         </AnimatedSection>
       </div>

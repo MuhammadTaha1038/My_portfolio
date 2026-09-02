@@ -21,6 +21,12 @@ export async function createProject(formData: FormData) {
   const highlightsString = formData.get("highlights") as string;
   const tagsString = formData.get("tags") as string;
 
+  const orderString = formData.get("order") as string;
+  const tierString = formData.get("tier") as string;
+  
+  const order = orderString ? parseInt(orderString) : 0;
+  const tier = tierString ? parseInt(tierString) : 2;
+
   const highlights = highlightsString.split(",").map(s => s.trim()).filter(Boolean);
   const tags = tagsString.split(",").map(s => s.trim()).filter(Boolean);
 
@@ -38,7 +44,9 @@ export async function createProject(formData: FormData) {
       github,
       live,
       content,
-      slug
+      slug,
+      order,
+      tier
     }
   });
 
