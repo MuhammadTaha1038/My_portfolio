@@ -5,11 +5,20 @@ import { useRouter } from "next/navigation"
 import { uploadImage } from "@/actions/upload"
 import { createProject } from "@/actions/projects"
 import { Loader2, UploadCloud } from "lucide-react"
+import dynamic from "next/dynamic"
+import "@uiw/react-md-editor/markdown-editor.css"
+import "@uiw/react-markdown-preview/markdown.css"
+
+const MDEditor = dynamic(
+  () => import("@uiw/react-md-editor"),
+  { ssr: false }
+)
 
 export default function ProjectForm() {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [preview, setPreview] = useState<string | null>(null)
+  const [content, setContent] = useState<string | undefined>("")
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -39,6 +48,11 @@ export default function ProjectForm() {
         return
       }
 
+      // Add markdown content to form data
+      if (content) {
+        formData.append("content", content)
+      }
+
       // Save project
       await createProject(formData)
       router.push("/admin/projects")
@@ -51,7 +65,7 @@ export default function ProjectForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 bg-[#111111] p-8 rounded-2xl border border-white/5">
+    <form onSubmit={handleSubmit} className="space-y-6 bg-[#111111] p-8 rounded-2xl border border-white/5" data-color-mode="dark">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="block text-sm font-medium text-gray-300 mb-2">Title</label>
@@ -71,7 +85,20 @@ export default function ProjectForm() {
 
       <div>
         <label className="block text-sm font-medium text-gray-300 mb-2">Description</label>
-        <textarea required name="description" rows={4} className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#F5C518]" placeholder="Describe the project..." />
+        <textarea required name="description" rows={3} className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#F5C518]" placeholder="Short summary for the project card..." />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-2">Case Study Content (Markdown)</label>
+        <div className="rounded-xl overflow-hidden border border-white/10">
+          <MDEditor
+            value={content}
+            onChange={setContent}
+            height={400}
+            preview="edit"
+            className="bg-[#0A0A0A]"
+          />
+        </div>
       </div>
 
       <div>
@@ -97,7 +124,7 @@ export default function ProjectForm() {
 
       <div>
         <label className="block text-sm font-medium text-gray-300 mb-2">Project Thumbnail</label>
-        <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-white/10 border-dashed rounded-xl hover:border-[#F5C518] transition-colors relative">
+        <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-white/10 border-dashed rounded-xl hover:border-[#F5C518] transition-colors relative bg-[#0A0A0A]">
           <div className="space-y-1 text-center">
             {preview ? (
               <div className="mb-4">

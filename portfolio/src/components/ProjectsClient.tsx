@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import AnimatedSection from "./AnimatedSection";
 import SectionHeading from "./SectionHeading";
-import { Github, CheckCircle2, ArrowUpRight, ExternalLink, LayoutGrid, Presentation, ChevronDown, ChevronUp } from "lucide-react";
+import { Github, CheckCircle2, ArrowUpRight, ExternalLink, LayoutGrid, Presentation, ChevronDown, ChevronUp, BookOpen } from "lucide-react";
 
 /* ─── Types ─────────────────────────────────────────────────── */
 type Category = "All" | "Machine Learning" | "Data Analysis" | "Backend Development" | "Full Stack";
@@ -17,6 +18,7 @@ interface Project {
   image: string;
   category: string;
   id?: string;
+  slug?: string | null;
   createdAt?: Date;
   updatedAt?: Date;
   github?: string | null;
@@ -202,17 +204,15 @@ export default function ProjectsClient({ initialProjects }: { initialProjects: P
 function FeaturedProjectCard({ project }: { project: Project }) {
   const [showDetails, setShowDetails] = useState(false);
   
-  const linkHref = project.live || project.github || "#";
+  const linkHref = project.slug ? `/projects/${project.slug}` : (project.live || project.github || "#");
 
   return (
     <div className="flex flex-col glass-card rounded-3xl overflow-hidden border border-white/[0.08] shadow-2xl relative gradient-border transition-all duration-500">
       
       {/* Top: Full-Screen Image Showcase */}
       <div className="relative w-full aspect-video lg:aspect-[21/8] bg-[#050505] group flex items-center justify-center p-3 lg:p-6">
-        <a 
+        <Link 
           href={linkHref}
-          target="_blank"
-          rel="noopener noreferrer"
           className="relative w-full h-full rounded-xl overflow-hidden shadow-2xl border border-white/5 cursor-pointer block"
           title={`View ${project.title}`}
         >
@@ -225,7 +225,7 @@ function FeaturedProjectCard({ project }: { project: Project }) {
             priority
             quality={85}
           />
-        </a>
+        </Link>
         
         {/* Gradient Overlay for bottom text readability */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent pointer-events-none" />
@@ -297,14 +297,23 @@ function FeaturedProjectCard({ project }: { project: Project }) {
 
           {/* Action Buttons */}
           <div className="flex flex-wrap items-center gap-4">
+            {project.slug && (
+              <Link
+                href={`/projects/${project.slug}`}
+                className="flex items-center gap-2 px-6 py-3 bg-accent text-black font-semibold rounded-xl hover:bg-accent/90 transition-all shadow-lg hover:shadow-accent/20 hover:-translate-y-0.5"
+              >
+                <BookOpen className="w-4 h-4" />
+                <span>Read Case Study</span>
+              </Link>
+            )}
             {project.live && (
               <a
                 href={project.live ?? undefined}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-6 py-3 bg-accent text-black font-semibold rounded-xl hover:bg-accent/90 transition-all shadow-lg hover:shadow-accent/20 hover:-translate-y-0.5"
+                className="flex items-center gap-2 px-6 py-3 border border-accent/30 text-accent font-semibold rounded-xl hover:bg-accent/10 transition-all"
               >
-                <span>View Live Project</span>
+                <span>Live Project</span>
                 <ArrowUpRight className="w-4 h-4" />
               </a>
             )}
@@ -333,6 +342,8 @@ function ProjectCard({ project }: { project: Project }) {
   // SEO-optimized alt text
   const imageAltText = `${project.title} - ${project.category} Project built with ${project.tags.slice(0, 3).join(', ')}`;
 
+  const linkHref = project.slug ? `/projects/${project.slug}` : (project.live || project.github || "#");
+
   return (
     <div className="group h-full flex flex-col glass-card rounded-2xl relative overflow-hidden gradient-border">
       {/* ── Banner Image ── */}
@@ -354,19 +365,17 @@ function ProjectCard({ project }: { project: Project }) {
         </div>
 
         {/* Live site hover overlay (Full Stack) */}
-        {isLive && (
-          <a
-            href={project.live ?? undefined}
-            target="_blank"
-            rel="noopener noreferrer"
+        {project.slug && (
+          <Link
+            href={linkHref}
             className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            aria-label="Visit live site"
+            aria-label="Read Case Study"
           >
-            <div className="flex items-center gap-2 px-4 py-2.5 bg-accent text-black font-semibold text-sm rounded-full shadow-lg">
-              <span>Visit Site</span>
-              <ArrowUpRight className="w-4 h-4" />
+            <div className="flex items-center gap-2 px-4 py-2.5 bg-accent text-black font-semibold text-sm rounded-full shadow-lg hover:scale-105 transition-transform">
+              <BookOpen className="w-4 h-4" />
+              <span>Case Study</span>
             </div>
-          </a>
+          </Link>
         )}
       </div>
 
@@ -375,18 +384,12 @@ function ProjectCard({ project }: { project: Project }) {
         {/* Title + action icons */}
         <div className="flex items-start justify-between gap-3 mb-3">
           <h3 className="text-base md:text-lg font-semibold group-hover:text-accent transition-colors leading-snug">
-            {isLive ? (
-              <a
-                href={project.live ?? undefined}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-accent transition-colors"
-              >
-                {project.title}
-              </a>
-            ) : (
-              project.title
-            )}
+            <Link
+              href={linkHref}
+              className="hover:text-accent transition-colors"
+            >
+              {project.title}
+            </Link>
           </h3>
 
           <div className="flex gap-1.5 shrink-0 mt-0.5">
