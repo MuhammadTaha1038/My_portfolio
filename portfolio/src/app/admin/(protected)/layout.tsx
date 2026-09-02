@@ -1,7 +1,7 @@
 import { auth } from "@/auth"
 import { redirect } from "next/navigation"
 import Link from "next/link"
-import { LayoutDashboard, FolderKanban, Code2, Briefcase, LogOut, Globe } from "lucide-react"
+import { LayoutDashboard, FolderKanban, Code2, Briefcase, LogOut, Globe, Award } from "lucide-react"
 
 export default async function AdminLayout({
   children,
@@ -38,6 +38,10 @@ export default async function AdminLayout({
           <Link href="/admin/experience" className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 hover:text-white hover:bg-white/5 transition-colors group">
             <Briefcase className="w-5 h-5 group-hover:text-[#F5C518] transition-colors" />
             Experience
+          </Link>
+          <Link href="/admin/certificates" className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 hover:text-white hover:bg-white/5 transition-colors group">
+            <Award className="w-5 h-5 group-hover:text-[#F5C518] transition-colors" />
+            Certificates
           </Link>
         </nav>
 
