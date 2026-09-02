@@ -28,26 +28,21 @@ export default function CertificateForm() {
     setIsSubmitting(true);
 
     try {
-      // 1. Upload image to Cloudinary via our route
+      // 1. Upload image to Cloudinary via server action
       const formData = new FormData();
       formData.append("file", imageFile);
 
-      const uploadRes = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
+      const { uploadImage } = await import("@/actions/upload");
+      const imageUrl = await uploadImage(formData);
 
-      if (!uploadRes.ok) {
+      if (!imageUrl) {
         throw new Error("Failed to upload image");
       }
-
-      const uploadData = await uploadRes.json();
-      const imageUrl = uploadData.url;
 
       // 2. Submit form data to server action
       const form = e.currentTarget;
       const data = new FormData(form);
-      data.append("image", imageUrl);
+      data.append("image", imageUrl as string);
 
       const { createCertificate } = await import("@/actions/certificates");
       await createCertificate(data);
