@@ -6,7 +6,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative border-t border-accent/10 bg-black">
+    <footer className="relative border-t border-accent/10 bg-black mt-auto z-40">
       <div className="noise-overlay" />
 
       <div className="relative max-w-7xl mx-auto px-6 lg:px-12 py-12">

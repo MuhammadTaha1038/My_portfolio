@@ -15,6 +15,8 @@ const NAV_LINKS = [
   { label: "Contact", href: "/contact" },
 ];
 
+import ThemeCustomizer from "./ThemeCustomizer";
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -88,19 +90,22 @@ export default function Navbar() {
             })}
           </div>
 
-          {/* CTA button (desktop) */}
-          <a
-            href="https://wa.me/923432744101?text=I%20have%20visited%20your%20portfolio%20website%20and%20want%20to%20chat%20with%20you"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden md:flex items-center gap-2 px-5 py-2 bg-accent/10 border border-accent/30 text-accent text-sm font-medium rounded-full hover:bg-accent/20 transition-all duration-300"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
-            </span>
-            Let&apos;s Connect
-          </a>
+          {/* CTA & Theme (desktop) */}
+          <div className="hidden md:flex items-center gap-3">
+            <ThemeCustomizer />
+            <a
+              href="https://wa.me/923432744101?text=I%20have%20visited%20your%20portfolio%20website%20and%20want%20to%20chat%20with%20you"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-5 py-2 bg-accent/10 border border-accent/30 text-accent text-sm font-medium rounded-full hover:bg-accent/20 transition-all duration-300"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
+              </span>
+              Let&apos;s Connect
+            </a>
+          </div>
 
           {/* Mobile Toggle */}
           <button
