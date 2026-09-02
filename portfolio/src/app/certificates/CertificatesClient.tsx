@@ -25,7 +25,7 @@ export default function CertificatesClient({ certificates }: CertificatesClientP
             No certificates uploaded yet.
           </div>
         ) : (
-          <div className="flex flex-col gap-16 md:gap-24 max-w-5xl mx-auto">
+          <div className="flex flex-col gap-12 md:gap-16 max-w-3xl mx-auto">
             {certificates.map((cert, index) => (
               <motion.div
                 key={cert.id}
