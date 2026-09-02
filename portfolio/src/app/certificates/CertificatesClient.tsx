@@ -25,42 +25,44 @@ export default function CertificatesClient({ certificates }: CertificatesClientP
             No certificates uploaded yet.
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="flex flex-col gap-16 md:gap-24 max-w-5xl mx-auto">
             {certificates.map((cert, index) => (
               <motion.div
                 key={cert.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                className="bg-[#111111] rounded-2xl overflow-hidden border border-white/5 hover:border-[#F5C518]/30 transition-all group"
+                transition={{ delay: index * 0.1, duration: 0.7, ease: "easeOut" }}
+                className="bg-[#111111] rounded-3xl overflow-hidden border border-white/5 hover:border-[#F5C518]/30 transition-all group shadow-2xl"
               >
-                <div className="relative w-full aspect-[4/3] bg-black">
+                <div className="relative w-full aspect-[1.414/1] md:aspect-video bg-black">
                   <Image 
                     src={cert.image} 
                     alt={cert.title} 
                     fill 
-                    className="object-cover group-hover:scale-105 transition-transform duration-500" 
+                    className="object-contain p-4 md:p-8" 
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#111111] to-transparent opacity-80" />
                   
                   {cert.credentialUrl && (
                     <a 
                       href={cert.credentialUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="absolute top-4 right-4 p-2 bg-black/50 backdrop-blur-sm rounded-full text-white hover:text-[#F5C518] hover:bg-black/70 transition-colors"
+                      className="absolute top-6 right-6 p-3 bg-black/50 backdrop-blur-md rounded-full text-white hover:text-[#F5C518] hover:bg-black/80 transition-colors z-10 border border-white/10"
+                      title="Verify Credential"
                     >
-                      <ExternalLink className="w-5 h-5" />
+                      <ExternalLink className="w-6 h-6" />
                     </a>
                   )}
                 </div>
                 
-                <div className="p-6 relative z-10 -mt-10">
-                  <div className="bg-[#1a1a1a] p-4 rounded-xl border border-white/10 shadow-xl inline-block mb-4">
-                    <p className="text-[#F5C518] font-bold text-xs uppercase tracking-wider">{cert.dateEarned}</p>
+                <div className="p-8 md:p-10 border-t border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                  <div>
+                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 group-hover:text-[#F5C518] transition-colors">{cert.title}</h3>
+                    <p className="text-gray-400 text-lg">{cert.issuer}</p>
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-1 group-hover:text-[#F5C518] transition-colors">{cert.title}</h3>
-                  <p className="text-gray-400 font-medium">{cert.issuer}</p>
+                  <div className="bg-white/5 px-6 py-3 rounded-full border border-white/10 shrink-0 self-start md:self-auto">
+                    <p className="text-[#F5C518] font-bold text-sm uppercase tracking-wider">{cert.dateEarned}</p>
+                  </div>
                 </div>
               </motion.div>
             ))}
