@@ -18,8 +18,10 @@ model User {
 
 model Project {
   id          String   @id @default(cuid())
+  slug        String?  @unique @default(cuid()) // For case study URLs (e.g. /projects/tattoo-inbox)
   title       String
   description String
+  content     String?  // Markdown content for the detailed case study
   highlights  String[]
   tags        String[]
   image       String
@@ -50,4 +52,16 @@ model Experience {
   order       Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model Certificate {
+  id            String   @id @default(cuid())
+  title         String
+  issuer        String
+  dateEarned    String
+  image         String   // Cloudinary URL
+  credentialUrl String?  // Link to verify
+  order         Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }

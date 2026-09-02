@@ -3,36 +3,26 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const NAV_LINKS = [
-  { label: "About", href: "#profile" },
-  { label: "Skills", href: "#stack" },
-  { label: "Projects", href: "#projects" },
-  { label: "Experience", href: "#experience" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Projects", href: "/projects" },
+  { label: "Experience", href: "/experience" },
+  { label: "Certificates", href: "/certificates" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
-
-      // Track active section
-      const sections = NAV_LINKS.map((l) => l.href.slice(1));
-      for (const id of sections.reverse()) {
-        const el = document.getElementById(id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 150) {
-            setActiveSection(`#${id}`);
-            break;
-          }
-        }
-      }
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -42,6 +32,13 @@ export default function Navbar() {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
+
+  // Handle case study routes acting as active project tab
+  const getIsActive = (href: string) => {
+    if (href === "/" && pathname !== "/") return false;
+    if (href !== "/" && pathname?.startsWith(href)) return true;
+    return pathname === href;
+  };
 
   return (
     <>
@@ -57,35 +54,38 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-12 h-18 flex items-center justify-between">
           {/* Logo */}
-          <a href="#home" className="relative group">
+          <Link href="/" className="relative group">
             <span className="text-2xl font-bold tracking-tight">
               M<span className="text-accent">.</span> Taha
             </span>
             <span className="absolute -bottom-1 left-0 h-px w-0 bg-accent group-hover:w-full transition-all duration-300" />
-          </a>
+          </Link>
 
           {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-1">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className={`relative px-4 py-2 text-sm rounded-lg transition-all duration-300 ${
-                  activeSection === link.href
-                    ? "text-accent"
-                    : "text-text-secondary hover:text-white"
-                }`}
-              >
-                {link.label}
-                {activeSection === link.href && (
-                  <motion.span
-                    layoutId="activeNav"
-                    className="absolute inset-0 rounded-lg bg-accent/10 border border-accent/20"
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  />
-                )}
-              </a>
-            ))}
+            {NAV_LINKS.map((link) => {
+              const isActive = getIsActive(link.href);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`relative px-4 py-2 text-sm rounded-lg transition-all duration-300 ${
+                    isActive
+                      ? "text-accent"
+                      : "text-text-secondary hover:text-white"
+                  }`}
+                >
+                  {link.label}
+                  {isActive && (
+                    <motion.span
+                      layoutId="activeNav"
+                      className="absolute inset-0 rounded-lg bg-accent/10 border border-accent/20"
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    />
+                  )}
+                </Link>
+              );
+            })}
           </div>
 
           {/* CTA button (desktop) */}
@@ -129,23 +129,29 @@ export default function Navbar() {
           >
             <div className="flex-1 flex flex-col items-center justify-center p-8">
               <nav className="flex flex-col items-center gap-3 w-full max-w-xs">
-                {NAV_LINKS.map((link, i) => (
-                  <motion.a
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setMobileOpen(false)}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.06 + 0.1 }}
-                    className={`w-full text-center py-4 text-lg font-medium rounded-xl transition-all ${
-                      activeSection === link.href
-                        ? "text-accent bg-accent/10 border border-accent/20"
-                        : "text-white hover:text-accent hover:bg-white/5"
-                    }`}
-                  >
-                    {link.label}
-                  </motion.a>
-                ))}
+                {NAV_LINKS.map((link, i) => {
+                  const isActive = getIsActive(link.href);
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setMobileOpen(false)}
+                      className={`w-full text-center py-4 text-lg font-medium rounded-xl transition-all block ${
+                        isActive
+                          ? "text-accent bg-accent/10 border border-accent/20"
+                          : "text-white hover:text-accent hover:bg-white/5"
+                      }`}
+                    >
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: i * 0.06 + 0.1 }}
+                      >
+                        {link.label}
+                      </motion.div>
+                    </Link>
+                  );
+                })}
               </nav>
 
               <motion.a

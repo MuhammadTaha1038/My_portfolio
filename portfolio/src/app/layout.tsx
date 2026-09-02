@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import ConditionalNavbar from "@/components/ConditionalNavbar";
+import ConditionalFooter from "@/components/ConditionalFooter";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -173,10 +174,13 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased bg-black text-white`}
+        className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased bg-black text-white flex flex-col min-h-screen`}
       >
         <ConditionalNavbar />
-        {children}
+        <div className="flex-1">
+          {children}
+        </div>
+        <ConditionalFooter />
       </body>
     </html>
   );
