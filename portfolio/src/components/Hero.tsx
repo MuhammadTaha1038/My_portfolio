@@ -18,9 +18,9 @@ export default function Hero() {
       <div className="noise-overlay" />
 
       {/* Gradient orbs */}
-      <div className="absolute top-20 -left-40 w-[400px] h-[400px] bg-accent/8 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-20 -right-40 w-[350px] h-[350px] bg-accent/5 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-accent/3 rounded-full blur-[120px] pointer-events-none" />
+      <div className="ambient-glow w-[400px] h-[400px] top-20 -left-40" />
+      <div className="ambient-glow w-[350px] h-[350px] bottom-20 -right-40" />
+      <div className="ambient-glow w-[500px] h-[500px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10" />
 
       {/* Edge fades */}
       <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black to-transparent pointer-events-none z-10" />
@@ -41,7 +41,7 @@ export default function Hero() {
             >
               Muhammad
               <br />
-              <span className="gradient-text">Taha</span>
+              <span className="gradient-text text-shadow-glow">Taha</span>
               <span className="sr-only"> — Applied Data Scientist & Backend Engineer</span>
             </motion.h1>
 
@@ -53,7 +53,7 @@ export default function Hero() {
               className="flex items-center gap-3 mb-6"
             >
               <div className="h-px w-8 bg-accent/60" />
-              <h2 className="text-accent font-mono text-sm md:text-base tracking-wide typing-cursor m-0">
+              <h2 className="text-accent font-mono text-sm md:text-base tracking-wide typing-cursor m-0 drop-shadow-md">
                 Applied Data Scientist & Backend Engineer
               </h2>
             </motion.div>
@@ -77,14 +77,14 @@ export default function Hero() {
             >
               <a
                 href="#projects"
-                className="group flex items-center gap-2.5 px-7 py-3.5 bg-accent text-black font-semibold rounded-xl hover:bg-accent-light transition-all duration-300 hover:shadow-[0_0_40px_rgba(245,197,24,0.3)] hover:-translate-y-0.5"
+                className="group flex items-center gap-2.5 px-7 py-3.5 bg-accent/90 text-black font-semibold rounded-xl hover:bg-accent hover-glow transition-all duration-300"
               >
                 View Projects
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>
               <a
                 href="#contact"
-                className="group flex items-center gap-2.5 px-7 py-3.5 glass-card rounded-xl text-white hover:text-accent transition-all duration-300 hover:-translate-y-0.5"
+                className="group flex items-center gap-2.5 px-7 py-3.5 glass-panel rounded-xl text-white hover:text-accent interactive-element transition-all duration-300"
               >
                 <Mail className="w-4 h-4" />
                 Contact

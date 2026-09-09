@@ -216,7 +216,7 @@ function FeaturedProjectCard({ project }: { project: Project }) {
               </h3>
             </div>
           )}
-          <button onClick={() => setShowDetails(!showDetails)} className="flex items-center gap-2 px-5 py-2 bg-black/60 backdrop-blur-md text-white/90 border border-white/20 rounded-full text-sm font-medium hover:bg-black/80 hover:text-white hover:border-accent/50 transition-all shadow-lg">
+          <button onClick={() => setShowDetails(!showDetails)} className="flex items-center gap-2 px-5 py-2 glass-panel rounded-full text-sm font-medium hover:text-accent interactive-element shadow-lg">
             {showDetails ? (
               <><span className="hidden sm:inline">Hide Details</span><ChevronUp className="w-4 h-4 text-accent" /></>
             ) : (
@@ -305,7 +305,7 @@ function MinimalProjectCard({ project }: { project: Project }) {
   const linkHref = project.slug ? `/projects/${project.slug}` : (project.live || project.github || "#");
   
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-colors group">
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl glass-panel group">
       <div>
         <h4 className="font-semibold text-white group-hover:text-accent transition-colors">
           <Link href={linkHref}>{project.title}</Link>

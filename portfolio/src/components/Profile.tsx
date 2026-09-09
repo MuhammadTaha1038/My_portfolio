@@ -87,7 +87,7 @@ export default function Profile() {
                 </p>
                 
                 {/* Location / Status*/}
-                <div className="flex flex-wrap gap-3 pt-2">
+                <div className="flex flex-wrap gap-3 pt-2 mb-4">
                   <span className="px-3 py-1 text-xs font-mono text-accent bg-accent/10 rounded-full border border-accent/20">
                     Pakistan
                   </span>
@@ -97,6 +97,14 @@ export default function Profile() {
                   <span className="px-3 py-1 text-xs font-mono text-accent bg-accent/10 rounded-full border border-accent/20">
                     Open to Work
                   </span>
+                </div>
+
+                {/* Currently Exploring */}
+                <div className="mt-6 pt-6 border-t border-white/[0.06]">
+                  <h4 className="text-xs font-semibold text-white/80 uppercase tracking-wider mb-2">Currently Exploring</h4>
+                  <p className="text-sm text-text-muted leading-relaxed">
+                    Production ML systems, backend architecture, data-intensive applications, and practical AI engineering.
+                  </p>
                 </div>
               </div>
             </div>
@@ -120,7 +128,7 @@ export default function Profile() {
                   {FOCUS_ITEMS.map((item) => (
                     <div
                       key={item.text}
-                      className="group flex items-center gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/[0.04] hover:border-accent/20 hover:bg-accent/5 transition-all duration-300"
+                      className="group flex items-center gap-3 p-4 rounded-xl glass-panel interactive-element"
                     >
                       <div className="p-2 rounded-lg bg-accent/10 text-accent group-hover:bg-accent/20 transition-colors shrink-0">
                         <item.icon className="w-4 h-4" />
@@ -150,13 +158,13 @@ export default function Profile() {
                   {PHILOSOPHY.map((item, i) => (
                     <div
                       key={item.title}
-                      className="flex flex-col gap-1 p-4 rounded-xl border border-white/5 bg-white/[0.01]"
+                      className="flex flex-col gap-1 p-4 rounded-xl glass-panel group"
                     >
                       <div className="flex items-center gap-2 mb-1">
-                        <div className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
-                        <span className="text-sm font-semibold text-white">{item.title}</span>
+                        <div className="w-1.5 h-1.5 rounded-full bg-accent shrink-0 group-hover:scale-150 transition-transform" />
+                        <span className="text-sm font-semibold text-white group-hover:text-accent transition-colors">{item.title}</span>
                       </div>
-                      <span className="text-xs text-text-muted leading-relaxed pl-3.5 border-l border-white/5">{item.desc}</span>
+                      <span className="text-xs text-text-muted leading-relaxed pl-3.5 border-l border-white/5 group-hover:border-accent/20 transition-colors">{item.desc}</span>
                     </div>
                   ))}
                 </div>

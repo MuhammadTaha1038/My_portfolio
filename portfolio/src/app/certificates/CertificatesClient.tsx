@@ -25,21 +25,21 @@ export default function CertificatesClient({ certificates }: CertificatesClientP
             No certificates uploaded yet.
           </div>
         ) : (
-          <div className="flex flex-col gap-12 md:gap-16 max-w-3xl mx-auto">
+          <div className="flex flex-col gap-8 md:gap-12 max-w-4xl mx-auto">
             {certificates.map((cert, index) => (
               <motion.div
                 key={cert.id}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1, duration: 0.7, ease: "easeOut" }}
-                className="bg-[#111111] rounded-3xl overflow-hidden border border-white/5 hover:border-[#F5C518]/30 transition-all group shadow-2xl"
+                className="bg-[#111111] rounded-2xl overflow-hidden border border-white/5 hover:border-[#F5C518]/30 transition-all group shadow-2xl"
               >
-                <div className="relative w-full aspect-[1.414/1] md:aspect-video bg-black">
+                <div className="relative w-full h-[40vh] min-h-[300px] md:h-[60vh] md:min-h-[400px] max-h-[600px] bg-black">
                   <Image 
                     src={cert.image} 
                     alt={cert.title} 
                     fill 
-                    className="object-contain p-4 md:p-8" 
+                    className="object-contain p-2 md:p-6" 
                   />
                   
                   {cert.credentialUrl && (

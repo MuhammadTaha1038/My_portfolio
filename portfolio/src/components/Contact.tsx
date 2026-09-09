@@ -94,9 +94,11 @@ export default function Contact() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className={`group relative p-5 rounded-2xl border border-border text-text-muted transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${color}`}
+                className={`group relative p-5 rounded-2xl glass-panel interactive-element transition-all duration-300 hover:-translate-y-1`}
               >
-                <Icon />
+                <div className={`${color}`}>
+                  <Icon />
+                </div>
                 {/* Tooltip */}
                 <span className="absolute -bottom-9 left-1/2 -translate-x-1/2 px-2.5 py-1 bg-black/80 border border-border text-text-muted text-xs font-mono rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
                   {label}
@@ -110,7 +112,7 @@ export default function Contact() {
         <AnimatedSection delay={0.3}>
           <a
             href="mailto:contact.taha2005@gmail.com"
-            className="group inline-flex items-center gap-3 px-8 py-4 bg-accent text-black font-semibold text-lg rounded-xl hover:bg-accent-light transition-all duration-300 hover:shadow-[0_0_50px_rgba(245,197,24,0.3)] hover:-translate-y-0.5"
+            className="group inline-flex items-center gap-3 px-8 py-4 bg-accent/90 text-black font-semibold text-lg rounded-xl hover:bg-accent hover-glow transition-all duration-300 hover:-translate-y-0.5"
           >
             <Send className="w-5 h-5" />
             Start a Conversation
