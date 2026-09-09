@@ -44,23 +44,22 @@ export default function Navbar() {
 
   return (
     <>
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "nav-glass shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
-            : "bg-transparent"
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 h-18 flex items-center justify-between">
+      <div className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
+        <motion.nav
+          initial={{ y: -100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className={`pointer-events-auto transition-all duration-500 rounded-full px-4 md:px-6 py-3 flex items-center justify-between gap-4 md:gap-8 border ${
+            scrolled
+              ? "bg-black/70 backdrop-blur-xl border-white/10 shadow-2xl"
+              : "bg-black/20 backdrop-blur-md border-transparent hover:bg-black/40 hover:border-white/5"
+          }`}
+        >
           {/* Logo */}
-          <Link href="/" className="relative group">
-            <span className="text-2xl font-bold tracking-tight">
-              M<span className="text-accent">.</span> Taha
+          <Link href="/" className="relative group shrink-0">
+            <span className="text-xl font-bold tracking-tight">
+              T<span className="text-accent">.</span>
             </span>
-            <span className="absolute -bottom-1 left-0 h-px w-0 bg-accent group-hover:w-full transition-all duration-300" />
           </Link>
 
           {/* Desktop Links */}
@@ -119,8 +118,8 @@ export default function Navbar() {
               <Menu className="w-5 h-5" />
             )}
           </button>
-        </div>
-      </motion.nav>
+        </motion.nav>
+      </div>
 
       {/* Mobile Menu */}
       <AnimatePresence>

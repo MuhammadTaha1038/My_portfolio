@@ -63,32 +63,27 @@ export default function Differentiation() {
         </AnimatedSection>
 
         {/* Bento-style grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="bento-grid">
           {DIFFERENTIATORS.map((diff, i) => (
             <AnimatedSection
               key={diff.title}
               delay={i * 0.08}
-              className={i === 0 ? "sm:col-span-2 lg:col-span-1" : ""}
+              className={`col-span-12 ${i < 2 ? 'md:col-span-6' : 'md:col-span-4'}`}
             >
-              <div className="group h-full glass-card rounded-2xl p-6 md:p-8 relative overflow-hidden gradient-border">
-                {/* Top accent line */}
-                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                {/* Hover glow */}
-                <div className="absolute -bottom-16 -right-16 w-40 h-40 bg-accent/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-
-                <div className="relative">
+              <div className="bento-item h-full p-6 md:p-8 group flex flex-col justify-between">
+                
+                <div className="relative z-10">
                   {/* Icon + stat badge */}
                   <div className="flex items-start justify-between mb-6">
-                    <div className="p-3 rounded-xl bg-accent/10 text-accent group-hover:bg-accent/15 group-hover:shadow-[0_0_20px_rgba(245,197,24,0.15)] transition-all duration-300">
+                    <div className="p-3 rounded-xl bg-accent/10 text-accent group-hover:bg-accent group-hover:text-black transition-colors duration-300">
                       <diff.icon className="w-6 h-6" />
                     </div>
-                    <span className="text-[10px] font-mono text-accent/60 tracking-widest uppercase px-2.5 py-1 border border-accent/10 rounded-full bg-accent/5">
+                    <span className="text-[10px] font-mono text-white/50 tracking-widest uppercase px-3 py-1 border border-white/10 rounded-full bg-white/5">
                       {diff.stat}
                     </span>
                   </div>
 
-                  <h3 className="text-lg font-semibold mb-3 group-hover:text-accent transition-colors">
+                  <h3 className="text-xl font-bold mb-3 text-white group-hover:text-accent transition-colors">
                     {diff.title}
                   </h3>
 
