@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Mail, ChevronDown } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import ParticleField from "./ParticleField";
 
 export default function Hero() {
@@ -75,20 +76,20 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.45 }}
               className="flex flex-wrap items-center gap-4 mb-12"
             >
-              <a
-                href="#projects"
+              <Link
+                href="/projects"
                 className="group flex items-center gap-2.5 px-7 py-3.5 bg-accent/90 text-black font-semibold rounded-xl hover:bg-accent hover-glow transition-all duration-300"
               >
                 View Projects
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
-              <a
-                href="#contact"
+              </Link>
+              <Link
+                href="/contact"
                 className="group flex items-center gap-2.5 px-7 py-3.5 glass-panel rounded-xl text-white hover:text-accent interactive-element transition-all duration-300"
               >
                 <Mail className="w-4 h-4" />
                 Contact
-              </a>
+              </Link>
             </motion.div>
 
 
@@ -154,15 +155,14 @@ export default function Hero() {
       </div>
 
       {/* Scroll indicator */}
-      <motion.a
-        href="#profile"
+      <motion.div
         animate={{ y: [0, 8, 0] }}
         transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 text-text-muted hover:text-accent transition-colors cursor-pointer"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 text-text-muted cursor-default pointer-events-none"
       >
         <span className="text-xs font-mono uppercase tracking-widest">Scroll</span>
         <ChevronDown className="w-5 h-5" />
-      </motion.a>
+      </motion.div>
     </section>
   );
 }
