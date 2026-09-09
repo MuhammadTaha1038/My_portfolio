@@ -308,46 +308,6 @@ a, button {
   animation: shimmer 3s ease-in-out infinite;
 }
 
-/* === Bento Grid Utilities === */
-.bento-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 1.5rem;
-}
-
-.bento-item {
-  position: relative;
-  overflow: hidden;
-  border-radius: 1.5rem;
-  background: rgba(12, 12, 18, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease;
-}
-
-.bento-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(245, 197, 24, 0.1);
-  border-color: rgba(245, 197, 24, 0.2);
-}
-
-/* === Cinematic Layout Utilities === */
-.cinematic-text {
-  font-size: clamp(3rem, 8vw, 7rem);
-  line-height: 0.95;
-  letter-spacing: -0.04em;
-  font-weight: 800;
-}
-
-.perspective-container {
-  perspective: 1000px;
-}
-
-.transform-3d {
-  transform-style: preserve-3d;
-}
-
 /* === Counter animation === */
 @keyframes countUp {
   from { opacity: 0; transform: translateY(20px); }
