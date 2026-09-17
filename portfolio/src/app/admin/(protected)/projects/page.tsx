@@ -9,7 +9,16 @@ export default async function ProjectsAdminPage() {
     orderBy: [
       { order: "asc" },
       { createdAt: "desc" }
-    ]
+    ],
+    select: {
+      id: true,
+      title: true,
+      category: true,
+      image: true,
+      tier: true,
+      order: true,
+      slug: true,
+    }
   })
 
   return (

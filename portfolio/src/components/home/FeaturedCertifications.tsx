@@ -4,6 +4,13 @@ import Image from "next/image";
 import { ArrowRight, Award, ExternalLink } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 
+// Local DataCamp badges stored in public/certificate badges/data scientisst/
+const DATACAMP_BADGE_PATH = "/certificate badges/data scientisst/DS - Badge with outline.png";
+
+function isCertFromDataCamp(issuer: string): boolean {
+  return issuer.toLowerCase().includes("datacamp");
+}
+
 export default async function FeaturedCertifications() {
   const certs = await prisma.certificate.findMany({
     orderBy: [{ order: "asc" }, { createdAt: "desc" }],
@@ -36,51 +43,68 @@ export default async function FeaturedCertifications() {
           </Link>
         </AnimatedSection>
 
-        {/* Horizontal scroll row */}
         <AnimatedSection delay={0.1}>
           <div className="flex gap-5 overflow-x-auto scrollbar-hide pb-4 snap-x snap-mandatory">
-            {certs.map((cert) => (
-              <div
-                key={cert.id}
-                className="group shrink-0 w-[260px] sm:w-[300px] snap-start glass-card rounded-2xl overflow-hidden hover:border-accent/30 transition-all duration-300 gradient-border"
-              >
-                {/* Certificate image */}
-                <div className="relative h-40 bg-black/40 overflow-hidden">
-                  <Image
-                    src={cert.image}
-                    alt={cert.title}
-                    fill
-                    className="object-cover opacity-60 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500"
-                    sizes="300px"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
-                  <div className="absolute top-3 right-3 p-2 bg-accent/15 rounded-lg border border-accent/20">
-                    <Award className="w-4 h-4 text-accent" />
-                  </div>
-                </div>
+            {certs.map((cert) => {
+              const isDataCamp = isCertFromDataCamp(cert.issuer);
+              const displayImage = isDataCamp ? DATACAMP_BADGE_PATH : cert.image;
+              const isLocalBadge = isDataCamp;
 
-                {/* Info */}
-                <div className="p-5">
-                  <h3 className="text-sm font-semibold text-white leading-snug mb-1.5 line-clamp-2 group-hover:text-accent/90 transition-colors">
-                    {cert.title}
-                  </h3>
-                  <p className="text-xs font-mono text-accent mb-2">{cert.issuer}</p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-mono text-text-muted">{cert.dateEarned}</span>
-                    {cert.credentialUrl && (
-                      <a
-                        href={cert.credentialUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-text-muted hover:text-accent transition-colors"
-                      >
-                        <ExternalLink className="w-3.5 h-3.5" />
-                      </a>
+              return (
+                <div
+                  key={cert.id}
+                  className="group shrink-0 w-[260px] sm:w-[300px] snap-start glass-card rounded-2xl overflow-hidden hover:border-accent/30 transition-all duration-300 gradient-border"
+                >
+                  {/* Badge / thumbnail area */}
+                  <div className={`relative overflow-hidden ${isLocalBadge ? "bg-[#05c2de]/5 flex items-center justify-center p-6 h-40" : "h-40 bg-black/40"}`}>
+                    {isLocalBadge ? (
+                      <Image
+                        src={displayImage}
+                        alt={`${cert.issuer} badge`}
+                        width={120}
+                        height={120}
+                        className="object-contain drop-shadow-lg group-hover:scale-110 transition-transform duration-500"
+                      />
+                    ) : (
+                      <>
+                        <Image
+                          src={displayImage}
+                          alt={cert.title}
+                          fill
+                          className="object-cover opacity-60 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500"
+                          sizes="300px"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                      </>
                     )}
+                    <div className="absolute top-3 right-3 p-2 bg-accent/15 rounded-lg border border-accent/20">
+                      <Award className="w-4 h-4 text-accent" />
+                    </div>
+                  </div>
+
+                  {/* Info */}
+                  <div className="p-5">
+                    <h3 className="text-sm font-semibold text-white leading-snug mb-1.5 line-clamp-2 group-hover:text-accent/90 transition-colors">
+                      {cert.title}
+                    </h3>
+                    <p className="text-xs font-mono text-accent mb-2">{cert.issuer}</p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-mono text-text-muted">{cert.dateEarned}</span>
+                      {cert.credentialUrl && (
+                        <a
+                          href={cert.credentialUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-text-muted hover:text-accent transition-colors"
+                        >
+                          <ExternalLink className="w-3.5 h-3.5" />
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
 
             {/* View all CTA card */}
             <Link href="/certificates" className="group shrink-0 w-[180px] snap-start rounded-2xl border border-white/8 bg-white/[0.02] hover:border-accent/30 hover:bg-accent/5 transition-all flex flex-col items-center justify-center gap-3 p-6">

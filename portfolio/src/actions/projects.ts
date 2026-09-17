@@ -55,6 +55,53 @@ export async function createProject(formData: FormData) {
   revalidatePath("/admin/projects");
 }
 
+export async function updateProject(id: string, formData: FormData) {
+  const session = await auth();
+  if (!session?.user) throw new Error("Unauthorized");
+
+  const title = formData.get("title") as string;
+  const description = formData.get("description") as string;
+  const category = formData.get("category") as string;
+  const github = formData.get("github") as string | null;
+  const live = formData.get("live") as string | null;
+  const content = formData.get("content") as string | null;
+  const existingImage = formData.get("existingImage") as string;
+  const newImage = formData.get("image") as string | null;
+
+  const highlightsString = formData.get("highlights") as string;
+  const tagsString = formData.get("tags") as string;
+  const orderString = formData.get("order") as string;
+  const tierString = formData.get("tier") as string;
+
+  const order = orderString ? parseInt(orderString) : 0;
+  const tier = tierString ? parseInt(tierString) : 2;
+  const highlights = highlightsString.split(",").map(s => s.trim()).filter(Boolean);
+  const tags = tagsString.split(",").map(s => s.trim()).filter(Boolean);
+  const image = newImage || existingImage;
+
+  await prisma.project.update({
+    where: { id },
+    data: {
+      title,
+      description,
+      category,
+      image,
+      highlights,
+      tags,
+      github: github || null,
+      live: live || null,
+      content: content || null,
+      order,
+      tier,
+    }
+  });
+
+  revalidatePath("/");
+  revalidatePath("/projects");
+  revalidatePath("/admin/projects");
+}
+
+
 export async function deleteProject(id: string) {
   const session = await auth();
   if (!session?.user) throw new Error("Unauthorized");
