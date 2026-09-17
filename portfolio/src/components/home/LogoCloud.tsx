@@ -6,7 +6,7 @@ const COMPANIES = [
   {
     name: "DataCamp",
     desc: "Data Science Platform",
-    iconUrl: "https://cdn.simpleicons.org/datacamp/03ef62",
+    iconUrl: "https://www.google.com/s2/favicons?domain=datacamp.com&sz=128",
     color: "#03ef62",
   },
   {
@@ -18,25 +18,25 @@ const COMPANIES = [
   {
     name: "Hostinger",
     desc: "Web Hosting",
-    iconUrl: "https://cdn.simpleicons.org/hostinger/673DE6",
+    iconUrl: "https://www.google.com/s2/favicons?domain=hostinger.com&sz=128",
     color: "#673DE6",
   },
   {
     name: "SendGrid",
     desc: "Email Delivery",
-    iconUrl: "https://cdn.simpleicons.org/twilio/F22F46",
+    iconUrl: "https://www.google.com/s2/favicons?domain=sendgrid.com&sz=128",
     color: "#1A82E2",
   },
   {
     name: "Make.com",
     desc: "Workflow Automation",
-    iconUrl: "https://cdn.simpleicons.org/make/6D00CC",
+    iconUrl: "https://www.google.com/s2/favicons?domain=make.com&sz=128",
     color: "#6D00CC",
   },
   {
     name: "Klaviyo",
     desc: "Marketing Platform",
-    iconUrl: "https://cdn.simpleicons.org/klaviyo/000000",
+    iconUrl: "https://www.google.com/s2/favicons?domain=klaviyo.com&sz=128",
     color: "#2AA3BD",
   },
   {

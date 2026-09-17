@@ -5,7 +5,7 @@ import { ArrowRight, Award, ExternalLink } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 
 // Local DataCamp badges stored in public/certificate badges/data scientisst/
-const DATACAMP_BADGE_PATH = "/certificate badges/data scientisst/DS - Badge with outline.png";
+const DATACAMP_BADGE_PATH = "/certificate%20badges/data%20scientisst/DS%20-%20Badge%20with%20outline.png";
 
 function isCertFromDataCamp(issuer: string): boolean {
   return issuer.toLowerCase().includes("datacamp");
