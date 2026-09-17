@@ -1,3 +1,5 @@
+"use client";
+
 import AnimatedSection from "@/components/AnimatedSection";
 
 // Using devicons + simple icons for official brand logos
