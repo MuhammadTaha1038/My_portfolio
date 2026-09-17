@@ -30,7 +30,9 @@ export default function Home() {
       </Suspense>
 
       {/* 5. Current position + what I'm building */}
-      <CurrentPosition />
+      <Suspense fallback={null}>
+        <CurrentPosition />
+      </Suspense>
 
       {/* 6. Featured Certifications (pulls from DB) */}
       <Suspense fallback={null}>

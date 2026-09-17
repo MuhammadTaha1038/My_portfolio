@@ -6,10 +6,15 @@ import AnimatedSection from "@/components/AnimatedSection";
 
 export default async function FeaturedCaseStudy() {
   // Get the top case study (tier 1 with a slug)
-  const project = await prisma.project.findFirst({
-    where: { tier: 1, NOT: { slug: null } },
-    orderBy: [{ order: "asc" }, { createdAt: "desc" }],
-  });
+  let project = null;
+  try {
+    project = await prisma.project.findFirst({
+      where: { tier: 1, NOT: { slug: null } },
+      orderBy: [{ order: "asc" }, { createdAt: "desc" }],
+    });
+  } catch {
+    // DB temporarily unavailable
+  }
 
   if (!project) return null;
 

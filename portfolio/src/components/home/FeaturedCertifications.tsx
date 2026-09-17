@@ -12,10 +12,15 @@ function isCertFromDataCamp(issuer: string): boolean {
 }
 
 export default async function FeaturedCertifications() {
-  const certs = await prisma.certificate.findMany({
-    orderBy: [{ order: "asc" }, { createdAt: "desc" }],
-    take: 4,
-  });
+  let certs: Awaited<ReturnType<typeof prisma.certificate.findMany>> = [];
+  try {
+    certs = await prisma.certificate.findMany({
+      orderBy: [{ order: "asc" }, { createdAt: "desc" }],
+      take: 4,
+    });
+  } catch {
+    // DB temporarily unavailable
+  }
 
   if (certs.length === 0) return null;
 

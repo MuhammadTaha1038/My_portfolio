@@ -5,9 +5,14 @@ import AnimatedSection from "@/components/AnimatedSection";
 
 export default async function CurrentPosition() {
   // Pull the top-ordered experience as the "current position"
-  const topExp = await prisma.experience.findFirst({
-    orderBy: [{ order: "asc" }, { createdAt: "desc" }],
-  });
+  let topExp = null;
+  try {
+    topExp = await prisma.experience.findFirst({
+      orderBy: [{ order: "asc" }, { createdAt: "desc" }],
+    });
+  } catch {
+    // DB temporarily unavailable — use fallback content below
+  }
 
   // Fallback static if no experiences in DB yet
   const role = topExp?.role ?? "Applied Data Scientist & Backend Engineer";

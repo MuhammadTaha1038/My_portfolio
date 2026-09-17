@@ -5,11 +5,16 @@ import { ArrowRight, Github, ExternalLink, BookOpen } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 
 export default async function FeaturedProjects() {
-  const projects = await prisma.project.findMany({
-    where: { tier: 1 },
-    orderBy: [{ order: "asc" }, { createdAt: "desc" }],
-    take: 3,
-  });
+  let projects: Awaited<ReturnType<typeof prisma.project.findMany>> = [];
+  try {
+    projects = await prisma.project.findMany({
+      where: { tier: 1 },
+      orderBy: [{ order: "asc" }, { createdAt: "desc" }],
+      take: 3,
+    });
+  } catch {
+    // DB temporarily unavailable
+  }
 
   if (projects.length === 0) return null;
 
