@@ -68,7 +68,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-6" role="list">
+          <div className="max-[900px]:hidden min-[900px]:flex items-center gap-6" role="list">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
@@ -84,7 +84,7 @@ export default function Navbar() {
           </div>
 
           {/* CTA */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="max-[900px]:hidden min-[900px]:flex items-center gap-3">
             <a
               href="https://wa.me/923432744101?text=I%20have%20visited%20your%20portfolio%20website%20and%20want%20to%20chat%20with%20you"
               target="_blank"
@@ -99,7 +99,7 @@ export default function Navbar() {
           {/* Mobile hamburger — 44×44 touch target */}
           <button
             onClick={() => setMobileOpen(true)}
-            className="md:hidden flex items-center justify-center w-11 h-11 rounded-[var(--radius-sm)] border border-[var(--color-border)] hover:border-[var(--color-border-hover)] transition-colors"
+            className="max-[900px]:flex min-[900px]:hidden items-center justify-center w-11 h-11 rounded-[var(--radius-sm)] border border-[var(--color-border)] hover:border-[var(--color-border-hover)] transition-colors"
             aria-label="Open menu"
             aria-expanded={mobileOpen}
             aria-controls="mobile-menu"
@@ -117,8 +117,13 @@ export default function Navbar() {
           role="dialog"
           aria-modal="true"
           aria-label="Mobile navigation"
-          className="fixed inset-0 z-50 md:hidden flex flex-col"
-          style={{ background: "var(--color-bg)" }}
+          className="fixed inset-0 z-50 max-[900px]:flex min-[900px]:hidden flex-col"
+          style={{ 
+            background: "var(--color-bg)",
+            height: "100dvh",
+            paddingTop: "env(safe-area-inset-top)",
+            paddingBottom: "env(safe-area-inset-bottom)"
+          }}
         >
           {/* Header row */}
           <div
