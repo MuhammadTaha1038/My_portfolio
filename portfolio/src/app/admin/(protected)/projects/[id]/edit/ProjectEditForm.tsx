@@ -23,6 +23,8 @@ type Project = {
   github: string | null;
   live: string | null;
   content: string | null;
+  slug: string | null;
+  metrics: any;
   order: number;
   tier: number;
 };
@@ -147,6 +149,17 @@ export default function ProjectEditForm({ project }: { project: Project }) {
         <div>
           <label className="block text-sm font-medium text-gray-300 mb-2">Live URL (Optional)</label>
           <input name="live" type="url" defaultValue={project.live ?? ""} className={inputClass} />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">Custom Slug (Optional)</label>
+          <input name="slug" type="text" defaultValue={project.slug ?? ""} className={inputClass} placeholder="e.g. my-project" />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">Metrics JSON (Optional)</label>
+          <textarea name="metrics" rows={3} defaultValue={project.metrics ? JSON.stringify(project.metrics, null, 2) : ""} className={inputClass} placeholder={`[\n  {"label": "Users", "value": "10k"}\n]`} />
         </div>
       </div>
 

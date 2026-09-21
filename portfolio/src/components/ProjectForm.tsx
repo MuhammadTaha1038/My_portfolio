@@ -137,6 +137,17 @@ export default function ProjectForm() {
         </div>
       </div>
 
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">Custom Slug (Optional)</label>
+          <input name="slug" type="text" className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]" placeholder="e.g. market-pulse" />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">Metrics JSON (Optional)</label>
+          <textarea name="metrics" rows={3} className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]" placeholder={`[\n  {"label": "Users", "value": "10k"}\n]`} />
+        </div>
+      </div>
+
       <div>
         <label className="block text-sm font-medium text-gray-300 mb-2">Project Thumbnail</label>
         <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-white/10 border-dashed rounded-xl hover:border-[var(--color-accent)] transition-colors relative bg-[#0A0A0A]">

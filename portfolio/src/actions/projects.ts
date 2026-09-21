@@ -20,6 +20,8 @@ export async function createProject(formData: FormData) {
   
   const highlightsString = formData.get("highlights") as string;
   const tagsString = formData.get("tags") as string;
+  const slugInput = formData.get("slug") as string | null;
+  const metricsInput = formData.get("metrics") as string | null;
 
   const orderString = formData.get("order") as string;
   const tierString = formData.get("tier") as string;
@@ -29,9 +31,14 @@ export async function createProject(formData: FormData) {
 
   const highlights = highlightsString.split(",").map(s => s.trim()).filter(Boolean);
   const tags = tagsString.split(",").map(s => s.trim()).filter(Boolean);
+  
+  let metrics = null;
+  if (metricsInput) {
+    try { metrics = JSON.parse(metricsInput); } catch (e) {}
+  }
 
   // Generate a basic slug
-  const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+  const slug = slugInput || title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
 
   await prisma.project.create({
     data: {
@@ -45,6 +52,7 @@ export async function createProject(formData: FormData) {
       live,
       content,
       slug,
+      metrics,
       order,
       tier
     }
@@ -70,6 +78,9 @@ export async function updateProject(id: string, formData: FormData) {
 
   const highlightsString = formData.get("highlights") as string;
   const tagsString = formData.get("tags") as string;
+  const slugInput = formData.get("slug") as string | null;
+  const metricsInput = formData.get("metrics") as string | null;
+  
   const orderString = formData.get("order") as string;
   const tierString = formData.get("tier") as string;
 
@@ -78,6 +89,12 @@ export async function updateProject(id: string, formData: FormData) {
   const highlights = highlightsString.split(",").map(s => s.trim()).filter(Boolean);
   const tags = tagsString.split(",").map(s => s.trim()).filter(Boolean);
   const image = newImage || existingImage;
+
+  let metrics = null;
+  if (metricsInput) {
+    try { metrics = JSON.parse(metricsInput); } catch (e) {}
+  }
+  const slug = slugInput || title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
 
   await prisma.project.update({
     where: { id },
@@ -91,6 +108,8 @@ export async function updateProject(id: string, formData: FormData) {
       github: github || null,
       live: live || null,
       content: content || null,
+      slug,
+      metrics,
       order,
       tier,
     }

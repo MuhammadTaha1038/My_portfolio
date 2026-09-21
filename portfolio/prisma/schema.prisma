@@ -22,6 +22,7 @@ model Project {
   title       String
   description String
   content     String?  // Markdown content for the detailed case study
+  metrics     Json?    // Array of {value: string, label: string}
   highlights  String[]
   tags        String[]
   image       String
