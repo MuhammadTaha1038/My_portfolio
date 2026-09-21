@@ -1,179 +1,201 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const NAV_LINKS = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Projects", href: "/projects" },
-  { label: "Experience", href: "/experience" },
+  { label: "Home",         href: "/" },
+  { label: "About",        href: "/about" },
+  { label: "Projects",     href: "/projects" },
+  { label: "Experience",   href: "/experience" },
   { label: "Certificates", href: "/certificates" },
-  { label: "Contact", href: "/contact" },
+  { label: "Contact",      href: "/contact" },
 ];
 
-import ThemeCustomizer from "./ThemeCustomizer";
-
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled,    setScrolled]    = useState(false);
+  const [mobileOpen,  setMobileOpen]  = useState(false);
   const pathname = usePathname();
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
+  /* ── Scroll state ── */
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  /* ── Body scroll lock on mobile menu ── */
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
-  // Handle case study routes acting as active project tab
-  const getIsActive = (href: string) => {
-    if (href === "/" && pathname !== "/") return false;
-    if (href !== "/" && pathname?.startsWith(href)) return true;
-    return pathname === href;
+  /* ── Esc closes mobile menu ── */
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && mobileOpen) setMobileOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [mobileOpen]);
+
+  /* ── Active link logic ── */
+  const isActive = (href: string) => {
+    if (href === "/" ) return pathname === "/";
+    return pathname?.startsWith(href) ?? false;
   };
 
   return (
     <>
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "nav-glass shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
-            : "bg-transparent"
+      {/* ── Desktop / always-visible bar ── */}
+      <nav
+        aria-label="Main navigation"
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
+          scrolled ? "nav-scrolled" : "nav-base"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 h-18 flex items-center justify-between">
+        <div
+          className="mx-auto flex items-center justify-between h-16"
+          style={{
+            maxWidth: "var(--container-max)",
+            paddingLeft: "var(--container-px-mobile)",
+            paddingRight: "var(--container-px-mobile)",
+          }}
+        >
           {/* Logo */}
-          <Link href="/" className="relative group">
-            <span className="text-2xl font-bold tracking-tight">
-              M<span className="text-accent">.</span> Taha
-            </span>
-            <span className="absolute -bottom-1 left-0 h-px w-0 bg-accent group-hover:w-full transition-all duration-300" />
+          <Link
+            href="/"
+            className="text-xl font-bold tracking-tight text-[var(--color-text)] hover:text-[var(--color-text)] transition-colors"
+            aria-label="Muhammad Taha — home"
+          >
+            M.{" "}
+            <span style={{ color: "var(--color-accent)" }}>Taha</span>
           </Link>
 
-          {/* Desktop Links */}
-          <div className="hidden md:flex items-center gap-1">
-            {NAV_LINKS.map((link) => {
-              const isActive = getIsActive(link.href);
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`relative px-4 py-2 text-sm rounded-lg transition-all duration-300 ${
-                    isActive
-                      ? "text-accent"
-                      : "text-text-secondary hover:text-white"
-                  }`}
-                >
-                  {link.label}
-                  {isActive && (
-                    <motion.span
-                      layoutId="activeNav"
-                      className="absolute inset-0 rounded-lg bg-accent/10 border border-accent/20"
-                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    />
-                  )}
-                </Link>
-              );
-            })}
+          {/* Desktop links */}
+          <div className="hidden md:flex items-center gap-6" role="list">
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                role="listitem"
+                className={`nav-link text-sm font-medium ${
+                  isActive(link.href) ? "nav-link-active" : ""
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
 
-          {/* CTA & Theme (desktop) */}
+          {/* CTA */}
           <div className="hidden md:flex items-center gap-3">
-            <ThemeCustomizer />
             <a
               href="https://wa.me/923432744101?text=I%20have%20visited%20your%20portfolio%20website%20and%20want%20to%20chat%20with%20you"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-5 py-2 bg-accent/10 border border-accent/30 text-accent text-sm font-medium rounded-full hover:bg-accent/20 transition-all duration-300"
+              className="btn btn-ghost"
+              style={{ height: "36px", fontSize: "13px" }}
             >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
-              </span>
               Let&apos;s Connect
             </a>
           </div>
 
-          {/* Mobile Toggle */}
+          {/* Mobile hamburger — 44×44 touch target */}
           <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden relative w-10 h-10 flex items-center justify-center rounded-lg border border-border hover:border-accent/30 transition-colors"
-            aria-label="Toggle menu"
+            onClick={() => setMobileOpen(true)}
+            className="md:hidden flex items-center justify-center w-11 h-11 rounded-[var(--radius-sm)] border border-[var(--color-border)] hover:border-[var(--color-border-hover)] transition-colors"
+            aria-label="Open menu"
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
           >
-            {mobileOpen ? (
-              <X className="w-5 h-5" />
-            ) : (
-              <Menu className="w-5 h-5" />
-            )}
+            <Menu className="w-5 h-5" strokeWidth={1.5} />
           </button>
         </div>
-      </motion.nav>
+      </nav>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
-            animate={{ opacity: 1, backdropFilter: "blur(30px)" }}
-            exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-black/90 md:hidden flex flex-col"
+      {/* ── Mobile menu sheet ── */}
+      {mobileOpen && (
+        <div
+          id="mobile-menu"
+          ref={mobileMenuRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile navigation"
+          className="fixed inset-0 z-50 md:hidden flex flex-col"
+          style={{ background: "var(--color-bg)" }}
+        >
+          {/* Header row */}
+          <div
+            className="flex items-center justify-between h-16 border-b"
+            style={{
+              borderColor: "var(--color-border)",
+              paddingLeft: "var(--container-px-mobile)",
+              paddingRight: "var(--container-px-mobile)",
+            }}
           >
-            <div className="flex-1 flex flex-col items-center justify-center p-8">
-              <nav className="flex flex-col items-center gap-3 w-full max-w-xs">
-                {NAV_LINKS.map((link, i) => {
-                  const isActive = getIsActive(link.href);
-                  return (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setMobileOpen(false)}
-                      className={`w-full text-center py-4 text-lg font-medium rounded-xl transition-all block ${
-                        isActive
-                          ? "text-accent bg-accent/10 border border-accent/20"
-                          : "text-white hover:text-accent hover:bg-white/5"
-                      }`}
-                    >
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: i * 0.06 + 0.1 }}
-                      >
-                        {link.label}
-                      </motion.div>
-                    </Link>
-                  );
-                })}
-              </nav>
+            <span
+              className="text-xl font-bold tracking-tight"
+              style={{ color: "var(--color-text)" }}
+            >
+              M. <span style={{ color: "var(--color-accent)" }}>Taha</span>
+            </span>
+            <button
+              onClick={() => setMobileOpen(false)}
+              className="flex items-center justify-center w-11 h-11 rounded-[var(--radius-sm)] border border-[var(--color-border)] hover:border-[var(--color-border-hover)] transition-colors"
+              aria-label="Close menu"
+            >
+              <X className="w-5 h-5" strokeWidth={1.5} />
+            </button>
+          </div>
 
-              <motion.a
+          {/* Links */}
+          <nav
+            className="flex flex-col gap-1 flex-1 overflow-y-auto py-6"
+            style={{
+              paddingLeft: "var(--container-px-mobile)",
+              paddingRight: "var(--container-px-mobile)",
+            }}
+          >
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center h-11 px-3 rounded-[var(--radius-sm)] text-base font-medium transition-colors"
+                style={{
+                  color: isActive(link.href)
+                    ? "var(--color-text)"
+                    : "var(--color-text-secondary)",
+                  background: isActive(link.href)
+                    ? "var(--color-surface)"
+                    : "transparent",
+                  borderLeft: isActive(link.href)
+                    ? `2px solid var(--color-accent)`
+                    : "2px solid transparent",
+                }}
+              >
+                {link.label}
+              </Link>
+            ))}
+
+            <div className="mt-6 pt-6" style={{ borderTop: `1px solid var(--color-border)` }}>
+              <a
                 href="https://wa.me/923432744101?text=I%20have%20visited%20your%20portfolio%20website%20and%20want%20to%20chat%20with%20you"
                 target="_blank"
                 rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="mt-8 px-8 py-3.5 bg-accent text-black font-semibold rounded-xl text-lg"
+                className="btn btn-primary w-full justify-center"
+                onClick={() => setMobileOpen(false)}
               >
                 Let&apos;s Connect
-              </motion.a>
+              </a>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </nav>
+        </div>
+      )}
     </>
   );
 }

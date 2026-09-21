@@ -53,7 +53,7 @@ export default function Profile() {
         <div className="grid lg:grid-cols-5 gap-8 items-start">
           
           {/* Photo + Bio (Wider Column) */}
-          <AnimatedSection direction="left" className="lg:col-span-2">
+          <AnimatedSection className="lg:col-span-2">
             <div className="glass-card rounded-2xl p-6 md:p-8 relative overflow-hidden">
               {/* Top accent line */}
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />

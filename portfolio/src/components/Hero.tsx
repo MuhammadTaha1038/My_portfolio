@@ -1,168 +1,174 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Mail, ChevronDown } from "lucide-react";
+import { ArrowRight, Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import ParticleField from "./ParticleField";
+
+/* Shared fade-up variant for staggered children */
+const fadeUp = {
+  hidden: { opacity: 0, y: 10 },
+  show:   { opacity: 1, y: 0  },
+};
+
+const STATS = [
+  { value: "13+", label: "Projects Built"      },
+  { value: "3",   label: "Engineering Domains" },
+  { value: "2+",  label: "Years Exp"           },
+];
 
 export default function Hero() {
   return (
     <section
       id="home"
+      aria-label="Introduction"
+      style={{ background: "var(--color-bg)" }}
       className="relative min-h-screen flex items-center overflow-hidden"
     >
-      {/* === Background Layers === */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-[#050508] to-black" />
-      <div className="absolute inset-0 grid-bg" />
-      <ParticleField />
-      <div className="noise-overlay" />
+      {/* Subtle corner radial — 5% alpha max, no yellow */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "radial-gradient(ellipse 60% 50% at 70% 40%, rgba(255,255,255,0.03) 0%, transparent 70%)",
+          pointerEvents: "none",
+        }}
+      />
 
-      {/* Gradient orbs */}
-      <div className="ambient-glow w-[400px] h-[400px] top-20 -left-40" />
-      <div className="ambient-glow w-[350px] h-[350px] bottom-20 -right-40" />
-      <div className="ambient-glow w-[500px] h-[500px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10" />
+      {/* ── Main content ── */}
+      <div
+        className="relative z-10 w-full section-padding"
+        style={{
+          paddingTop: "calc(clamp(64px,10vw,128px) + 64px)", /* account for fixed nav */
+        }}
+      >
+        <div
+          className="container-content grid lg:grid-cols-2 gap-16 lg:gap-12 items-center"
+        >
+          {/* ── Left: text ── */}
+          <motion.div
+            initial="hidden"
+            animate="show"
+            transition={{ staggerChildren: 0.1 }}
+            className="order-2 lg:order-1"
+          >
+            {/* Role — mono, no dash, no typewriter */}
+            <motion.p
+              variants={fadeUp}
+              className="text-eyebrow mb-6"
+              style={{ color: "var(--color-text-muted)" }}
+            >
+              Applied Data Scientist &amp; Backend Engineer
+            </motion.p>
 
-      {/* Edge fades */}
-      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black to-transparent pointer-events-none z-10" />
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black to-transparent pointer-events-none z-10" />
-
-      {/* === Main Content === */}
-      <div className="relative z-20 w-full max-w-7xl mx-auto px-6 lg:px-12 pt-24 pb-16">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-
-          {/* Left: Text Content */}
-          <div className="order-2 lg:order-1">
-            {/* Name */}
+            {/* H1 — "Muhammad" neutral, "Taha" accent */}
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-4 leading-[1.1]"
+              variants={fadeUp}
+              className="text-h1 mb-6"
+              style={{ color: "var(--color-text)" }}
             >
               Muhammad
               <br />
-              <span className="gradient-text text-shadow-glow">Taha</span>
-              <span className="sr-only"> — Applied Data Scientist & Backend Engineer</span>
+              <span style={{ color: "var(--color-accent)" }}>Taha</span>
+              <span className="sr-only"> — Applied Data Scientist &amp; Backend Engineer</span>
             </motion.h1>
 
-            {/* Title */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.25 }}
-              className="flex items-center gap-3 mb-6"
-            >
-              <div className="h-px w-8 bg-accent/60" />
-              <h2 className="text-accent font-mono text-sm md:text-base tracking-wide typing-cursor m-0 drop-shadow-md">
-                Applied Data Scientist & Backend Engineer
-              </h2>
-            </motion.div>
-
-            {/* Subtitle */}
+            {/* Body */}
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.35 }}
-              className="text-text-secondary text-base md:text-lg max-w-lg mb-10 leading-relaxed"
+              variants={fadeUp}
+              className="text-body mb-10"
+              style={{ maxWidth: "52ch" }}
             >
-              I build data-driven backend systems — from ML models and APIs to production-ready applications.
+              I build data-driven backend systems — from ML models and APIs to
+              production-ready applications.
             </motion.p>
 
-            {/* CTA Buttons */}
+            {/* CTAs */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.45 }}
-              className="flex flex-wrap items-center gap-4 mb-12"
+              variants={fadeUp}
+              className="flex flex-wrap items-center gap-4 mb-16"
             >
-              <Link
-                href="/projects"
-                className="group flex items-center gap-2.5 px-7 py-3.5 bg-accent/90 text-black font-semibold rounded-xl hover:bg-accent hover-glow transition-all duration-300"
-              >
+              <Link href="/projects" className="btn btn-primary">
                 View Projects
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4" strokeWidth={2} />
               </Link>
-              <Link
-                href="/contact"
-                className="group flex items-center gap-2.5 px-7 py-3.5 glass-panel rounded-xl text-white hover:text-accent interactive-element transition-all duration-300"
-              >
-                <Mail className="w-4 h-4" />
+              <Link href="/contact" className="btn btn-ghost">
+                <Mail className="w-4 h-4" strokeWidth={1.5} />
                 Contact
               </Link>
             </motion.div>
 
-
-          </div>
-
-          {/* Right: Photo + Stats */}
-          <div className="order-1 lg:order-2 flex flex-col items-center">
-            {/* Profile Photo */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative mb-10"
-            >
-              {/* Outer glow rings — subtle */}
-              <div className="absolute -inset-4 rounded-full bg-gradient-to-br from-accent/10 via-transparent to-accent/5 blur-xl animate-pulse-glow" />
-              <div className="absolute -inset-2 rounded-full bg-gradient-to-br from-accent/15 via-accent/3 to-accent/10 p-px">
-                <div className="w-full h-full rounded-full bg-black" />
-              </div>
-
-              {/* Photo container */}
-              <div className="relative w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden border border-accent/20" style={{ boxShadow: '0 0 20px rgba(245,197,24,0.08), 0 0 40px rgba(245,197,24,0.04)' }}>
-                <Image
-                  src="/hero.png"
-                  alt="Muhammad Taha — Backend & Decision Systems Engineer"
-                  fill
-                  className="object-cover object-top"
-                  priority
-                  sizes="(max-width: 640px) 224px, (max-width: 768px) 256px, (max-width: 1024px) 288px, 320px"
-                />
-              </div>
-
-              {/* No floating badges — clean professional look */}
-            </motion.div>
-
-            {/* Stats Grid */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.6 }}
-              className="grid grid-cols-3 gap-6 w-full max-w-sm"
-            >
-              {[
-                { value: "13+", label: "Projects Built" },
-                { value: "3", label: "Engineering Domains" },
-                { value: "2+", label: "Years Exp" },
-              ].map((stat) => (
-                <div
-                  key={stat.label}
-                  className="text-center glass-card rounded-xl py-4 px-3"
-                >
-                  <div className="text-2xl md:text-3xl font-bold gradient-text font-mono">
-                    {stat.value}
+            {/* Stats — horizontal strip, no card backgrounds */}
+            <motion.div variants={fadeUp}>
+              <div
+                className="flex items-stretch divide-x"
+                style={{ borderColor: "var(--color-border)" }}
+                role="list"
+                aria-label="Quick stats"
+              >
+                {STATS.map((stat) => (
+                  <div
+                    key={stat.label}
+                    role="listitem"
+                    className="flex flex-col gap-1 pr-8 pl-8 first:pl-0 last:pr-0"
+                    style={{ borderColor: "var(--color-border)" }}
+                  >
+                    <span
+                      className="text-3xl font-bold tracking-tight leading-none"
+                      style={{ color: "var(--color-text)" }}
+                    >
+                      {stat.value}
+                    </span>
+                    <span
+                      className="text-eyebrow"
+                      style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+                    >
+                      {stat.label}
+                    </span>
                   </div>
-                  <div className="text-[10px] leading-tight text-text-muted mt-1 uppercase tracking-wide break-words">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </motion.div>
-          </div>
+          </motion.div>
+
+          {/* ── Right: portrait ── */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1   }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="order-1 lg:order-2 flex justify-center lg:justify-end"
+          >
+            {/*
+              NOTE: The yellow fill in the hero image appears to be BAKED INTO
+              the image pixels (hero.png has a solid yellow background behind
+              the portrait). CSS cannot remove it without clipping/hack.
+              A surface-2 frame with a neutral border is applied here.
+              Please provide a transparent-background PNG cutout and this will
+              render with the correct neutral backdrop automatically.
+            */}
+            <div
+              className="relative rounded-full overflow-hidden"
+              style={{
+                width: "clamp(220px, 35vw, 340px)",
+                height: "clamp(220px, 35vw, 340px)",
+                background: "var(--color-surface-2)",
+                border: "1px solid var(--color-border)",
+              }}
+            >
+              <Image
+                src="/hero.png"
+                alt="Muhammad Taha, Applied Data Scientist and Backend Engineer"
+                fill
+                className="object-cover object-top"
+                priority
+                sizes="(max-width: 640px) 220px, (max-width: 1024px) 280px, 340px"
+              />
+            </div>
+          </motion.div>
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 text-text-muted cursor-default pointer-events-none"
-      >
-        <span className="text-xs font-mono uppercase tracking-widest">Scroll</span>
-        <ChevronDown className="w-5 h-5" />
-      </motion.div>
     </section>
   );
 }

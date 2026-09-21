@@ -7,34 +7,23 @@ interface AnimatedSectionProps {
   children: React.ReactNode;
   className?: string;
   delay?: number;
-  direction?: "up" | "left" | "right" | "fade";
 }
 
 export default function AnimatedSection({
   children,
   className = "",
   delay = 0,
-  direction = "up",
 }: AnimatedSectionProps) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-60px" });
-
-  const variants = {
-    up: { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } },
-    left: { hidden: { opacity: 0, x: -30 }, visible: { opacity: 1, x: 0 } },
-    right: { hidden: { opacity: 0, x: 30 }, visible: { opacity: 1, x: 0 } },
-    fade: { hidden: { opacity: 0 }, visible: { opacity: 1 } },
-  };
+  const isInView = useInView(ref, { once: true, margin: "-40px" });
 
   return (
     <motion.div
       ref={ref}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      variants={variants[direction]}
-      transition={{ duration: 0.5, delay, ease: [0.25, 0.4, 0.25, 1] }}
+      initial={{ opacity: 0, y: 10 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+      transition={{ duration: 0.3, delay, ease: "easeOut" }}
       className={className}
-      style={{ willChange: isInView ? "auto" : "opacity, transform" }}
     >
       {children}
     </motion.div>
