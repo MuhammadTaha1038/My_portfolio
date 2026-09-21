@@ -3,78 +3,93 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
 import SectionHeading from "../SectionHeading";
+import { TechIcons } from "./TechLogos";
 import AnimatedSection from "@/components/AnimatedSection";
 
 const STACK = [
   {
     label: "BACKEND",
+    spanClass: "md:col-span-2 lg:col-span-7",
+    colsClass: "sm:grid-cols-5",
     items: [
-      { name: "Python", logo: "python", color: "#3776AB" },
-      { name: "FastAPI", logo: "fastapi", color: "#009688" },
-      { name: "Node.js", logo: "nodejs", color: "#339933" },
-      { name: "TypeScript", logo: "typescript", color: "#3178C6" },
-      { name: "Prisma", logo: "prisma", color: "var(--color-text)" },
+      { name: "Python", logoKey: "Python", color: "#3776AB" },
+      { name: "FastAPI", logoKey: "FastAPI", color: "#009688" },
+      { name: "Node.js", logoKey: "Node_js", color: "#339933" },
+      { name: "TypeScript", logoKey: "TypeScript", color: "#3178C6" },
+      { name: "Prisma", logoKey: "Prisma", color: "var(--color-text)" },
     ],
   },
   {
     label: "DATA & ML",
+    spanClass: "md:col-span-1 lg:col-span-5",
+    colsClass: "sm:grid-cols-3",
     items: [
-      { name: "scikit-learn", logo: "scikitlearn", color: "#F7931E" },
-      { name: "Pandas", logo: "pandas", color: "var(--color-text)" },
-      { name: "TensorFlow", logo: "tensorflow", color: "#FF6F00" },
+      { name: "scikit-learn", logoKey: "Scikit_learn", color: "#F7931E" },
+      { name: "Pandas", logoKey: "Pandas", color: "var(--color-text)" },
+      { name: "TensorFlow", logoKey: "TensorFlow", color: "#FF6F00" },
     ],
   },
   {
     label: "DATABASES",
+    spanClass: "md:col-span-1 lg:col-span-4",
+    colsClass: "sm:grid-cols-3",
     items: [
-      { name: "PostgreSQL", logo: "postgresql", color: "#336791" },
-      { name: "MongoDB", logo: "mongodb", color: "#47A248" },
-      { name: "Redis", logo: "redis", color: "#DC382D" },
+      { name: "PostgreSQL", logoKey: "PostgreSQL", color: "#336791" },
+      { name: "MongoDB", logoKey: "MongoDB", color: "#47A248" },
+      { name: "Redis", logoKey: "Redis", color: "#DC382D" },
     ],
   },
   {
     label: "INFRA",
+    spanClass: "md:col-span-1 lg:col-span-4",
+    colsClass: "sm:grid-cols-3",
     items: [
-      { name: "Docker", logo: "docker", color: "#2496ED" },
-      { name: "AWS", logo: "aws", color: "#FF9900" },
-      { name: "Linux", logo: "linux", color: "#FCC624" },
+      { name: "Docker", logoKey: "Docker", color: "#2496ED" },
+      { name: "AWS", logoKey: "AWS", color: "#FF9900" },
+      { name: "Linux", logoKey: "Linux", color: "#FCC624" },
     ],
   },
   {
     label: "FRONTEND",
+    spanClass: "md:col-span-1 lg:col-span-4",
+    colsClass: "sm:grid-cols-2",
     items: [
-      { name: "Next.js", logo: "nextjs", color: "var(--color-text)" },
-      { name: "React", logo: "react", color: "#61DAFB" },
+      { name: "Next.js", logoKey: "Next_js", color: "var(--color-text)" },
+      { name: "React", logoKey: "React_logo", color: "#61DAFB" },
     ],
   },
 ];
 
-function ToolItem({ name, logo, color }: { name: string; logo: string; color: string }) {
+function ToolItem({ name, logoKey, color }: { name: string; logoKey: string; color: string }) {
   const [hover, setHover] = useState(false);
-  
+  const Icon = TechIcons[logoKey];
+
   return (
     <div
-      className="flex items-center gap-2.5 cursor-default shrink-0"
+      className="group flex flex-col items-center justify-center gap-2 cursor-default transition-all duration-150 hover:-translate-y-[2px]"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
+      style={{
+        background: "var(--color-surface-2)",
+        border: "1px solid",
+        borderColor: hover ? "var(--color-border-hover)" : "var(--color-border)",
+        borderRadius: "8px",
+        height: "88px",
+        boxShadow: hover ? "var(--shadow-elevation)" : "none",
+      }}
     >
       <div
-        className="w-6 h-6 transition-colors duration-150"
+        className="w-7 h-7 transition-colors duration-150 flex items-center justify-center"
         style={{
-          WebkitMaskImage: `url(/logos/${logo}.svg)`,
-          maskImage: `url(/logos/${logo}.svg)`,
-          WebkitMaskSize: "contain",
-          maskSize: "contain",
-          WebkitMaskRepeat: "no-repeat",
-          maskRepeat: "no-repeat",
-          WebkitMaskPosition: "center",
-          maskPosition: "center",
-          backgroundColor: hover ? color : "var(--color-text-secondary)",
+          color: hover ? color : "var(--color-text-secondary)",
+          opacity: hover ? 1 : 0.75,
         }}
         aria-hidden
-      />
+      >
+        {Icon ? <Icon /> : null}
+      </div>
       <span
-        className="text-[15px] transition-colors duration-150"
+        className="text-[13px] transition-colors duration-150"
         style={{ color: hover ? "var(--color-text)" : "var(--color-text-secondary)" }}
       >
         {name}
@@ -95,7 +110,7 @@ export default function TechStack() {
     },
   };
 
-  const rowVariants = {
+  const cardVariants = {
     hidden: { opacity: 0, y: 8 },
     show: {
       opacity: 1,
@@ -118,7 +133,11 @@ export default function TechStack() {
   };
 
   return (
-    <section className="relative section-padding overflow-hidden">
+    <section 
+      id="stack"
+      className="relative section-padding overflow-hidden"
+      style={{ scrollMarginTop: "80px" }}
+    >
       <div className="absolute top-0 left-0 right-0 h-px section-divider" />
       
       <div className="relative container-content">
@@ -130,28 +149,25 @@ export default function TechStack() {
         </AnimatedSection>
 
         <motion.div
-          className="overflow-hidden"
-          style={{
-            background: "var(--color-surface)",
-            border: "1px solid var(--color-border)",
-            borderRadius: "12px",
-          }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4"
           variants={containerVariants}
           initial={shouldReduceMotion ? "show" : "hidden"}
           whileInView="show"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {STACK.map((row, i) => (
+          {STACK.map((row) => (
             <motion.div
               key={row.label}
-              variants={rowVariants}
-              className="flex flex-col md:flex-row px-6 py-5"
+              variants={cardVariants}
+              className={`flex flex-col p-6 h-full ${row.spanClass}`}
               style={{
-                borderBottom: i === STACK.length - 1 ? "none" : "1px solid var(--color-border)",
+                background: "var(--color-surface)",
+                border: "1px solid var(--color-border)",
+                borderRadius: "12px",
               }}
             >
-              {/* Left Column (Label) */}
-              <div className="md:w-[120px] lg:w-[160px] shrink-0 mb-4 md:mb-0 flex items-center">
+              {/* Card Header */}
+              <div className="mb-4 shrink-0">
                 <span
                   className="font-mono text-[12px] uppercase"
                   style={{ color: "var(--color-text-secondary)" }}
@@ -160,8 +176,8 @@ export default function TechStack() {
                 </span>
               </div>
 
-              {/* Right Column (Items) */}
-              <div className="grid grid-cols-2 md:flex md:flex-wrap gap-x-8 gap-y-5 w-full items-center">
+              {/* Tiles Grid */}
+              <div className={`grid grid-cols-3 ${row.colsClass} gap-3 w-full mt-auto`}>
                 {row.items.map((item) => (
                   <motion.div key={item.name} variants={itemVariants}>
                     <ToolItem {...item} />
