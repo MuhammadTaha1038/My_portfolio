@@ -51,11 +51,11 @@ export default function Hero() {
             transition={{ staggerChildren: 0.1 }}
             className="order-1"
           >
-            {/* Role — mono, no dash, no typewriter */}
+            {/* Role - mono, no dash, no typewriter */}
             <motion.p
               variants={fadeUp}
               className="text-eyebrow mb-6"
-              style={{ color: "var(--color-text-muted)" }}
+              style={{ fontSize: "13px", color: "var(--color-text-secondary)" }}
             >
               Applied Data Scientist &amp; Backend Engineer
             </motion.p>
