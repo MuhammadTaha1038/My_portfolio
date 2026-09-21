@@ -51,21 +51,17 @@ export default function Footer() {
         borderTop: "1px solid var(--color-border)",
       }}
     >
-      <div
-        className="container-content py-12 md:py-16"
-      >
+      <div className="container-content py-12 md:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 md:gap-8">
 
           {/* Brand */}
           <div>
-            <Link
-              href="/"
-              className="inline-block text-xl font-bold tracking-tight mb-4"
-              style={{ color: "var(--color-text)" }}
-            >
+            <Link href="/" className="inline-block text-xl font-bold tracking-tight mb-4"
+              style={{ color: "var(--color-text)" }}>
               M. <span style={{ color: "var(--color-accent)" }}>Taha</span>
             </Link>
-            <p className="text-sm leading-relaxed mb-6" style={{ color: "var(--color-text-muted)", maxWidth: "28ch" }}>
+            <p className="text-sm leading-relaxed mb-6"
+              style={{ color: "var(--color-text-muted)", maxWidth: "28ch" }}>
               Software Engineer &amp; Applied Data Scientist specializing in ML
               pipelines and scalable backend architectures.
             </p>
@@ -82,13 +78,7 @@ export default function Footer() {
             <ul className="flex flex-col gap-3">
               {QUICK_LINKS.map((l) => (
                 <li key={l.href}>
-                  <Link
-                    href={l.href}
-                    className="text-sm transition-colors hover:text-[var(--color-text)]"
-                    style={{ color: "var(--color-text-muted)" }}
-                  >
-                    {l.label}
-                  </Link>
+                  <Link href={l.href} className="footer-link">{l.label}</Link>
                 </li>
               ))}
             </ul>
@@ -105,19 +95,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.label}
-                  className="flex items-center justify-center w-9 h-9 rounded-[var(--radius-sm)] border transition-colors"
-                  style={{
-                    borderColor: "var(--color-border)",
-                    color: "var(--color-text-muted)",
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.borderColor = "var(--color-border-hover)";
-                    (e.currentTarget as HTMLElement).style.color = "var(--color-text)";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.borderColor = "var(--color-border)";
-                    (e.currentTarget as HTMLElement).style.color = "var(--color-text-muted)";
-                  }}
+                  className="social-icon-btn"
                 >
                   {s.icon}
                 </a>
@@ -127,21 +105,15 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div
-          className="mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4"
-          style={{ borderTop: "1px solid var(--color-border)" }}
-        >
+        <div className="mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4"
+          style={{ borderTop: "1px solid var(--color-border)" }}>
           <p className="text-xs" style={{ color: "var(--color-text-muted)" }}>
             &copy; {year} Muhammad Taha. All rights reserved.
           </p>
           <p className="text-xs" style={{ color: "var(--color-text-muted)" }}>
             Software Engineer &middot;{" "}
-            <a
-              href="https://ummahtechinnovations.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition-colors hover:text-[var(--color-text)]"
-            >
+            <a href="https://ummahtechinnovations.com/" target="_blank" rel="noopener noreferrer"
+              className="footer-link" style={{ fontSize: "inherit" }}>
               UmmahTech Innovations
             </a>
           </p>

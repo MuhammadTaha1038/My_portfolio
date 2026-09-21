@@ -276,6 +276,59 @@ a, button {
   color: var(--color-text);
 }
 
+/* ── Pure-CSS hover helpers (safe for Server Components) ── */
+.hover-border:hover { border-color: var(--color-border-hover) !important; }
+.hover-lift:hover   { transform: translateY(-2px); box-shadow: var(--shadow-elevation); }
+.hover-text:hover   { color: var(--color-text) !important; }
+.hover-surface:hover { background: var(--color-surface) !important; border-color: var(--color-border-hover) !important; }
+
+/* project/section card — used in server components */
+.proj-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: border-color 150ms ease-out;
+}
+.proj-card:hover { border-color: var(--color-border-hover); }
+
+/* view-all link */
+.view-all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--color-text-muted);
+  transition: color 150ms ease-out;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.view-all-link:hover { color: var(--color-text); }
+
+/* social icon button */
+.social-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  transition: border-color 150ms ease-out, color 150ms ease-out;
+}
+.social-icon-btn:hover { border-color: var(--color-border-hover); color: var(--color-text); }
+
+/* footer nav link */
+.footer-link {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  transition: color 150ms ease-out;
+  text-decoration: none;
+}
+.footer-link:hover { color: var(--color-text); }
+
 /* ============================================================
    CHIP / TAG
    ============================================================ */
