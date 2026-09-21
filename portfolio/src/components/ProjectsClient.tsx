@@ -65,15 +65,10 @@ export default function ProjectsClient({ initialProjects }: { initialProjects: P
   return (
     <section
       id="projects"
-      className="relative pt-12 pb-16 md:pt-16 md:pb-24 section-elevated overflow-hidden"
+      className="section-padding"
+      style={{ background: "var(--color-bg)" }}
     >
-      <div className="absolute inset-0 dot-bg pointer-events-none opacity-50" />
-      <div className="noise-overlay" />
-      <div className="absolute top-40 -left-40 w-[350px] h-[350px] bg-accent/3 rounded-full blur-[100px] pointer-events-none" />
-
-      <div className="section-divider" />
-
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-12 pt-8">
+      <div className="container-content">
         <AnimatedSection>
           <SectionHeading
             label="Projects"
@@ -90,18 +85,30 @@ export default function ProjectsClient({ initialProjects }: { initialProjects: P
                 <button
                   key={cat}
                   onClick={() => handleCategoryChange(cat)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all border ${
-                    active === cat
-                      ? "bg-accent text-black border-accent"
-                      : "bg-black/30 text-text-muted border-border hover:border-accent/40 hover:text-text-primary"
-                  }`}
+                  className="px-4 py-2 rounded-[var(--radius-sm)] text-sm font-medium transition-colors border"
+                  style={{
+                    backgroundColor: active === cat ? "var(--color-surface-2)" : "transparent",
+                    color: active === cat ? "var(--color-text)" : "var(--color-text-muted)",
+                    borderColor: active === cat ? "var(--color-border-hover)" : "var(--color-border)",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (active !== cat) {
+                      e.currentTarget.style.borderColor = "var(--color-border-hover)";
+                      e.currentTarget.style.color = "var(--color-text)";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (active !== cat) {
+                      e.currentTarget.style.borderColor = "var(--color-border)";
+                      e.currentTarget.style.color = "var(--color-text-muted)";
+                    }
+                  }}
                 >
                   {cat}
                   {cat !== "All" && (
                     <span
-                      className={`ml-1.5 text-xs ${
-                        active === cat ? "text-black/60" : "text-text-muted"
-                      }`}
+                      className="ml-1.5 text-xs"
+                      style={{ color: "var(--color-text-muted)" }}
                     >
                       ({initialProjects.filter((p) => p.category === cat).length})
                     </span>
@@ -116,7 +123,7 @@ export default function ProjectsClient({ initialProjects }: { initialProjects: P
           {/* ── Tier 1: Featured Projects ── */}
           {tier1.length > 0 && (
             <div className="animate-in fade-in zoom-in-95 duration-500">
-              <div className="flex items-center gap-2 mb-6 text-accent">
+              <div className="flex items-center gap-2 mb-6" style={{ color: "var(--color-text)" }}>
                 <Presentation className="w-5 h-5" />
                 <h3 className="text-xl font-bold tracking-wide">Featured Work</h3>
               </div>
@@ -129,19 +136,21 @@ export default function ProjectsClient({ initialProjects }: { initialProjects: P
                   <div className="flex overflow-x-auto gap-3 pb-4 scrollbar-hide snap-x">
                     {tier1.map((project, idx) => (
                       <button
-                        key={project.title}
-                        onClick={() => setFeaturedIndex(idx)}
-                        className={`relative flex-shrink-0 w-[220px] h-[124px] rounded-xl overflow-hidden group border-2 transition-all snap-start text-left ${
-                          idx === featuredIndex
-                            ? "border-accent ring-2 ring-accent/20"
-                            : "border-transparent opacity-50 hover:opacity-100"
-                        }`}
+                         key={project.title}
+                         onClick={() => setFeaturedIndex(idx)}
+                         className="relative flex-shrink-0 w-[220px] h-[124px] rounded-[var(--radius-md)] overflow-hidden group border transition-all snap-start text-left"
+                         style={{
+                           borderColor: idx === featuredIndex ? "var(--color-border-hover)" : "var(--color-border)",
+                           opacity: idx === featuredIndex ? 1 : 0.6,
+                         }}
+                         onMouseEnter={(e) => { if (idx !== featuredIndex) e.currentTarget.style.opacity = "1"; }}
+                         onMouseLeave={(e) => { if (idx !== featuredIndex) e.currentTarget.style.opacity = "0.6"; }}
                       >
                         <Image src={project.image} alt={project.title} fill className="object-cover object-top" />
                         <div className="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-colors" />
                         <div className="absolute inset-0 p-4 flex flex-col justify-end">
-                          <span className="text-xs font-mono text-accent mb-1 drop-shadow-md">{project.category}</span>
-                          <h5 className="font-semibold text-sm leading-tight line-clamp-2 drop-shadow-md">{project.title}</h5>
+                          <span className="text-eyebrow mb-1">{project.category}</span>
+                          <h5 className="font-semibold text-sm leading-tight line-clamp-2" style={{ color: "var(--color-text)" }}>{project.title}</h5>
                         </div>
                       </button>
                     ))}
@@ -154,7 +163,7 @@ export default function ProjectsClient({ initialProjects }: { initialProjects: P
           {/* ── Tier 2: Selected Projects ── */}
           {tier2.length > 0 && (
             <AnimatedSection delay={0.1}>
-              <div className="flex items-center gap-2 mb-6 text-white/90 border-b border-white/5 pb-4">
+              <div className="flex items-center gap-2 mb-6 pb-4" style={{ color: "var(--color-text)", borderBottom: "1px solid var(--color-border)" }}>
                 <Layers className="w-5 h-5" />
                 <h3 className="text-xl font-bold tracking-wide">Selected Projects</h3>
               </div>
@@ -173,7 +182,7 @@ export default function ProjectsClient({ initialProjects }: { initialProjects: P
           {/* ── Tier 3: Experiments ── */}
           {tier3.length > 0 && (
             <AnimatedSection delay={0.2}>
-              <div className="flex items-center gap-2 mb-6 text-white/70 border-b border-white/5 pb-4">
+              <div className="flex items-center gap-2 mb-6 pb-4" style={{ color: "var(--color-text)", borderBottom: "1px solid var(--color-border)" }}>
                 <Github className="w-5 h-5" />
                 <h3 className="text-lg font-semibold tracking-wide">Experiments & Scripts</h3>
               </div>
@@ -186,7 +195,7 @@ export default function ProjectsClient({ initialProjects }: { initialProjects: P
           )}
 
           {filtered.length === 0 && (
-            <div className="text-center py-20 text-text-muted">
+            <div className="text-center py-20" style={{ color: "var(--color-text-muted)" }}>
               No projects found in this category.
             </div>
           )}
@@ -202,54 +211,78 @@ function FeaturedProjectCard({ project }: { project: Project }) {
   const linkHref = project.slug ? `/projects/${project.slug}` : (project.live || project.github || "#");
 
   return (
-    <div className="flex flex-col glass-card rounded-3xl overflow-hidden border border-white/[0.08] shadow-2xl relative gradient-border transition-all duration-500">
-      <div className="relative w-full aspect-video lg:aspect-[21/8] bg-[#050505] group flex items-center justify-center p-3 lg:p-6">
-        <Link href={linkHref} className="relative w-full h-full rounded-xl overflow-hidden shadow-2xl border border-white/5 cursor-pointer block">
+    <div
+      className="flex flex-col overflow-hidden transition-all duration-500"
+      style={{
+        background: "var(--color-surface)",
+        border: "1px solid var(--color-border)",
+        borderRadius: "var(--radius-md)",
+      }}
+    >
+      <div className="relative w-full aspect-video lg:aspect-[21/8] bg-black group flex items-center justify-center p-3 lg:p-6">
+        <Link
+          href={linkHref}
+          className="relative w-full h-full overflow-hidden block"
+          style={{
+            borderRadius: "var(--radius-md)",
+            border: "1px solid var(--color-border)",
+          }}
+        >
           <Image src={project.image} alt={project.title} fill sizes="(max-width: 1024px) 100vw, 66vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.02]" priority quality={85} />
         </Link>
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent pointer-events-none" />
         <div className="absolute bottom-5 left-5 lg:bottom-6 lg:left-6 right-8 flex flex-col items-start gap-3 z-20">
           {!showDetails && (
             <div className="animate-in fade-in slide-in-from-bottom-2 duration-300 pointer-events-none">
-              <h3 className="text-xl lg:text-3xl font-bold tracking-tight leading-tight text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]">
+              <h3 className="text-xl lg:text-3xl font-bold tracking-tight leading-tight" style={{ color: "var(--color-text)" }}>
                 {project.title}
               </h3>
             </div>
           )}
-          <button onClick={() => setShowDetails(!showDetails)} className="flex items-center gap-2 px-5 py-2 glass-panel rounded-full text-sm font-medium hover:text-accent interactive-element shadow-lg">
+          <button
+            onClick={() => setShowDetails(!showDetails)}
+            className="flex items-center gap-2 btn btn-ghost"
+            style={{ height: "36px", fontSize: "13px", background: "var(--color-surface)" }}
+          >
             {showDetails ? (
-              <><span className="hidden sm:inline">Hide Details</span><ChevronUp className="w-4 h-4 text-accent" /></>
+              <><span className="hidden sm:inline">Hide Details</span><ChevronUp className="w-4 h-4" /></>
             ) : (
-              <><span className="hidden sm:inline">View Details</span><ChevronDown className="w-4 h-4 text-accent" /></>
+              <><span className="hidden sm:inline">View Details</span><ChevronDown className="w-4 h-4" /></>
             )}
           </button>
         </div>
       </div>
       {showDetails && (
-        <div className="w-full p-6 lg:p-12 bg-black/95 backdrop-blur-xl border-t border-white/10 animate-in slide-in-from-top-4 fade-in duration-300">
-          <h3 className="text-2xl lg:text-4xl font-bold mb-4 tracking-tight leading-tight text-white">{project.title}</h3>
-          <p className="text-text-secondary text-sm lg:text-lg mb-8 leading-relaxed max-w-4xl">{project.description}</p>
+        <div
+          className="w-full p-6 lg:p-12 animate-in slide-in-from-top-4 fade-in duration-300"
+          style={{
+            background: "var(--color-surface-2)",
+            borderTop: "1px solid var(--color-border)",
+          }}
+        >
+          <h3 className="text-2xl lg:text-4xl font-bold mb-4 tracking-tight leading-tight" style={{ color: "var(--color-text)" }}>{project.title}</h3>
+          <p className="text-sm lg:text-lg mb-8 leading-relaxed max-w-4xl" style={{ color: "var(--color-text-secondary)" }}>{project.description}</p>
           <ul className="space-y-4 mb-10 max-w-4xl">
             {project.highlights.map((h) => (
-              <li key={h} className="flex items-start gap-3 text-sm text-text-primary/90">
-                <CheckCircle2 className="w-5 h-5 text-accent shrink-0 mt-0.5" />
+              <li key={h} className="flex items-start gap-3 text-sm" style={{ color: "var(--color-text)" }}>
+                <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5" style={{ color: "var(--color-text-secondary)" }} />
                 <span className="leading-snug">{h}</span>
               </li>
             ))}
           </ul>
           <div className="flex flex-wrap gap-2 mb-10">
             {project.tags.map((tag) => (
-              <span key={tag} className="px-3 py-1 text-xs font-mono text-accent/90 bg-accent/10 rounded-lg border border-accent/20">{tag}</span>
+              <span key={tag} className="chip">{tag}</span>
             ))}
           </div>
           <div className="flex flex-wrap items-center gap-3">
             {project.slug && (
-              <Link href={`/projects/${project.slug}`} className="flex items-center gap-2 px-5 py-2.5 bg-accent text-black font-semibold rounded-xl hover:bg-accent/90 transition-all shadow-lg text-sm">
+              <Link href={`/projects/${project.slug}`} className="btn btn-primary">
                 <BookOpen className="w-4 h-4" /><span>Read Case Study</span>
               </Link>
             )}
             {project.github && (
-              <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-5 py-2.5 border border-border rounded-xl hover:border-accent hover:text-accent transition-all hover:bg-accent/5 text-sm">
+              <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
                 <Github className="w-4 h-4" /><span>Code</span>
               </a>
             )}
@@ -266,14 +299,23 @@ function ProjectCard({ project }: { project: Project }) {
   const linkHref = project.slug ? `/projects/${project.slug}` : (project.live || project.github || "#");
 
   return (
-    <div className="group h-full flex flex-col glass-card rounded-2xl relative overflow-hidden gradient-border">
+    <div
+      className="group h-full flex flex-col relative overflow-hidden transition-all duration-150"
+      style={{
+        background: "var(--color-surface)",
+        border: "1px solid var(--color-border)",
+        borderRadius: "var(--radius-md)",
+      }}
+      onMouseEnter={(e) => (e.currentTarget.style.borderColor = "var(--color-border-hover)")}
+      onMouseLeave={(e) => (e.currentTarget.style.borderColor = "var(--color-border)")}
+    >
       <div className="relative h-48 overflow-hidden bg-black/40">
         <Image src={project.image} alt={imageAltText} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-        <div className="absolute top-3 left-3 px-2.5 py-1 bg-black/60 backdrop-blur-sm rounded-full border border-accent/20 text-accent text-[10px] font-mono tracking-wide">{project.category}</div>
+        <div className="absolute top-3 left-3 px-2.5 py-1 bg-black/60 backdrop-blur-sm rounded-full text-[10px] font-mono tracking-wide" style={{ border: "1px solid var(--color-border)", color: "var(--color-text-muted)" }}>{project.category}</div>
         {project.slug && (
           <Link href={linkHref} className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <div className="flex items-center gap-2 px-4 py-2.5 bg-accent text-black font-semibold text-sm rounded-full shadow-lg hover:scale-105 transition-transform">
+            <div className="btn btn-primary" style={{ height: "36px", fontSize: "13px" }}>
               <BookOpen className="w-4 h-4" /><span>Case Study</span>
             </div>
           </Link>
@@ -281,18 +323,45 @@ function ProjectCard({ project }: { project: Project }) {
       </div>
       <div className="flex flex-col flex-grow p-5 md:p-6">
         <div className="flex items-start justify-between gap-3 mb-3">
-          <h3 className="text-base md:text-lg font-semibold group-hover:text-accent transition-colors leading-snug">
-            <Link href={linkHref} className="hover:text-accent transition-colors">{project.title}</Link>
+          <h3 className="text-base md:text-lg font-semibold transition-colors leading-snug">
+            <Link
+              href={linkHref}
+              style={{ color: "var(--color-text)" }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-accent)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text)")}
+            >
+              {project.title}
+            </Link>
           </h3>
           <div className="flex gap-1.5 shrink-0 mt-0.5">
-            {project.github && <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg border border-border hover:border-accent/40 hover:text-accent hover:bg-accent/5 transition-all text-text-muted"><Github className="w-3.5 h-3.5" /></a>}
-            {project.live && <a href={project.live} target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg border border-accent/30 text-accent hover:bg-accent/10 transition-all"><ExternalLink className="w-3.5 h-3.5" /></a>}
+            {project.github && (
+              <a
+                href={project.github} target="_blank" rel="noopener noreferrer"
+                className="flex items-center justify-center w-8 h-8 rounded-[var(--radius-sm)] border transition-colors"
+                style={{ borderColor: "var(--color-border)", color: "var(--color-text-muted)" }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--color-border-hover)"; e.currentTarget.style.color = "var(--color-text)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--color-border)"; e.currentTarget.style.color = "var(--color-text-muted)"; }}
+              >
+                <Github className="w-3.5 h-3.5" />
+              </a>
+            )}
+            {project.live && (
+              <a
+                href={project.live} target="_blank" rel="noopener noreferrer"
+                className="flex items-center justify-center w-8 h-8 rounded-[var(--radius-sm)] border transition-colors"
+                style={{ borderColor: "var(--color-border)", color: "var(--color-text-muted)" }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--color-border-hover)"; e.currentTarget.style.color = "var(--color-text)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--color-border)"; e.currentTarget.style.color = "var(--color-text-muted)"; }}
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            )}
           </div>
         </div>
-        <p className="text-text-secondary text-sm mb-4 leading-relaxed line-clamp-3">{project.description}</p>
-        <div className="flex flex-wrap gap-1.5 pt-4 border-t border-white/[0.06] mt-auto">
+        <p className="text-sm mb-4 leading-relaxed line-clamp-3" style={{ color: "var(--color-text-secondary)" }}>{project.description}</p>
+        <div className="flex flex-wrap gap-1.5 pt-4 mt-auto" style={{ borderTop: "1px solid var(--color-border)" }}>
           {project.tags.slice(0,4).map((tag) => (
-            <span key={tag} className="px-2 py-0.5 text-[10px] font-mono text-accent/80 bg-accent/5 rounded-full border border-accent/10">{tag}</span>
+            <span key={tag} className="chip">{tag}</span>
           ))}
         </div>
       </div>
@@ -305,19 +374,55 @@ function MinimalProjectCard({ project }: { project: Project }) {
   const linkHref = project.slug ? `/projects/${project.slug}` : (project.live || project.github || "#");
   
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl glass-panel group">
+    <div
+      className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 transition-colors"
+      style={{
+        borderRadius: "var(--radius-md)",
+        border: "1px solid var(--color-border)",
+        background: "var(--color-surface)",
+      }}
+      onMouseEnter={(e) => (e.currentTarget.style.borderColor = "var(--color-border-hover)")}
+      onMouseLeave={(e) => (e.currentTarget.style.borderColor = "var(--color-border)")}
+    >
       <div>
-        <h4 className="font-semibold text-white group-hover:text-accent transition-colors">
-          <Link href={linkHref}>{project.title}</Link>
+        <h4 className="font-semibold transition-colors">
+          <Link
+            href={linkHref}
+            style={{ color: "var(--color-text)" }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-accent)")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text)")}
+          >
+            {project.title}
+          </Link>
         </h4>
-        <p className="text-xs text-text-muted mt-1">{project.description}</p>
+        <p className="text-xs mt-1" style={{ color: "var(--color-text-muted)" }}>{project.description}</p>
       </div>
       <div className="flex items-center gap-2 shrink-0">
         {project.tags.slice(0,2).map(tag => (
-           <span key={tag} className="hidden sm:inline-block px-2 py-0.5 text-[10px] font-mono text-text-muted bg-black/40 rounded border border-white/5">{tag}</span>
+           <span key={tag} className="chip hidden sm:inline-flex">{tag}</span>
         ))}
-        {project.github && <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg hover:text-accent transition-colors text-text-muted"><Github className="w-4 h-4" /></a>}
-        {project.slug && <Link href={linkHref} className="p-1.5 rounded-lg hover:text-accent transition-colors text-text-muted"><ArrowUpRight className="w-4 h-4" /></Link>}
+        {project.github && (
+          <a
+            href={project.github} target="_blank" rel="noopener noreferrer"
+            className="flex items-center justify-center w-8 h-8 rounded-[var(--radius-sm)] border transition-colors"
+            style={{ borderColor: "transparent", color: "var(--color-text-muted)" }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--color-border-hover)"; e.currentTarget.style.color = "var(--color-text)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = "transparent"; e.currentTarget.style.color = "var(--color-text-muted)"; }}
+          >
+            <Github className="w-4 h-4" />
+          </a>
+        )}
+        {project.slug && (
+          <Link
+            href={linkHref}
+            className="flex items-center justify-center w-8 h-8 rounded-[var(--radius-sm)] border transition-colors"
+            style={{ borderColor: "transparent", color: "var(--color-text-muted)" }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--color-border-hover)"; e.currentTarget.style.color = "var(--color-text)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = "transparent"; e.currentTarget.style.color = "var(--color-text-muted)"; }}
+          >
+            <ArrowUpRight className="w-4 h-4" />
+          </Link>
+        )}
       </div>
     </div>
   );

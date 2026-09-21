@@ -2,8 +2,6 @@
 
 import AnimatedSection from "./AnimatedSection";
 import SectionHeading from "./SectionHeading";
-import { Server, BrainCircuit, Network, Wrench } from "lucide-react";
-
 import * as LucideIcons from "lucide-react";
 
 type TechCategory = {
@@ -14,16 +12,12 @@ type TechCategory = {
 
 export default function TechStackClient({ categories }: { categories: TechCategory[] }) {
   return (
-    <section id="stack" className="relative pt-12 pb-16 md:pt-16 md:pb-24 section-dark overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 grid-bg pointer-events-none opacity-50" />
-      <div className="noise-overlay" />
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[350px] h-[300px] bg-accent/3 rounded-full blur-[100px] pointer-events-none" />
-
-      {/* Top divider */}
-      <div className="section-divider" />
-
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-12 pt-8">
+    <section
+      id="stack"
+      className="section-padding"
+      style={{ background: "var(--color-bg)" }}
+    >
+      <div className="container-content">
         <AnimatedSection>
           <SectionHeading
             label="Tech Stack"
@@ -32,26 +26,37 @@ export default function TechStackClient({ categories }: { categories: TechCatego
           />
         </AnimatedSection>
 
-        <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
+        <div className="grid md:grid-cols-2 gap-4 lg:gap-6">
           {categories.map((cat, i) => {
             // @ts-ignore
             const IconComponent = cat.iconName && LucideIcons[cat.iconName] ? LucideIcons[cat.iconName] : LucideIcons.Code2;
             
             return (
-            <AnimatedSection key={cat.title} delay={i * 0.1}>
-              <div className="glass-card rounded-2xl p-6 md:p-8 h-full relative overflow-hidden gradient-border group">
-                {/* Glow effect */}
-                <div className="absolute -top-20 -right-20 w-44 h-44 bg-accent/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-
-                <div className="relative">
+              <AnimatedSection key={cat.title} delay={i * 0.1}>
+                <div
+                  className="proj-card h-full p-6 md:p-8"
+                  style={{
+                    background: "var(--color-surface)",
+                    border: "1px solid var(--color-border)",
+                    borderRadius: "var(--radius-md)",
+                  }}
+                >
                   {/* Header */}
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="p-3 rounded-xl bg-accent/10 text-accent group-hover:bg-accent/15 transition-colors">
-                      <IconComponent className="w-5 h-5" />
+                  <div className="flex items-center gap-4 mb-6 pb-6" style={{ borderBottom: "1px solid var(--color-border)" }}>
+                    <div
+                      className="flex items-center justify-center shrink-0 w-12 h-12"
+                      style={{
+                        borderRadius: "var(--radius-sm)",
+                        border: "1px solid var(--color-border)",
+                        background: "var(--color-surface-2)",
+                        color: "var(--color-text-secondary)",
+                      }}
+                    >
+                      <IconComponent className="w-5 h-5" strokeWidth={1.5} />
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold">{cat.title}</h3>
-                      <p className="text-xs text-text-muted font-mono">
+                      <h3 className="text-lg font-semibold" style={{ color: "var(--color-text)" }}>{cat.title}</h3>
+                      <p className="text-eyebrow mt-1" style={{ fontSize: "10px" }}>
                         {cat.skills.length} capabilities
                       </p>
                     </div>
@@ -60,17 +65,13 @@ export default function TechStackClient({ categories }: { categories: TechCatego
                   {/* Skill Tags */}
                   <div className="flex flex-wrap gap-2">
                     {cat.skills.map((skill) => (
-                      <span
-                        key={skill}
-                        className="px-3 py-1.5 text-xs font-mono text-text-secondary bg-white/[0.03] border border-white/[0.07] rounded-lg hover:border-accent/30 hover:text-accent hover:bg-accent/5 transition-all duration-200 cursor-default"
-                      >
+                      <span key={skill} className="chip">
                         {skill}
                       </span>
                     ))}
                   </div>
                 </div>
-              </div>
-            </AnimatedSection>
+              </AnimatedSection>
             );
           })}
         </div>

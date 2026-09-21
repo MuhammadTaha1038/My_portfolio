@@ -69,11 +69,11 @@ export default function ProjectForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="block text-sm font-medium text-gray-300 mb-2">Title</label>
-          <input required name="title" type="text" className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#F5C518]" placeholder="e.g. Market Pulse" />
+          <input required name="title" type="text" className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]" placeholder="e.g. Market Pulse" />
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-300 mb-2">Category</label>
-          <select required name="category" defaultValue="" className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#F5C518] appearance-none">
+          <select required name="category" defaultValue="" className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] appearance-none">
             <option value="" disabled>Select a category</option>
             <option value="Machine Learning">Machine Learning</option>
             <option value="Data Analysis">Data Analysis</option>
@@ -86,7 +86,7 @@ export default function ProjectForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="block text-sm font-medium text-gray-300 mb-2">Display Tier</label>
-          <select required name="tier" defaultValue="2" className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#F5C518] appearance-none">
+          <select required name="tier" defaultValue="2" className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] appearance-none">
             <option value="1">Tier 1: Featured (Large Cards)</option>
             <option value="2">Tier 2: Selected (Medium Cards)</option>
             <option value="3">Tier 3: Experiment (Minimal List)</option>
@@ -94,13 +94,13 @@ export default function ProjectForm() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-300 mb-2">Order</label>
-          <input required name="order" type="number" defaultValue="0" className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#F5C518]" placeholder="0" />
+          <input required name="order" type="number" defaultValue="0" className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]" placeholder="0" />
         </div>
       </div>
 
       <div>
         <label className="block text-sm font-medium text-gray-300 mb-2">Description</label>
-        <textarea required name="description" rows={3} className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#F5C518]" placeholder="Short summary for the project card..." />
+        <textarea required name="description" rows={3} className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]" placeholder="Short summary for the project card..." />
       </div>
 
       <div>
@@ -118,28 +118,28 @@ export default function ProjectForm() {
 
       <div>
         <label className="block text-sm font-medium text-gray-300 mb-2">Highlights (comma separated)</label>
-        <input required name="highlights" type="text" className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#F5C518]" placeholder="Highlight 1, Highlight 2, ..." />
+        <input required name="highlights" type="text" className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]" placeholder="Highlight 1, Highlight 2, ..." />
       </div>
 
       <div>
         <label className="block text-sm font-medium text-gray-300 mb-2">Tags (comma separated)</label>
-        <input required name="tags" type="text" className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#F5C518]" placeholder="React, Node.js, ..." />
+        <input required name="tags" type="text" className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]" placeholder="React, Node.js, ..." />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="block text-sm font-medium text-gray-300 mb-2">GitHub URL (Optional)</label>
-          <input name="github" type="url" className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#F5C518]" placeholder="https://github.com/..." />
+          <input name="github" type="url" className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]" placeholder="https://github.com/..." />
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-300 mb-2">Live URL (Optional)</label>
-          <input name="live" type="url" className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#F5C518]" placeholder="https://..." />
+          <input name="live" type="url" className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]" placeholder="https://..." />
         </div>
       </div>
 
       <div>
         <label className="block text-sm font-medium text-gray-300 mb-2">Project Thumbnail</label>
-        <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-white/10 border-dashed rounded-xl hover:border-[#F5C518] transition-colors relative bg-[#0A0A0A]">
+        <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-white/10 border-dashed rounded-xl hover:border-[var(--color-accent)] transition-colors relative bg-[#0A0A0A]">
           <div className="space-y-1 text-center">
             {preview ? (
               <div className="mb-4">
@@ -149,7 +149,7 @@ export default function ProjectForm() {
               <UploadCloud className="mx-auto h-12 w-12 text-gray-400" />
             )}
             <div className="flex text-sm text-gray-400 justify-center">
-              <label htmlFor="file-upload" className="relative cursor-pointer bg-black/50 rounded-md font-medium text-[#F5C518] hover:text-[#d4a912] focus-within:outline-none px-2 py-1">
+              <label htmlFor="file-upload" className="relative cursor-pointer bg-black/50 rounded-md font-medium text-[var(--color-accent)] hover:text-[var(--color-accent-hover)] focus-within:outline-none px-2 py-1">
                 <span>Upload a file</span>
                 <input id="file-upload" name="file" type="file" accept="image/*" className="sr-only" onChange={handleImageChange} />
               </label>
@@ -164,7 +164,7 @@ export default function ProjectForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full flex justify-center py-3 px-4 rounded-xl text-sm font-bold text-black bg-[#F5C518] hover:bg-[#d4a912] transition-all disabled:opacity-50"
+          className="w-full flex justify-center py-3 px-4 rounded-xl text-sm font-bold text-black bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] transition-all disabled:opacity-50"
         >
           {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Save Project"}
         </button>

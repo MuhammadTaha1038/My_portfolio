@@ -34,13 +34,8 @@ const PHILOSOPHY = [
 
 export default function Profile() {
   return (
-    <section id="profile" className="relative pt-12 pb-16 md:pt-16 md:pb-24 section-elevated overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 dot-bg pointer-events-none opacity-50" />
-      <div className="noise-overlay" />
-      <div className="absolute top-0 right-0 w-[350px] h-[350px] bg-accent/3 rounded-full blur-[100px] pointer-events-none" />
-
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-12">
+    <section id="profile" className="section-padding" style={{ background: "var(--color-bg)" }}>
+      <div className="container-content">
         <AnimatedSection>
           <SectionHeading
             label="About Me"
@@ -50,16 +45,17 @@ export default function Profile() {
         </AnimatedSection>
 
         {/* Profile Grid: Photo/Bio + Cards */}
-        <div className="grid lg:grid-cols-5 gap-8 items-start">
+        <div className="grid lg:grid-cols-5 gap-6 lg:gap-8 items-start">
           
           {/* Photo + Bio (Wider Column) */}
           <AnimatedSection className="lg:col-span-2">
-            <div className="glass-card rounded-2xl p-6 md:p-8 relative overflow-hidden">
-              {/* Top accent line */}
-              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
+            <div className="proj-card p-6 md:p-8 cursor-default">
               
               {/* Photo */}
-              <div className="relative w-full aspect-square max-w-[280px] mx-auto mb-6 rounded-2xl overflow-hidden border border-accent/20">
+              <div
+                className="relative w-full aspect-square max-w-[280px] mx-auto mb-6 overflow-hidden"
+                style={{ borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)" }}
+              >
                 <Image
                   src="/about-me.png"
                   alt="Muhammad Taha"
@@ -67,42 +63,35 @@ export default function Profile() {
                   className="object-cover object-top"
                   sizes="280px"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
               </div>
 
               {/* Bio Info */}
               <div className="space-y-4">
-                <div className="flex items-center gap-2">
-                  <GraduationCap className="w-5 h-5 text-accent shrink-0" />
+                <div className="flex items-center gap-2" style={{ color: "var(--color-text)" }}>
+                  <GraduationCap className="w-5 h-5 shrink-0" strokeWidth={1.5} />
                   <h3 className="text-lg font-semibold">Muhammad Taha</h3>
                 </div>
-                <p className="text-text-secondary text-sm leading-relaxed">
+                <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
                   Software Engineer at{" "}
-                  <a href="https://ummahtechinnovations.com/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">UmmahTech Innovations</a>,
-                  specializing in <span className="text-accent">Applied Data Science</span> and
-                  Backend Systems Engineering. Studying at <span className="text-accent">University of Engineering and Technology, Taxila</span>.
+                  <a href="https://ummahtechinnovations.com/" target="_blank" rel="noopener noreferrer" className="hover-text transition-colors" style={{ color: "var(--color-text)" }}>UmmahTech Innovations</a>,
+                  specializing in <span style={{ color: "var(--color-text)" }}>Applied Data Science</span> and
+                  Backend Systems Engineering. Studying at <span style={{ color: "var(--color-text)" }}>University of Engineering and Technology, Taxila</span>.
                   I build end-to-end pipelines that move from data exploration to real-world
                   deployment — integrating ML models into scalable backend architectures with
                   APIs, authentication, and structured database design.
                 </p>
                 
                 {/* Location / Status*/}
-                <div className="flex flex-wrap gap-3 pt-2 mb-4">
-                  <span className="px-3 py-1 text-xs font-mono text-accent bg-accent/10 rounded-full border border-accent/20">
-                    Pakistan
-                  </span>
-                  <span className="px-3 py-1 text-xs font-mono text-accent bg-accent/10 rounded-full border border-accent/20">
-                    Remote Ready
-                  </span>
-                  <span className="px-3 py-1 text-xs font-mono text-accent bg-accent/10 rounded-full border border-accent/20">
-                    Open to Work
-                  </span>
+                <div className="flex flex-wrap gap-2 pt-2 mb-4">
+                  <span className="chip">Pakistan</span>
+                  <span className="chip">Remote Ready</span>
+                  <span className="chip">Open to Work</span>
                 </div>
 
                 {/* Currently Exploring */}
-                <div className="mt-6 pt-6 border-t border-white/[0.06]">
-                  <h4 className="text-xs font-semibold text-white/80 uppercase tracking-wider mb-2">Currently Exploring</h4>
-                  <p className="text-sm text-text-muted leading-relaxed">
+                <div className="mt-6 pt-6" style={{ borderTop: "1px solid var(--color-border)" }}>
+                  <h4 className="text-eyebrow mb-2">Currently Exploring</h4>
+                  <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
                     Production ML systems, backend architecture, data-intensive applications, and practical AI engineering.
                   </p>
                 </div>
@@ -111,15 +100,16 @@ export default function Profile() {
           </AnimatedSection>
 
           {/* Right Side: Focus + Philosophy Cards */}
-          <div className="lg:col-span-3 grid sm:grid-cols-2 gap-6">
+          <div className="lg:col-span-3 grid sm:grid-cols-2 gap-4 lg:gap-6">
             {/* Core Focus Card */}
             <AnimatedSection delay={0.1} className="sm:col-span-2">
-              <div className="glass-card rounded-2xl p-6 md:p-8 relative overflow-hidden gradient-border">
-                <div className="absolute -top-20 -right-20 w-40 h-40 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
-                
-                <h3 className="text-xl font-semibold mb-6 flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-accent/10 text-accent">
-                    <Target className="w-5 h-5" />
+              <div className="proj-card p-6 md:p-8 cursor-default">
+                <h3 className="text-xl font-semibold mb-6 flex items-center gap-3" style={{ color: "var(--color-text)" }}>
+                  <div
+                    className="flex items-center justify-center w-10 h-10"
+                    style={{ borderRadius: "var(--radius-sm)", border: "1px solid var(--color-border)", background: "var(--color-surface-2)" }}
+                  >
+                    <Target className="w-5 h-5" strokeWidth={1.5} />
                   </div>
                   Core Focus
                 </h3>
@@ -128,12 +118,16 @@ export default function Profile() {
                   {FOCUS_ITEMS.map((item) => (
                     <div
                       key={item.text}
-                      className="group flex items-center gap-3 p-4 rounded-xl glass-panel interactive-element"
+                      className="group hover-border flex items-center gap-3 p-4 transition-colors"
+                      style={{ borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)", background: "var(--color-surface-2)" }}
                     >
-                      <div className="p-2 rounded-lg bg-accent/10 text-accent group-hover:bg-accent/20 transition-colors shrink-0">
-                        <item.icon className="w-4 h-4" />
+                      <div
+                        className="flex items-center justify-center w-8 h-8 shrink-0 transition-colors"
+                        style={{ borderRadius: "var(--radius-sm)", border: "1px solid var(--color-border)", color: "var(--color-text-secondary)" }}
+                      >
+                        <item.icon className="w-4 h-4 hover-text group-hover:text-[var(--color-text)]" strokeWidth={1.5} />
                       </div>
-                      <span className="text-sm text-text-secondary group-hover:text-white transition-colors">
+                      <span className="text-sm transition-colors hover-text group-hover:text-[var(--color-text)]" style={{ color: "var(--color-text-secondary)" }}>
                         {item.text}
                       </span>
                     </div>
@@ -144,27 +138,36 @@ export default function Profile() {
 
             {/* Philosophy Card */}
             <AnimatedSection delay={0.2} className="sm:col-span-2">
-              <div className="glass-card rounded-2xl p-6 md:p-8 relative overflow-hidden gradient-border">
-                <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
-                
-                <h3 className="text-xl font-semibold mb-6 flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-accent/10 text-accent">
-                    <Lightbulb className="w-5 h-5" />
+              <div className="proj-card p-6 md:p-8 cursor-default">
+                <h3 className="text-xl font-semibold mb-6 flex items-center gap-3" style={{ color: "var(--color-text)" }}>
+                  <div
+                    className="flex items-center justify-center w-10 h-10"
+                    style={{ borderRadius: "var(--radius-sm)", border: "1px solid var(--color-border)", background: "var(--color-surface-2)" }}
+                  >
+                    <Lightbulb className="w-5 h-5" strokeWidth={1.5} />
                   </div>
                   How I approach engineering problems
                 </h3>
 
                 <div className="grid sm:grid-cols-2 gap-4">
-                  {PHILOSOPHY.map((item, i) => (
+                  {PHILOSOPHY.map((item) => (
                     <div
                       key={item.title}
-                      className="flex flex-col gap-1 p-4 rounded-xl glass-panel group"
+                      className="hover-border flex flex-col gap-1 p-4 transition-colors group"
+                      style={{ borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)", background: "var(--color-surface-2)" }}
                     >
                       <div className="flex items-center gap-2 mb-1">
-                        <div className="w-1.5 h-1.5 rounded-full bg-accent shrink-0 group-hover:scale-150 transition-transform" />
-                        <span className="text-sm font-semibold text-white group-hover:text-accent transition-colors">{item.title}</span>
+                        <div className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--color-text-muted)" }} />
+                        <span className="text-sm font-semibold transition-colors group-hover:text-[var(--color-text)]" style={{ color: "var(--color-text)" }}>
+                          {item.title}
+                        </span>
                       </div>
-                      <span className="text-xs text-text-muted leading-relaxed pl-3.5 border-l border-white/5 group-hover:border-accent/20 transition-colors">{item.desc}</span>
+                      <span
+                        className="text-xs leading-relaxed pl-3.5 transition-colors group-hover:border-[var(--color-border-hover)]"
+                        style={{ color: "var(--color-text-muted)", borderLeft: "1px solid var(--color-border)" }}
+                      >
+                        {item.desc}
+                      </span>
                     </div>
                   ))}
                 </div>

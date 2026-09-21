@@ -58,7 +58,7 @@ export default function Footer() {
           <div>
             <Link href="/" className="inline-block text-xl font-bold tracking-tight mb-4"
               style={{ color: "var(--color-text)" }}>
-              M. <span style={{ color: "var(--color-accent)" }}>Taha</span>
+              M. Taha
             </Link>
             <p className="text-sm leading-relaxed mb-6"
               style={{ color: "var(--color-text-muted)", maxWidth: "28ch" }}>

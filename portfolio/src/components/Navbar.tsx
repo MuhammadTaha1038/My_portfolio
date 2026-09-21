@@ -57,22 +57,14 @@ export default function Navbar() {
           scrolled ? "nav-scrolled" : "nav-base"
         }`}
       >
-        <div
-          className="mx-auto flex items-center justify-between h-16"
-          style={{
-            maxWidth: "var(--container-max)",
-            paddingLeft: "var(--container-px-mobile)",
-            paddingRight: "var(--container-px-mobile)",
-          }}
-        >
+        <div className="container-content flex items-center justify-between h-16">
           {/* Logo */}
           <Link
             href="/"
             className="text-xl font-bold tracking-tight text-[var(--color-text)] hover:text-[var(--color-text)] transition-colors"
             aria-label="Muhammad Taha — home"
           >
-            M.{" "}
-            <span style={{ color: "var(--color-accent)" }}>Taha</span>
+            M. Taha
           </Link>
 
           {/* Desktop links */}
@@ -141,7 +133,7 @@ export default function Navbar() {
               className="text-xl font-bold tracking-tight"
               style={{ color: "var(--color-text)" }}
             >
-              M. <span style={{ color: "var(--color-accent)" }}>Taha</span>
+              M. Taha
             </span>
             <button
               onClick={() => setMobileOpen(false)}

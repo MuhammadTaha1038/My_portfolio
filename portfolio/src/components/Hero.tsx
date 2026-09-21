@@ -23,7 +23,7 @@ export default function Hero() {
       id="home"
       aria-label="Introduction"
       style={{ background: "var(--color-bg)" }}
-      className="relative min-h-screen flex items-center overflow-hidden"
+      className="relative min-h-[calc(100svh-64px)] flex items-center overflow-hidden"
     >
       {/* Subtle corner radial — 5% alpha max, no yellow */}
       <div
@@ -39,20 +39,21 @@ export default function Hero() {
 
       {/* ── Main content ── */}
       <div
-        className="relative z-10 w-full section-padding"
+        className="relative z-10 w-full"
         style={{
-          paddingTop: "calc(clamp(64px,10vw,128px) + 64px)", /* account for fixed nav */
+          paddingTop: "clamp(32px, 8vw, 64px)",
+          paddingBottom: "clamp(48px, 8vw, 96px)",
         }}
       >
         <div
-          className="container-content grid lg:grid-cols-2 gap-16 lg:gap-12 items-center"
+          className="container-content grid lg:grid-cols-[7fr_5fr] gap-12 lg:gap-8 items-center"
         >
           {/* ── Left: text ── */}
           <motion.div
             initial="hidden"
             animate="show"
             transition={{ staggerChildren: 0.1 }}
-            className="order-2 lg:order-1"
+            className="order-1"
           >
             {/* Role — mono, no dash, no typewriter */}
             <motion.p
@@ -138,22 +139,14 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1   }}
             transition={{ duration: 0.5, delay: 0.15 }}
-            className="order-1 lg:order-2 flex justify-center lg:justify-end"
+            className="order-2 flex justify-center lg:justify-end w-full"
           >
-            {/*
-              NOTE: The yellow fill in the hero image appears to be BAKED INTO
-              the image pixels (hero.png has a solid yellow background behind
-              the portrait). CSS cannot remove it without clipping/hack.
-              A surface-2 frame with a neutral border is applied here.
-              Please provide a transparent-background PNG cutout and this will
-              render with the correct neutral backdrop automatically.
-            */}
             <div
-              className="relative rounded-full overflow-hidden"
+              className="relative overflow-hidden mx-auto lg:mx-0 w-full max-w-[280px] lg:max-w-none"
               style={{
-                width: "clamp(220px, 35vw, 340px)",
-                height: "clamp(220px, 35vw, 340px)",
-                background: "var(--color-surface-2)",
+                width: "clamp(260px, 28vw, 400px)",
+                aspectRatio: "4/5",
+                borderRadius: "var(--radius-md)",
                 border: "1px solid var(--color-border)",
               }}
             >
@@ -161,9 +154,9 @@ export default function Hero() {
                 src="/hero.png"
                 alt="Muhammad Taha, Applied Data Scientist and Backend Engineer"
                 fill
-                className="object-cover object-top"
+                className="object-cover object-[center_20%]"
                 priority
-                sizes="(max-width: 640px) 220px, (max-width: 1024px) 280px, 340px"
+                sizes="(max-width: 640px) 260px, (max-width: 1024px) 320px, 400px"
               />
             </div>
           </motion.div>
