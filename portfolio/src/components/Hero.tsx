@@ -23,7 +23,7 @@ export default function Hero() {
       id="home"
       aria-label="Introduction"
       style={{ background: "var(--color-bg)" }}
-      className="relative min-h-[calc(100svh-64px)] flex items-center overflow-hidden"
+      className="relative min-h-[100svh] pt-16 flex items-center overflow-hidden"
     >
       {/* Subtle corner radial — 5% alpha max, no yellow */}
       <div
@@ -39,11 +39,7 @@ export default function Hero() {
 
       {/* ── Main content ── */}
       <div
-        className="relative z-10 w-full"
-        style={{
-          paddingTop: "clamp(32px, 8vw, 64px)",
-          paddingBottom: "clamp(48px, 8vw, 96px)",
-        }}
+        className="relative z-10 w-full py-12"
       >
         <div
           className="container-content grid lg:grid-cols-[7fr_5fr] gap-12 lg:gap-8 items-center"
@@ -123,8 +119,8 @@ export default function Hero() {
                       {stat.value}
                     </span>
                     <span
-                      className="text-eyebrow"
-                      style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+                      className="font-mono uppercase"
+                      style={{ fontSize: "12px", letterSpacing: "0.04em", color: "var(--color-text-secondary)" }}
                     >
                       {stat.label}
                     </span>
