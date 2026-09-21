@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import Hero from "@/components/Hero";
 import Differentiation from "@/components/Differentiation";
-import MarqueeTechBar from "@/components/home/MarqueeTechBar";
+import TechStack from "@/components/home/TechStack";
 import FeaturedProjects from "@/components/home/FeaturedProjects";
 import FeaturedCaseStudy from "@/components/home/FeaturedCaseStudy";
 import CurrentPosition from "@/components/home/CurrentPosition";
@@ -27,13 +27,13 @@ export default function Home() {
       {/* 1. Hero */}
       <Hero />
 
-      {/* 2. Scrolling tech bar */}
-      <MarqueeTechBar />
-
       {/* 3. Featured Projects (pulls from DB) */}
       <Suspense fallback={null}>
         <FeaturedProjects />
       </Suspense>
+
+      {/* 3b. Tech Stack */}
+      <TechStack />
 
       {/* 4. Cinematic Case Study teaser (pulls from DB) */}
       <Suspense fallback={null}>
