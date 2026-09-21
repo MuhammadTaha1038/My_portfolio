@@ -69,7 +69,7 @@ export default function Hero() {
               Muhammad
               <br />
               <span style={{ color: "var(--color-accent)" }}>Taha</span>
-              <span className="sr-only"> — Applied Data Scientist &amp; Backend Engineer</span>
+              <span className="sr-only"> - Applied Data Scientist &amp; Backend Engineer</span>
             </motion.h1>
 
             {/* Body */}
@@ -78,7 +78,7 @@ export default function Hero() {
               className="text-body mb-10"
               style={{ maxWidth: "52ch" }}
             >
-              I build data-driven backend systems — from ML models and APIs to
+              I build data-driven backend systems: from ML models and APIs to
               production-ready applications.
             </motion.p>
 

@@ -106,7 +106,7 @@ export default function LogoCloud() {
       <div className="relative max-w-7xl mx-auto px-6 lg:px-12">
         <AnimatedSection className="mb-8">
           <p className="text-xs font-mono text-text-muted uppercase tracking-[0.2em]">
-            Ecosystem — Platforms I have worked with
+            Ecosystem - Platforms I have worked with
           </p>
         </AnimatedSection>
 

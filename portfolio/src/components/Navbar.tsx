@@ -62,7 +62,7 @@ export default function Navbar() {
           <Link
             href="/"
             className="text-xl font-bold tracking-tight text-[var(--color-text)] hover:text-[var(--color-text)] transition-colors"
-            aria-label="Muhammad Taha — home"
+            aria-label="Muhammad Taha - home"
           >
             M. Taha
           </Link>

@@ -7,7 +7,7 @@ const experiences = [
   {
     role: "Software Engineer",
     company: "UmmahTech Innovations",
-    duration: "2025 — Present",
+    duration: "2025 - Present",
     order: 1,
     description: [
       "Developing and maintaining production-grade backend systems and APIs for real-world client applications",
@@ -20,7 +20,7 @@ const experiences = [
   {
     role: "Freelance Backend Engineer",
     company: "Self-Employed",
-    duration: "2024 — 2025",
+    duration: "2024 - 2025",
     order: 2,
     description: [
       "Designed scalable backend APIs for multiple client projects with production-level reliability",

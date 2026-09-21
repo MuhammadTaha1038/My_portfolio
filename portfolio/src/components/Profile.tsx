@@ -77,7 +77,7 @@ export default function Profile() {
                   specializing in <span style={{ color: "var(--color-text)" }}>Applied Data Science</span> and
                   Backend Systems Engineering. Studying at <span style={{ color: "var(--color-text)" }}>University of Engineering and Technology, Taxila</span>.
                   I build end-to-end pipelines that move from data exploration to real-world
-                  deployment — integrating ML models into scalable backend architectures with
+                  deployment, integrating ML models into scalable backend architectures with
                   APIs, authentication, and structured database design.
                 </p>
                 

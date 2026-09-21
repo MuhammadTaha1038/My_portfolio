@@ -78,7 +78,7 @@ export default async function OgImage() {
               lineHeight: 1.5,
             }}
           >
-            Building ML-powered backend systems — from data to deployment.
+            Building ML-powered backend systems - from data to deployment.
           </div>
 
           {/* Domain */}

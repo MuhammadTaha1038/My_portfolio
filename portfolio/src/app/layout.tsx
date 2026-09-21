@@ -140,7 +140,7 @@ const jsonLd = {
       "@id": `${BASE_URL}/#website`,
       url: BASE_URL,
       name: "Muhammad Taha Portfolio",
-      description: "Portfolio of Muhammad Taha — Applied Data Scientist & Backend Engineer building ML-powered APIs and data-driven systems.",
+      description: "Portfolio of Muhammad Taha - Applied Data Scientist & Backend Engineer building ML-powered APIs and data-driven systems.",
       author: { "@id": `${BASE_URL}/#person` },
       potentialAction: {
         "@type": "SearchAction",
