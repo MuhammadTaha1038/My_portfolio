@@ -1,26 +1,38 @@
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+
 interface SectionHeadingProps {
   label: string;
   title: string;
   description?: string;
-  align?: "center" | "left";
+  viewAllLink?: string;
+  viewAllText?: string;
 }
 
 export default function SectionHeading({
   label,
   title,
   description,
-  align = "center",
+  viewAllLink,
+  viewAllText = "View all",
 }: SectionHeadingProps) {
   return (
-    <div className={`section-header ${align === "center" ? "text-center items-center" : "items-start"}`}>
-      <p className="text-eyebrow">{label}</p>
-      <h2 className="text-h2" style={{ color: "var(--color-text)" }}>
-        {title}
-      </h2>
-      {description && (
-        <p className={`text-body ${align === "center" ? "max-w-2xl text-center" : "max-w-xl"}`}>
-          {description}
-        </p>
+    <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
+      <div className="flex flex-col items-start text-left">
+        <p className="text-eyebrow mb-2">{label}</p>
+        <h2 className="text-h2" style={{ color: "var(--color-text)" }}>
+          {title}
+        </h2>
+        {description && (
+          <p className="text-body max-w-xl mt-2">
+            {description}
+          </p>
+        )}
+      </div>
+      {viewAllLink && (
+        <Link href={viewAllLink} className="view-all-link shrink-0">
+          {viewAllText} <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.5} />
+        </Link>
       )}
     </div>
   );

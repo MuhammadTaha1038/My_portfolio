@@ -9,7 +9,7 @@ const DIFFERENTIATORS = [
     icon: Rocket,
     title: "Deploys ML Models",
     description:
-      "Doesn't just train models — deploys them into production-ready API endpoints with monitoring and scaling.",
+      "Doesn't just train models - deploys them into production-ready API endpoints with monitoring and scaling.",
     stat: "Production-Ready",
   },
   {
@@ -44,16 +44,15 @@ const DIFFERENTIATORS = [
 
 export default function Differentiation() {
   return (
-    <section id="approach" className="relative py-24 md:py-32 section-elevated overflow-hidden">
+    <section id="approach" className="relative section-padding section-elevated overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 dot-bg pointer-events-none opacity-40" />
       <div className="noise-overlay" />
-      <div className="absolute bottom-20 left-0 w-[350px] h-[350px] bg-accent/3 rounded-full blur-[100px] pointer-events-none" />
 
       {/* Top divider */}
-      <div className="section-divider" />
+      <div className="section-divider absolute top-0 left-0 right-0" />
 
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-12 pt-8">
+      <div className="relative container-content">
         <AnimatedSection>
           <SectionHeading
             label="Approach"
@@ -62,37 +61,35 @@ export default function Differentiation() {
           />
         </AnimatedSection>
 
-        {/* Bento-style grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Bento-style grid: 6 cols total. Row 1: 3 items spanning 2. Row 2: 2 items spanning 3. */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6">
           {DIFFERENTIATORS.map((diff, i) => (
             <AnimatedSection
               key={diff.title}
               delay={i * 0.08}
-              className={i === 0 ? "sm:col-span-2 lg:col-span-1" : ""}
+              className={i < 3 ? "lg:col-span-2" : "lg:col-span-3"}
             >
-              <div className="group h-full glass-card rounded-2xl p-6 md:p-8 relative overflow-hidden gradient-border">
-                {/* Top accent line */}
-                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                {/* Hover glow */}
-                <div className="absolute -bottom-16 -right-16 w-40 h-40 bg-accent/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-
-                <div className="relative">
+              <div className="group h-full proj-card hover-lift p-6 md:p-8 cursor-default">
+                
+                <div className="relative h-full flex flex-col">
                   {/* Icon + stat badge */}
                   <div className="flex items-start justify-between mb-6">
-                    <div className="p-3 rounded-xl bg-accent/10 text-accent group-hover:bg-accent/15 group-hover:shadow-[0_0_20px_rgba(245,197,24,0.15)] transition-all duration-300">
+                    <div 
+                      className="p-3 rounded-xl transition-all duration-300"
+                      style={{ background: "var(--color-surface-2)", border: "1px solid var(--color-border)", color: "var(--color-text-secondary)" }}
+                    >
                       <diff.icon className="w-6 h-6" />
                     </div>
-                    <span className="text-[10px] font-mono text-accent/60 tracking-widest uppercase px-2.5 py-1 border border-accent/10 rounded-full bg-accent/5">
+                    <span className="chip">
                       {diff.stat}
                     </span>
                   </div>
 
-                  <h3 className="text-lg font-semibold mb-3 group-hover:text-accent transition-colors">
+                  <h3 className="text-lg font-semibold mb-3 group-hover:text-[var(--color-text)] transition-colors" style={{ color: "var(--color-text)" }}>
                     {diff.title}
                   </h3>
 
-                  <p className="text-text-secondary text-sm leading-relaxed">
+                  <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
                     {diff.description}
                   </p>
                 </div>

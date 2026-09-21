@@ -51,7 +51,7 @@ export default function Footer() {
         borderTop: "1px solid var(--color-border)",
       }}
     >
-      <div className="container-content py-12 md:py-16">
+      <div className="container-content section-padding">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 md:gap-8">
 
           {/* Brand */}
@@ -67,7 +67,7 @@ export default function Footer() {
             </p>
             <p className="flex items-center gap-1.5 text-xs" style={{ color: "var(--color-text-muted)" }}>
               Built with
-              <Heart className="w-3 h-3" style={{ color: "var(--color-accent)" }} aria-hidden />
+              <Heart className="w-3 h-3" style={{ color: "var(--color-text-secondary)" }} aria-hidden />
               and <code style={{ fontFamily: "var(--font-mono)", color: "var(--color-text-secondary)" }}>&lt;code/&gt;</code>
             </p>
           </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import AnimatedSection from "@/components/AnimatedSection";
+import SectionHeading from "../SectionHeading";
 
 // Using devicons + simple icons for official brand logos
 // Only using slugs/URLs that are confirmed to exist
@@ -67,9 +68,7 @@ function CompanyCard({
   color: string;
 }) {
   return (
-    <div className="group relative glass-card rounded-2xl p-4 hover:border-white/15 transition-all duration-300 overflow-hidden cursor-default">
-      <div className="absolute inset-x-0 top-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-
+    <div className="group relative proj-card p-4 hover-surface transition-all duration-300 overflow-hidden cursor-default">
       <div className="relative flex items-center gap-2.5 mb-1.5">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -90,28 +89,29 @@ function CompanyCard({
           className="w-2 h-2 rounded-full shrink-0 hidden"
           style={{ backgroundColor: color }}
         />
-        <span className="font-semibold text-white text-xs">{name}</span>
+        <span className="font-semibold text-xs" style={{ color: "var(--color-text)" }}>{name}</span>
       </div>
-      <p className="text-text-muted text-[10px] font-mono leading-tight pl-6">{desc}</p>
+      <p className="text-[10px] font-mono leading-tight pl-6" style={{ color: "var(--color-text-muted)" }}>{desc}</p>
     </div>
   );
 }
 
 export default function LogoCloud() {
   return (
-    <section className="relative py-14 md:py-16 overflow-hidden">
+    <section className="relative section-padding overflow-hidden">
       <div className="absolute inset-0 section-elevated" />
       <div className="absolute top-0 left-0 right-0 h-px section-divider" />
 
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-12">
-        <AnimatedSection className="mb-8">
-          <p className="text-xs font-mono text-text-muted uppercase tracking-[0.2em]">
-            Ecosystem - Platforms I have worked with
-          </p>
+      <div className="relative container-content">
+        <AnimatedSection>
+          <SectionHeading
+            label="Ecosystem"
+            title="Platforms I have worked with"
+          />
         </AnimatedSection>
 
         <AnimatedSection delay={0.1}>
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3">
             {COMPANIES.map((company) => (
               <CompanyCard
                 key={company.name}
