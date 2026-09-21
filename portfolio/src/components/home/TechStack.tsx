@@ -3,7 +3,6 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
 import SectionHeading from "../SectionHeading";
-import { TechIcons } from "./TechLogos";
 import AnimatedSection from "@/components/AnimatedSection";
 
 const STACK = [
@@ -12,11 +11,11 @@ const STACK = [
     spanClass: "md:col-span-2 lg:col-span-7",
     colsClass: "sm:grid-cols-5",
     items: [
-      { name: "Python", logoKey: "Python", color: "#3776AB" },
-      { name: "FastAPI", logoKey: "FastAPI", color: "#009688" },
-      { name: "Node.js", logoKey: "Node_js", color: "#339933" },
-      { name: "TypeScript", logoKey: "TypeScript", color: "#3178C6" },
-      { name: "Prisma", logoKey: "Prisma", color: "var(--color-text)" },
+      { name: "Python", logo: "Python" },
+      { name: "FastAPI", logo: "FastAPI" },
+      { name: "Node.js", logo: "Node_js" },
+      { name: "TypeScript", logo: "TypeScript" },
+      { name: "Prisma", logo: "Prisma" },
     ],
   },
   {
@@ -24,9 +23,9 @@ const STACK = [
     spanClass: "md:col-span-1 lg:col-span-5",
     colsClass: "sm:grid-cols-3",
     items: [
-      { name: "scikit-learn", logoKey: "Scikit_learn", color: "#F7931E" },
-      { name: "Pandas", logoKey: "Pandas", color: "var(--color-text)" },
-      { name: "TensorFlow", logoKey: "TensorFlow", color: "#FF6F00" },
+      { name: "scikit-learn", logo: "Scikit_learn" },
+      { name: "Pandas", logo: "Pandas" },
+      { name: "TensorFlow", logo: "TensorFlow" },
     ],
   },
   {
@@ -34,9 +33,9 @@ const STACK = [
     spanClass: "md:col-span-1 lg:col-span-4",
     colsClass: "sm:grid-cols-3",
     items: [
-      { name: "PostgreSQL", logoKey: "PostgreSQL", color: "#336791" },
-      { name: "MongoDB", logoKey: "MongoDB", color: "#47A248" },
-      { name: "Redis", logoKey: "Redis", color: "#DC382D" },
+      { name: "PostgreSQL", logo: "PostgreSQL" },
+      { name: "MongoDB", logo: "MongoDB" },
+      { name: "Redis", logo: "Redis" },
     ],
   },
   {
@@ -44,9 +43,9 @@ const STACK = [
     spanClass: "md:col-span-1 lg:col-span-4",
     colsClass: "sm:grid-cols-3",
     items: [
-      { name: "Docker", logoKey: "Docker", color: "#2496ED" },
-      { name: "AWS", logoKey: "AWS", color: "#FF9900" },
-      { name: "Linux", logoKey: "Linux", color: "#FCC624" },
+      { name: "Docker", logo: "Docker" },
+      { name: "AWS", logo: "AWS" },
+      { name: "Linux", logo: "Linux" },
     ],
   },
   {
@@ -54,15 +53,14 @@ const STACK = [
     spanClass: "md:col-span-1 lg:col-span-4",
     colsClass: "sm:grid-cols-2",
     items: [
-      { name: "Next.js", logoKey: "Next_js", color: "var(--color-text)" },
-      { name: "React", logoKey: "React_logo", color: "#61DAFB" },
+      { name: "Next.js", logo: "Next_js" },
+      { name: "React", logo: "React_logo" },
     ],
   },
 ];
 
-function ToolItem({ name, logoKey, color }: { name: string; logoKey: string; color: string }) {
+function ToolItem({ name, logo }: { name: string; logo: string }) {
   const [hover, setHover] = useState(false);
-  const Icon = TechIcons[logoKey];
 
   return (
     <div
@@ -79,14 +77,15 @@ function ToolItem({ name, logoKey, color }: { name: string; logoKey: string; col
       }}
     >
       <div
-        className="w-7 h-7 transition-colors duration-150 flex items-center justify-center"
-        style={{
-          color: hover ? color : "var(--color-text-secondary)",
-          opacity: hover ? 1 : 0.75,
-        }}
+        className="w-7 h-7 flex items-center justify-center"
         aria-hidden
       >
-        {Icon ? <Icon /> : null}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img 
+          src={`/logos/${logo}.svg`} 
+          alt="" 
+          className="w-full h-full object-contain" 
+        />
       </div>
       <span
         className="text-[13px] transition-colors duration-150"
