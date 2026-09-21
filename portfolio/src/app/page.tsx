@@ -7,8 +7,19 @@ import FeaturedCaseStudy from "@/components/home/FeaturedCaseStudy";
 import CurrentPosition from "@/components/home/CurrentPosition";
 import FeaturedCertifications from "@/components/home/FeaturedCertifications";
 import LogoCloud from "@/components/home/LogoCloud";
+import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "https://www.muhammadtahatech.me",
+  },
+  openGraph: {
+    url: "https://www.muhammadtahatech.me",
+  },
+};
+
 
 export default function Home() {
   return (

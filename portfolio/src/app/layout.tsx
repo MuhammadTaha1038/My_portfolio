@@ -60,9 +60,8 @@ export const metadata: Metadata = {
   authors: [{ name: "Muhammad Taha", url: BASE_URL }],
   creator: "Muhammad Taha",
   publisher: "Muhammad Taha",
-  alternates: {
-    canonical: BASE_URL,
-  },
+  // NOTE: Do NOT set a global canonical here — each page must declare its own
+  // via its own metadata export to avoid Google treating all pages as duplicates.
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -141,7 +140,16 @@ const jsonLd = {
       "@id": `${BASE_URL}/#website`,
       url: BASE_URL,
       name: "Muhammad Taha Portfolio",
+      description: "Portfolio of Muhammad Taha — Applied Data Scientist & Backend Engineer building ML-powered APIs and data-driven systems.",
       author: { "@id": `${BASE_URL}/#person` },
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: `${BASE_URL}/projects?q={search_term_string}`,
+        },
+        "query-input": "required name=search_term_string",
+      },
     },
   ],
 };
