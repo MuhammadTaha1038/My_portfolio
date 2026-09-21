@@ -23,6 +23,7 @@ type Project = {
   github: string | null;
   live: string | null;
   content: string | null;
+  summary: string | null;
   slug: string | null;
   metrics: any;
   order: number;
@@ -116,6 +117,11 @@ export default function ProjectEditForm({ project }: { project: Project }) {
       <div>
         <label className="block text-sm font-medium text-gray-300 mb-2">Description</label>
         <textarea required name="description" rows={3} defaultValue={project.description} className={inputClass} />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-2">Short Summary (max 140 chars, optional)</label>
+        <textarea name="summary" maxLength={140} rows={2} defaultValue={project.summary ?? ""} className={inputClass} placeholder="Short snippet for the project card..." />
       </div>
 
       <div>

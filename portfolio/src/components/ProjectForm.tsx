@@ -100,7 +100,12 @@ export default function ProjectForm() {
 
       <div>
         <label className="block text-sm font-medium text-gray-300 mb-2">Description</label>
-        <textarea required name="description" rows={3} className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]" placeholder="Short summary for the project card..." />
+        <textarea required name="description" rows={3} className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]" placeholder="Detailed description for the case study..." />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-2">Short Summary (max 140 chars, optional)</label>
+        <textarea name="summary" maxLength={140} rows={2} className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]" placeholder="Short snippet for the project card..." />
       </div>
 
       <div>

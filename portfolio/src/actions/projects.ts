@@ -20,6 +20,7 @@ export async function createProject(formData: FormData) {
   
   const highlightsString = formData.get("highlights") as string;
   const tagsString = formData.get("tags") as string;
+  const summary = formData.get("summary") as string | null;
   const slugInput = formData.get("slug") as string | null;
   const metricsInput = formData.get("metrics") as string | null;
 
@@ -51,6 +52,7 @@ export async function createProject(formData: FormData) {
       github,
       live,
       content,
+      summary: summary || null,
       slug,
       metrics,
       order,
@@ -78,6 +80,7 @@ export async function updateProject(id: string, formData: FormData) {
 
   const highlightsString = formData.get("highlights") as string;
   const tagsString = formData.get("tags") as string;
+  const summary = formData.get("summary") as string | null;
   const slugInput = formData.get("slug") as string | null;
   const metricsInput = formData.get("metrics") as string | null;
   
@@ -108,6 +111,7 @@ export async function updateProject(id: string, formData: FormData) {
       github: github || null,
       live: live || null,
       content: content || null,
+      summary: summary || null,
       slug,
       metrics,
       order,

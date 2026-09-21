@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
   if (!project) return {};
 
-  const summary = project.description.split(/(?<=[.?!])\s+/)[0] || project.description;
+  const summary = project.summary || project.description.split(/(?<=[.?!])\s+/)[0] || project.description;
 
   return {
     title: `${project.title} | M. Taha`,
@@ -59,7 +59,7 @@ export default async function ProjectDetailPage({ params }: Params) {
   const prevProject = currentIndex > 0 ? allProjects[currentIndex - 1] : null;
   const nextProject = currentIndex < allProjects.length - 1 ? allProjects[currentIndex + 1] : null;
 
-  const summary = project.description.split(/(?<=[.?!])\s+/)[0] || project.description;
+  const summary = project.summary || project.description.split(/(?<=[.?!])\s+/)[0] || project.description;
   const metrics = project.metrics ? (typeof project.metrics === "string" ? JSON.parse(project.metrics) : project.metrics) : null;
 
   return (

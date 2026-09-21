@@ -21,6 +21,7 @@ model Project {
   slug        String?  @unique @default(cuid()) // For case study URLs (e.g. /projects/tattoo-inbox)
   title       String
   description String
+  summary     String?  @db.VarChar(140)
   content     String?  // Markdown content for the detailed case study
   metrics     Json?    // Array of {value: string, label: string}
   highlights  String[]
