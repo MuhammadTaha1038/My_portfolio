@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import AnimatedSection from "./AnimatedSection";
 
 import { parseDates, ExperienceCard, type ExperienceType } from "./ExperienceCard";
 
