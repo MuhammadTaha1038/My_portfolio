@@ -51,7 +51,7 @@ export default function Footer() {
         borderTop: "1px solid var(--color-border)",
       }}
     >
-      <div className="container-content section-padding">
+      <div className="container-content py-12 md:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 md:gap-8">
 
           {/* Brand */}
