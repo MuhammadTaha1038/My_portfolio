@@ -41,7 +41,8 @@ export default async function FeaturedCertifications() {
           <div className="group bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[12px] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-12 hover:border-[var(--color-border-hover)] transition-colors w-full">
             {/* Left Side */}
             <div className="flex flex-col items-center md:items-start text-center md:text-left flex-1 w-full md:w-auto">
-              <Image 
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img 
                 src="https://www.google.com/s2/favicons?domain=datacamp.com&sz=128" 
                 alt="DataCamp" 
                 width={48} 
