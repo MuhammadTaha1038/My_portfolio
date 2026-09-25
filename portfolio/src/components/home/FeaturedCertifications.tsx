@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
+import Link from "next/link";
 import Image from "next/image";
-import { ExternalLink } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import SectionHeading from "../SectionHeading";
 
@@ -17,6 +18,10 @@ export default async function FeaturedCertifications() {
 
   if (certs.length === 0) return null;
 
+  // We need at least one cert for this display
+  const frontBadge = certs[0];
+  const backBadge = certs.length > 1 ? certs[1] : certs[0];
+
   return (
     <section className="relative section-padding overflow-hidden">
       <div className="absolute inset-0 section-dark" />
@@ -29,62 +34,56 @@ export default async function FeaturedCertifications() {
             label="Credentials"
             title="Certified & verified."
             description="Industry-recognized certifications from leading platforms."
-            viewAllLink="/certificates"
-            viewAllText="View all certificates"
           />
         </AnimatedSection>
 
         <AnimatedSection delay={0.1}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-            {certs.map((cert, index) => {
-              const isLatest = index === 0;
-
-              return (
-                <div
-                  key={cert.id}
-                  className="group flex flex-col bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl overflow-hidden hover:border-[var(--color-border-hover)] transition-colors relative"
-                >
-                  {/* Badge / thumbnail area */}
-                  <div className="relative overflow-hidden flex items-center justify-center p-8 h-56 bg-[var(--color-surface-2)] border-b border-[var(--color-border)]">
-                    {isLatest && (
-                      <div className="absolute top-4 left-4 px-2 py-1 rounded-full border border-[var(--color-accent)] bg-[var(--color-surface)] z-10 flex items-center justify-center shadow-sm">
-                        <span className="text-[11px] font-mono uppercase text-[var(--color-text-primary)] leading-none tracking-wider font-medium">Latest</span>
-                      </div>
-                    )}
-                    <Image
-                      src={cert.image}
-                      alt={`${cert.title} badge`}
-                      fill
-                      className="object-contain p-8 drop-shadow-lg group-hover:scale-105 transition-transform duration-500"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                  </div>
-
-                  {/* Info */}
-                  <div className="p-8 flex flex-col flex-1">
-                    <h3 className="text-[18px] font-semibold leading-snug mb-1 text-[var(--color-text-primary)]">
-                      {cert.title}
-                    </h3>
-                    <p className="text-sm text-[var(--color-text-secondary)] mb-8">{cert.issuer}</p>
-                    
-                    <div className="flex items-center justify-between mt-auto pt-4 border-t border-[var(--color-border)]">
-                      <span className="text-sm font-mono text-[var(--color-text-muted)]">{cert.dateEarned}</span>
-                      {cert.credentialUrl && (
-                        <a
-                          href={cert.credentialUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors flex items-center justify-center"
-                          aria-label={`View credential for ${cert.title}`}
-                        >
-                          <ExternalLink className="w-4 h-4" />
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+          <div className="group bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[12px] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-12 hover:border-[var(--color-border-hover)] transition-colors w-full">
+            {/* Left Side */}
+            <div className="flex flex-col items-center md:items-start text-center md:text-left flex-1 w-full md:w-auto">
+              <Image 
+                src="https://www.google.com/s2/favicons?domain=datacamp.com&sz=128" 
+                alt="DataCamp" 
+                width={48} 
+                height={48} 
+                className="mb-6 rounded-md opacity-90 object-contain" 
+              />
+              <h3 className="text-[28px] md:text-[32px] font-bold text-[var(--color-text-primary)] mb-3 relative inline-block">
+                Certified Data Scientist
+                <span className="absolute -bottom-1 left-0 w-full h-[3px] bg-[var(--color-accent)] rounded-full" />
+              </h3>
+              <p className="text-base text-[var(--color-text-secondary)] mb-8">
+                {certs.length} certifications earned on DataCamp
+              </p>
+              <Link 
+                href="/certificates" 
+                className="inline-flex items-center gap-2 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors text-sm font-medium"
+              >
+                View certificates <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+            
+            {/* Right Side - Badge Stack */}
+            <div className="relative w-48 h-48 md:w-64 md:h-64 shrink-0 flex items-center justify-center">
+              {/* Back badge */}
+              <div className="absolute w-36 h-36 md:w-48 md:h-48 transition-all duration-200 -rotate-6 translate-x-4 translate-y-4 group-hover:-translate-x-12 group-hover:-rotate-2 bg-[var(--color-surface)] rounded-xl border border-[var(--color-border)] shadow-sm z-0">
+                <Image 
+                  src={backBadge.image} 
+                  alt="secondary badge" 
+                  fill 
+                  className="object-contain p-4 drop-shadow-md" 
+                />
+              </div>
+              {/* Front badge */}
+              <div className="absolute w-36 h-36 md:w-48 md:h-48 transition-all duration-200 rotate-3 -translate-x-4 -translate-y-4 group-hover:translate-x-12 group-hover:rotate-0 bg-[var(--color-surface)] rounded-xl border border-[var(--color-border)] shadow-md z-10">
+                <Image 
+                  src={frontBadge.image} 
+                  alt="primary badge" 
+                  fill 
+                  className="object-contain p-4 drop-shadow-lg" 
+                />
+              </div>
+            </div>
           </div>
         </AnimatedSection>
       </div>
