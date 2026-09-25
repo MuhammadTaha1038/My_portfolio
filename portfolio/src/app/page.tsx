@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import Hero from "@/components/Hero";
-import Differentiation from "@/components/Differentiation";
 import TechStack from "@/components/home/TechStack";
 import FeaturedProjects from "@/components/home/FeaturedProjects";
 import FeaturedCaseStudy from "@/components/home/FeaturedCaseStudy";
@@ -52,9 +51,6 @@ export default function Home() {
 
       {/* 7. Platforms & Logo Cloud */}
       <LogoCloud />
-
-      {/* 8. Engineering differentiators */}
-      <Differentiation />
     </main>
   );
 }
