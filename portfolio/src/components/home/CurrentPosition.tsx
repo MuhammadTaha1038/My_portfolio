@@ -2,7 +2,25 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
-import { ExperienceCard, parseDates, type ExperienceType } from "@/components/ExperienceCard";
+import { ExperienceCard, type ExperienceType } from "@/components/ExperienceCard";
+
+function parseDates(durationStr: string) {
+  const parts = durationStr.split(/[-—to]+/).map((s) => s.trim());
+  if (parts.length === 0) return { start: new Date(), end: new Date(), months: 1 };
+
+  const start = new Date(parts[0]);
+  let end = new Date();
+
+  if (parts.length > 1 && parts[1].toLowerCase() !== "present") {
+    const parsedEnd = new Date(parts[1]);
+    if (!isNaN(parsedEnd.getTime())) end = parsedEnd;
+  }
+
+  let months = (end.getFullYear() - (isNaN(start.getFullYear()) ? end.getFullYear() : start.getFullYear())) * 12 + (end.getMonth() - (isNaN(start.getMonth()) ? end.getMonth() : start.getMonth()));
+  months = Math.max(1, months || 1);
+
+  return { start: isNaN(start.getTime()) ? new Date() : start, end, months };
+}
 
 export default async function CurrentPosition() {
   // Pull the top-ordered experience as the "current position"
