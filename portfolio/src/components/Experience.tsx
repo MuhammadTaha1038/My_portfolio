@@ -2,9 +2,12 @@ import { prisma } from "@/lib/prisma";
 import ExperienceClient from "./ExperienceClient";
 
 export default async function Experience() {
-  const experiences = await prisma.experience.findMany({
-    orderBy: { order: "asc" },
-  });
+  const [experiences, certCount] = await Promise.all([
+    prisma.experience.findMany({
+      orderBy: { order: "asc" },
+    }),
+    prisma.certificate.count()
+  ]);
 
-  return <ExperienceClient experiences={experiences} />;
+  return <ExperienceClient experiences={experiences} certCount={certCount} />;
 }

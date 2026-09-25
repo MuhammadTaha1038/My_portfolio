@@ -1,11 +1,12 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import Link from "next/link";
 import AnimatedSection from "./AnimatedSection";
 
 import { parseDates, ExperienceCard, type ExperienceType } from "./ExperienceCard";
 
-export default function ExperienceClient({ experiences }: { experiences: ExperienceType[] }) {
+export default function ExperienceClient({ experiences, certCount = 0 }: { experiences: ExperienceType[], certCount?: number }) {
   const shouldReduceMotion = useReducedMotion();
   const allParsed = experiences.map((e) => parseDates(e.duration));
   const maxMonths = Math.max(...allParsed.map((p) => p.months), 1);
@@ -65,6 +66,31 @@ export default function ExperienceClient({ experiences }: { experiences: Experie
               </AnimatedSection>
             );
           })}
+          
+          {/* Credentials Panel */}
+          {certCount > 0 && (
+            <AnimatedSection delay={0.2}>
+              <div className="pl-[40px] md:pl-[64px] pb-8 pt-4">
+                <div className="w-full md:max-w-[340px] bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[12px] p-5 hover:border-[var(--color-border-hover)] transition-colors">
+                  <span className="text-eyebrow mb-4 block">Credentials</span>
+                  <div className="flex items-center gap-4">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img 
+                      src="https://www.google.com/s2/favicons?domain=datacamp.com&sz=128" 
+                      alt="DataCamp" 
+                      className="w-8 h-8 object-contain shrink-0" 
+                    />
+                    <div className="flex flex-col">
+                      <span className="text-sm text-[var(--color-text)] font-medium mb-1">{certCount} certifications earned</span>
+                      <Link href="/certificates" className="text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text)] transition-colors inline-flex items-center gap-1">
+                        View certificates <span>&rarr;</span>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </AnimatedSection>
+          )}
         </div>
       </div>
     </section>
