@@ -37,68 +37,61 @@ export default async function CurrentPosition() {
         <AnimatedSection>
           <div className="flex flex-col lg:flex-row lg:items-start gap-10 lg:gap-16">
             {/* Left: meta card */}
-            <div className="lg:w-72 shrink-0">
+            <div className="lg:w-64 shrink-0 flex flex-col justify-between">
               <span className="text-eyebrow mb-4 block">Current Position</span>
-              <div className="flex items-center gap-2 mb-4">
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-400" />
-                </span>
-                <span className="text-xs font-mono" style={{ color: "var(--color-text-secondary)" }}>Open to Work</span>
-              </div>
-
-              <div className="proj-card p-5">
-                <div className="flex items-start gap-3 mb-3">
-                  <div 
-                    className="p-2 rounded-lg mt-0.5 shrink-0" 
-                    style={{ background: "var(--color-surface-2)", border: "1px solid var(--color-border)", color: "var(--color-text-secondary)" }}
-                  >
-                    <Briefcase className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-sm leading-snug" style={{ color: "var(--color-text)" }}>{role}</p>
-                    <p className="font-mono text-xs mt-1" style={{ color: "var(--color-text-secondary)" }}>{company}</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 text-xs font-mono mt-3 pl-9" style={{ color: "var(--color-text-muted)" }}>
-                  <Calendar className="w-3 h-3" />
-                  {duration}
-                </div>
-              </div>
-
+              
               <Link
                 href="/experience"
-                className="mt-5 inline-flex items-center gap-2 text-sm transition-colors group"
-                style={{ color: "var(--color-text-secondary)" }}
+                className="mt-2 inline-flex items-center gap-2 text-sm transition-colors group text-[var(--color-text-secondary)]"
               >
                 <span className="group-hover:text-[var(--color-text)] transition-colors">Full experience</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 group-hover:text-[var(--color-text)] transition-all" />
               </Link>
             </div>
 
-            {/* Right: highlights */}
-            <div className="flex-1">
-              <h2 className="text-2xl md:text-3xl font-bold mb-6 tracking-tight" style={{ color: "var(--color-text)" }}>
+            {/* Right: merged card */}
+            <div className="flex-1 w-full">
+              <h2 className="text-2xl md:text-3xl font-bold mb-6 tracking-tight text-[var(--color-text)]">
                 What I am building right now
               </h2>
-              <div className="space-y-4">
-                {highlights.slice(0, 4).map((h, i) => (
-                  <div
-                    key={i}
-                    className="group flex items-start gap-4 p-4 rounded-xl transition-all duration-300"
-                    style={{ 
-                      background: "var(--color-surface-2)", 
-                      border: "1px solid var(--color-border)" 
-                    }}
-                  >
-                    <div className="shrink-0 mt-0.5" style={{ color: "var(--color-text-secondary)" }}>
-                      <CheckCircle2 className="w-5 h-5" />
+              
+              <div className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl overflow-hidden w-full">
+                {/* Header Row */}
+                <div className="p-4 sm:p-6 flex flex-wrap sm:flex-nowrap items-start sm:items-center justify-between gap-4">
+                  <div className="flex flex-wrap sm:flex-nowrap items-center gap-4 w-full sm:w-auto">
+                    <div className="p-2.5 sm:p-3 rounded-lg shrink-0 bg-[var(--color-surface-2)] border border-[var(--color-border)] text-[var(--color-text-secondary)]">
+                      <Briefcase className="w-4 h-4 sm:w-5 sm:h-5" />
                     </div>
-                    <p className="text-sm leading-relaxed transition-colors" style={{ color: "var(--color-text-secondary)" }}>
-                      <span className="group-hover:text-[var(--color-text)] transition-colors">{h}</span>
-                    </p>
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                      <span className="font-semibold text-sm sm:text-base text-[var(--color-text)]">{role}</span>
+                      <span className="hidden sm:inline text-[var(--color-text-muted)]">•</span>
+                      <span className="text-[var(--color-text-secondary)] font-mono text-xs sm:text-sm">{company}</span>
+                      <span className="hidden sm:inline text-[var(--color-text-muted)]">•</span>
+                      <span className="text-[var(--color-text-secondary)] font-mono text-xs sm:text-sm">{duration}</span>
+                    </div>
                   </div>
-                ))}
+                  
+                  {/* Open to Work Pill */}
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/10 bg-emerald-500/5 shrink-0 mt-2 sm:mt-0">
+                    <span className="h-2 w-2 rounded-full bg-emerald-400 motion-safe:animate-pulse" />
+                    <span className="text-xs font-mono text-[var(--color-text-secondary)]">Open to Work</span>
+                  </div>
+                </div>
+                
+                {/* Divider */}
+                <div className="h-px bg-[var(--color-border)] w-full" />
+                
+                {/* List */}
+                <ul className="p-4 sm:p-6 flex flex-col gap-4">
+                  {highlights.slice(0, 4).map((h: string, i: number) => (
+                    <li key={i} className="flex items-start gap-4 group">
+                      <div className="shrink-0 mt-[10px] w-1.5 h-1.5 bg-[var(--color-text-muted)] rounded-sm group-hover:bg-[var(--color-text-secondary)] transition-colors" />
+                      <p className="text-[var(--color-text-secondary)] leading-[1.7] text-sm sm:text-base">
+                        {h}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
