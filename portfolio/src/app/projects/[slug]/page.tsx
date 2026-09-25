@@ -14,13 +14,7 @@ type Params = {
   };
 };
 
-export async function generateStaticParams() {
-  const projects = await prisma.project.findMany({
-    select: { slug: true },
-    where: { slug: { not: null } },
-  });
-  return projects.map((p) => ({ slug: p.slug as string }));
-}
+// generateStaticParams removed to prevent Vercel SSG connection pool exhaustion (Neon DB wsarecv error)
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const project = await prisma.project.findUnique({
