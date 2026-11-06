@@ -1,30 +1,22 @@
 "use client";
 
 import AnimatedSection from "./AnimatedSection";
-import SectionHeading from "./SectionHeading";
 import Image from "next/image";
 
 export default function Profile() {
   return (
-    <section id="profile" className="section-padding" style={{ background: "var(--color-bg)" }}>
+    <section id="profile" className="pt-10 pb-16 md:pb-24 overflow-hidden" style={{ background: "var(--color-bg)" }}>
       <div className="container-content">
         <AnimatedSection>
-          <SectionHeading
-            label="About Me"
-            title="Engineering Profile"
-            description="Bridging data science and backend engineering to build production-ready, deployable systems."
-          />
-        </AnimatedSection>
-
-        {/* 2-Column Intro: Left Portrait, Right Bio + Facts */}
-        <AnimatedSection delay={0.1}>
-          <div className="flex flex-col lg:grid lg:grid-cols-[auto_1fr] gap-10 lg:gap-16 items-start">
+          {/* Two-column layout at >=1024px: portrait left, text right */}
+          <div className="flex flex-col lg:grid lg:grid-cols-[auto_1fr] gap-10 lg:gap-14 items-start">
             
             {/* Left Column: Portrait */}
             <div className="w-full flex justify-center lg:justify-start">
               <div
-                className="relative overflow-hidden w-full max-w-[280px] lg:w-[320px] shrink-0"
+                className="relative overflow-hidden w-full max-w-[280px] lg:max-w-none shrink-0"
                 style={{
+                  width: "clamp(240px, 24vw, 320px)",
                   aspectRatio: "4/5",
                   borderRadius: "var(--radius-md)",
                   border: "1px solid var(--color-border)",
@@ -42,22 +34,23 @@ export default function Profile() {
               </div>
             </div>
 
-            {/* Right Column: Bio + Facts */}
+            {/* Right Column: Eyebrow, H1, Role, Bio, Facts */}
             <div className="flex flex-col w-full max-w-[62ch]">
-              {/* Name & Role */}
-              <div className="mb-6">
-                <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-[var(--color-text)] mb-2">
-                  Muhammad Taha
-                </h1>
-                <p className="font-mono text-xs uppercase tracking-wider text-[var(--color-text-secondary)]">
-                  Software Engineer &amp; Applied Data Scientist
-                </p>
-              </div>
+              {/* Mono Eyebrow aligned to top of portrait */}
+              <span className="text-eyebrow block mb-3">About Me</span>
 
-              {/* Bio copy (strictly preserved) */}
-              <p
-                className="text-[17px] leading-[1.7] text-[var(--color-text-secondary)] mb-8"
-              >
+              {/* H1 Name */}
+              <h1 className="text-3xl md:text-4xl lg:text-[40px] font-bold tracking-tight text-[var(--color-text)] mb-2 leading-tight">
+                Muhammad Taha
+              </h1>
+
+              {/* Role Line */}
+              <p className="font-mono text-xs uppercase tracking-wider text-[var(--color-text-secondary)] mb-6">
+                Software Engineer &amp; Applied Data Scientist
+              </p>
+
+              {/* Bio Copy */}
+              <p className="text-[17px] leading-[1.7] text-[var(--color-text-secondary)] mb-8">
                 Software Engineer at{" "}
                 <a
                   href="https://ummahtechinnovations.com/"
@@ -78,7 +71,7 @@ export default function Profile() {
                 APIs, authentication, and structured database design.
               </p>
 
-              {/* Facts list */}
+              {/* Facts List */}
               <div className="pt-6 border-t border-[var(--color-border)] flex flex-col gap-3 font-mono text-xs">
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-6 py-1.5 border-b border-[var(--color-border)]/40 last:border-0">
                   <span className="text-[var(--color-text-muted)] uppercase tracking-wider w-24 shrink-0">

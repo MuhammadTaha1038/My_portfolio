@@ -1,5 +1,4 @@
 import Profile from "@/components/Profile";
-import TechStack from "@/components/home/TechStack";
 
 export const metadata = {
   title: "About Me",
@@ -16,9 +15,8 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="pt-16 min-h-screen">
+    <main className="pt-20 min-h-screen">
       <Profile />
-      <TechStack />
     </main>
   );
 }
