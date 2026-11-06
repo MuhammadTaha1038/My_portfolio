@@ -73,7 +73,7 @@ export default async function CurrentPosition() {
               footer={
                 <Link
                   href="/experience"
-                  className="inline-flex items-center gap-2 text-sm transition-colors group text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
+                  className="inline-flex items-center gap-2 text-sm transition-colors group text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
                 >
                   <span>Full experience</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-all" />

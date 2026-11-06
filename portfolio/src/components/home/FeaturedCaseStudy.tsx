@@ -43,7 +43,7 @@ export default async function FeaturedCaseStudy() {
               <span className="text-xs font-mono text-accent uppercase tracking-[0.2em]">Featured Case Study</span>
             </div>
 
-            <span className="text-xs font-mono text-white/50 uppercase tracking-widest mb-3 block">{project.category}</span>
+            <span className="text-xs font-mono uppercase tracking-widest mb-3 block" style={{ color: "var(--color-text-secondary)" }}>{project.category}</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-5 leading-tight tracking-tight">
               {project.title}
             </h2>

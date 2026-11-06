@@ -202,8 +202,16 @@ a, button {
 }
 
 .section-padding {
-  padding-top: clamp(64px, 8vw, 112px);
-  padding-bottom: clamp(64px, 8vw, 112px);
+  padding-top: clamp(48px, 6vw, 88px);
+  padding-bottom: clamp(48px, 6vw, 88px);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary) !important;
+}
+
+.text-muted {
+  color: var(--color-text-muted) !important;
 }
 
 /* ============================================================

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Github, ExternalLink } from "lucide-react";
@@ -9,6 +9,11 @@ import { motion, useInView, useReducedMotion, useScroll, useTransform } from "fr
 export default function FeaturedProjectRow({ project, index }: { project: any, index: number }) {
   const shouldReduceMotion = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
+  const [animationDone, setAnimationDone] = useState(false);
+
+  // Initial aspect ratio: Tijarat is 1774/887 (2:1), standard projects are 1672/941 (16:9)
+  const initialAspect = project.title?.includes("Tijarat") ? "1774 / 887" : "16 / 9";
+  const [aspectRatio, setAspectRatio] = useState<string>(initialAspect);
   
   // Trigger at 25% visibility
   const inView = useInView(ref, { once: true, amount: 0.25 });
@@ -103,14 +108,25 @@ export default function FeaturedProjectRow({ project, index }: { project: any, i
           initial={shouldReduceMotion ? false : { opacity: 0, x: bannerInitialX, y: 40 }}
           animate={shouldReduceMotion ? false : (inView ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: bannerInitialX, y: 40 })}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="relative w-full aspect-[16/9] overflow-hidden rounded-[12px] border border-[var(--color-border)] bg-[var(--color-surface)] group-hover:border-[var(--color-border-hover)] transition-colors duration-200"
+          onAnimationComplete={() => setAnimationDone(true)}
+          style={{
+            aspectRatio,
+            ...(animationDone ? { transform: "none" } : {}),
+          }}
+          className="relative w-full overflow-hidden rounded-[12px] border border-[var(--color-border)] bg-[var(--color-surface)] group-hover:border-[var(--color-border-hover)] transition-colors duration-200"
         >
           <Image
             src={project.image}
             alt={`${project.title} project banner`}
             fill
-            className="object-cover"
+            className="object-contain transition-transform duration-300 group-hover:scale-[1.01]"
             sizes="(max-width: 1024px) 100vw, 60vw"
+            onLoad={(e) => {
+              const img = e.currentTarget;
+              if (img.naturalWidth && img.naturalHeight) {
+                setAspectRatio(`${img.naturalWidth} / ${img.naturalHeight}`);
+              }
+            }}
           />
         </motion.div>
       </div>
@@ -122,11 +138,17 @@ export default function FeaturedProjectRow({ project, index }: { project: any, i
         transition={{ duration: 0.5, delay: 0.2 }}
         className={`lg:col-span-5 flex flex-col justify-center gap-5 relative z-10 pointer-events-none ${textOrder} text-left h-fit`}
       >
-        <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-text-secondary)]">
+        <span 
+          className="font-mono text-xs uppercase tracking-wider"
+          style={{ color: "var(--color-text-secondary)" }}
+        >
           {project.category}
         </span>
 
-        <h3 className="text-[28px] font-bold leading-tight text-[var(--color-text-primary)]">
+        <h3 
+          className="text-[28px] font-bold leading-tight"
+          style={{ color: "var(--color-text)" }}
+        >
           {project.title}
         </h3>
 
