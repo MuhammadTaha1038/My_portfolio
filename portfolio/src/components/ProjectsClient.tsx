@@ -65,7 +65,7 @@ export default function ProjectsClient({ initialProjects }: { initialProjects: P
   return (
     <section
       id="projects"
-      className="section-padding"
+      className="pt-10 pb-16 md:pb-24"
       style={{ background: "var(--color-bg)" }}
     >
       <div className="container-content">

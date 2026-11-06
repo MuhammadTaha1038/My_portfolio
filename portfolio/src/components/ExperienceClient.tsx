@@ -14,7 +14,7 @@ export default function ExperienceClient({ experiences, certCount = 0 }: { exper
   const yearsSpan = Math.max(1, new Date().getFullYear() - earliestYear);
 
   return (
-    <section id="experience" className="relative section-padding overflow-hidden">
+    <section id="experience" className="relative pt-10 pb-16 md:pb-24 overflow-hidden">
       <div className="absolute inset-0 grid-bg pointer-events-none opacity-40" />
       <div className="absolute top-0 left-0 right-0 h-px section-divider" />
 

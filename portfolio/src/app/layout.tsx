@@ -103,6 +103,15 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.json",
   category: "technology",
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    apple: [
+      { url: "/icon.png" },
+    ],
+  },
 };
 
 const jsonLd = {
