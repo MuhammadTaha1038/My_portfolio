@@ -82,7 +82,7 @@ export default async function ProjectDetailPage({ params }: Params) {
 
           <div className="flex flex-wrap items-center gap-3 mb-4">
             <span className="text-eyebrow">{project.category}</span>
-            {project.featured && (
+            {project.tier === 1 && (
               <span className="px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider rounded border border-[var(--color-border)] bg-[var(--color-surface-2)] text-[var(--color-text-secondary)]">
                 Featured Case Study
               </span>
@@ -202,7 +202,7 @@ export default async function ProjectDetailPage({ params }: Params) {
                   <span className="text-[var(--color-text-muted)]">Category</span>
                   <span className="text-[var(--color-text)] font-medium">{project.category}</span>
                 </div>
-                {project.featured && (
+                {project.tier === 1 && (
                   <div className="flex items-center justify-between text-xs py-2 border-b border-[var(--color-border)] last:border-0">
                     <span className="text-[var(--color-text-muted)]">Type</span>
                     <span className="text-[var(--color-text)] font-medium">Featured Project</span>
