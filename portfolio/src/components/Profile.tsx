@@ -46,30 +46,24 @@ export default function Profile() {
 
               {/* Role Line */}
               <p className="font-mono text-xs uppercase tracking-wider text-[var(--color-text-secondary)] mb-6">
-                Software Engineer &amp; Applied Data Scientist
+                APPLIED DATA SCIENTIST &amp; BACKEND ENGINEER
               </p>
 
               {/* Bio Copy */}
-              <p className="text-[17px] leading-[1.7] text-[var(--color-text-secondary)] mb-8">
-                Software Engineer at{" "}
-                <a
-                  href="https://ummahtechinnovations.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[var(--color-text)] underline decoration-[var(--color-border-hover)] hover:decoration-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors"
-                >
-                  UmmahTech Innovations
-                </a>
-                , specializing in{" "}
-                <span className="text-[var(--color-text)] font-medium">Applied Data Science</span> and
-                Backend Systems Engineering. Studying at{" "}
-                <span className="text-[var(--color-text)] font-medium">
-                  University of Engineering and Technology, Taxila
-                </span>
-                . I build end-to-end pipelines that move from data exploration to real-world
-                deployment, integrating ML models into scalable backend architectures with
-                APIs, authentication, and structured database design.
-              </p>
+              <div className="flex flex-col gap-4 text-[17px] leading-[1.7] text-[var(--color-text-secondary)] mb-8">
+                <p>
+                  I&apos;m a software engineering student at UET Taxila. I started with data analysis, moved into data science and then deep learning, and right now I&apos;m focused on agentic AI.
+                </p>
+                <p>
+                  What I care about most is the part after the model works. A model on its own isn&apos;t a solution. It needs APIs, data pipelines and a workflow around it before anyone can use it, and I like building that part.
+                </p>
+                <p>
+                  I&apos;m part of the UmmahTech Innovations team, where I work through the whole build, from requirements and architecture to integration and deployment. I use AI coding tools along the way.
+                </p>
+                <p>
+                  Two projects to start with: Tasty Bytes, a model that predicts which recipes drive high traffic, and International Tijarat, a multi-vendor e-commerce platform.
+                </p>
+              </div>
 
               {/* Facts List */}
               <div className="pt-6 border-t border-[var(--color-border)] flex flex-col gap-3 font-mono text-xs">
@@ -89,10 +83,10 @@ export default function Profile() {
                 </div>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-6 py-1.5 border-b border-[var(--color-border)]/40 last:border-0">
                   <span className="text-[var(--color-text-muted)] uppercase tracking-wider w-24 shrink-0">
-                    WORKING
+                    TEAM
                   </span>
                   <span className="text-[var(--color-text)] font-medium">
-                    UmmahTech Innovations (2025 to present)
+                    UmmahTech Innovations
                   </span>
                 </div>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-6 py-1.5 border-b border-[var(--color-border)]/40 last:border-0">
