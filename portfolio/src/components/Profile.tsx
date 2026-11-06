@@ -24,7 +24,7 @@ export default function Profile() {
                 }}
               >
                 <Image
-                  src="/hero.png"
+                  src="/about-me.png"
                   alt="Muhammad Taha, Applied Data Scientist and Backend Systems Engineer"
                   fill
                   className="object-cover object-[center_20%]"
@@ -50,7 +50,7 @@ export default function Profile() {
               </p>
 
               {/* Bio Copy */}
-              <div className="flex flex-col gap-4 text-[17px] leading-[1.7] text-[var(--color-text-secondary)] mb-8">
+              <div className="flex flex-col gap-4 text-[17px] leading-[1.7] text-[var(--color-text-secondary)] text-justify mb-8">
                 <p>
                   I build data-driven applications and intelligent systems at the intersection of Data Science, AI, and Backend Engineering.
                 </p>
@@ -70,11 +70,36 @@ export default function Profile() {
 
               {/* Facts List */}
               <div className="pt-6 border-t border-[var(--color-border)] flex flex-col gap-3 font-mono text-xs">
-                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-6 py-1.5">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-6 py-1.5 border-b border-[var(--color-border)]/40 last:border-0">
                   <span className="text-[var(--color-text-muted)] uppercase tracking-wider w-24 shrink-0">
                     LOCATION
                   </span>
                   <span className="text-[var(--color-text)] font-medium">Pakistan</span>
+                </div>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-6 py-1.5 border-b border-[var(--color-border)]/40 last:border-0">
+                  <span className="text-[var(--color-text-muted)] uppercase tracking-wider w-24 shrink-0">
+                    STUDYING
+                  </span>
+                  <span className="text-[var(--color-text)] font-medium">
+                    University of Engineering and Technology, Taxila
+                  </span>
+                </div>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-6 py-1.5 border-b border-[var(--color-border)]/40 last:border-0">
+                  <span className="text-[var(--color-text-muted)] uppercase tracking-wider w-24 shrink-0">
+                    TEAM
+                  </span>
+                  <span className="text-[var(--color-text)] font-medium">
+                    UmmahTech Innovations
+                  </span>
+                </div>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-6 py-1.5 border-b border-[var(--color-border)]/40 last:border-0">
+                  <span className="text-[var(--color-text-muted)] uppercase tracking-wider w-24 shrink-0">
+                    STATUS
+                  </span>
+                  <span className="text-[var(--color-text)] font-medium inline-flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block" />
+                    Looking for opportunities
+                  </span>
                 </div>
               </div>
             </div>
