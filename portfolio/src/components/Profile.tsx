@@ -95,7 +95,7 @@ export default function Profile() {
                   </span>
                   <span className="text-[var(--color-text)] font-medium inline-flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block" />
-                    Open to Work
+                    Looking for opportunities
                   </span>
                 </div>
               </div>
