@@ -74,13 +74,6 @@ export const metadata: Metadata = {
     siteName: "Muhammad Taha Portfolio",
     images: [
       {
-        url: `${BASE_URL}/profile.png`,
-        width: 750,
-        height: 750,
-        alt: "Muhammad Taha | Applied Data Scientist & Backend Systems Engineer",
-        type: "image/png",
-      },
-      {
         url: `${BASE_URL}/og-image.png`,
         width: 1200,
         height: 630,
@@ -169,6 +162,48 @@ const jsonLd = {
         },
         "query-input": "required name=search_term_string",
       },
+    },
+    {
+      "@type": "ItemList",
+      "@id": `${BASE_URL}/#sitelinks`,
+      name: "Main Navigation",
+      itemListElement: [
+        {
+          "@type": "SiteNavigationElement",
+          position: 1,
+          name: "About Me",
+          description: "Learn about Muhammad Taha's engineering journey, philosophy, and expertise.",
+          url: `${BASE_URL}/about`,
+        },
+        {
+          "@type": "SiteNavigationElement",
+          position: 2,
+          name: "Projects & Case Studies",
+          description: "Explore ML models, backend APIs, and systems built by Muhammad Taha.",
+          url: `${BASE_URL}/projects`,
+        },
+        {
+          "@type": "SiteNavigationElement",
+          position: 3,
+          name: "Experience",
+          description: "Professional journey, roles, and engineering milestones.",
+          url: `${BASE_URL}/experience`,
+        },
+        {
+          "@type": "SiteNavigationElement",
+          position: 4,
+          name: "Certifications",
+          description: "Industry certifications in Machine Learning and Data Science.",
+          url: `${BASE_URL}/certificates`,
+        },
+        {
+          "@type": "SiteNavigationElement",
+          position: 5,
+          name: "Contact",
+          description: "Get in touch with Muhammad Taha for projects and opportunities.",
+          url: `${BASE_URL}/contact`,
+        },
+      ],
     },
   ],
 };
