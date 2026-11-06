@@ -70,6 +70,15 @@ export const metadata: Metadata = {
     description:
       "Muhammad Taha is an Applied Data Scientist and Backend Engineer building ML-powered APIs, data-driven systems, and production-ready applications.",
     siteName: "Muhammad Taha Portfolio",
+    images: [
+      {
+        url: `${BASE_URL}/og-image.png`,
+        width: 1200,
+        height: 630,
+        alt: "Muhammad Taha | Applied Data Scientist & Backend Engineer",
+        type: "image/png",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -77,6 +86,7 @@ export const metadata: Metadata = {
     description:
       "Muhammad Taha is an Applied Data Scientist and Backend Engineer building ML-powered APIs, data-driven systems, and production-ready applications.",
     creator: "@M_Taha093589350",
+    images: [`${BASE_URL}/og-image.png`],
   },
   robots: {
     index: true,

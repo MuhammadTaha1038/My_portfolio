@@ -14,9 +14,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.muhammadtahatech.me",
   },
-  openGraph: {
-    url: "https://www.muhammadtahatech.me",
-  },
 };
 
 
