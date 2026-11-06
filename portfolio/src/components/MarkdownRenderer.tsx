@@ -22,9 +22,9 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
           ul: ({ node, ...props }) => <ul className="list-disc pl-6 mb-6 text-[17px] leading-[1.7] text-[var(--color-text-secondary)]" {...props} />,
           ol: ({ node, ...props }) => <ol className="list-decimal pl-6 mb-6 text-[17px] leading-[1.7] text-[var(--color-text-secondary)]" {...props} />,
           li: ({ node, ...props }) => <li className="mb-2" {...props} />,
-          a: ({ node, ...props }) => <a className="text-[var(--color-text-primary)] underline decoration-[var(--color-text-muted)] hover:decoration-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors" {...props} />,
+          a: ({ node, ...props }) => <a className="text-[var(--color-text)] underline decoration-[var(--color-border-hover)] hover:decoration-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors" {...props} />,
           blockquote: ({ node, ...props }) => (
-            <blockquote className="border-l-2 border-[var(--color-accent)] pl-6 italic text-[var(--color-text-secondary)] my-8" {...props} />
+            <blockquote className="border-l-2 border-[var(--color-border-hover)] pl-6 italic text-[var(--color-text-secondary)] my-8" {...props} />
           ),
           code: ({ node, inline, ...props }: any) => {
             if (inline) {

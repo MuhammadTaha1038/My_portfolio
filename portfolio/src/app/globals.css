@@ -16,6 +16,7 @@
 
   /* Text */
   --color-text:           #F4F4F5;
+  --color-text-primary:   #F4F4F5;
   --color-text-secondary: #A3A3A3; /* Pure Neutral 400 (no blue tint) */
   --color-text-muted:     #737373; /* Pure Neutral 500 (no blue tint) */
 
@@ -47,6 +48,7 @@
   --color-surface:        var(--color-surface);
   --color-surface-2:      var(--color-surface-2);
   --color-border:         var(--color-border);
+  --color-text-primary:   var(--color-text-primary);
   --color-text-secondary: var(--color-text-secondary);
   --color-text-muted:     var(--color-text-muted);
   --font-sans:            var(--font-inter);
