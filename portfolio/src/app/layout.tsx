@@ -31,17 +31,19 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "Muhammad Taha | Applied Data Scientist & Backend Engineer",
+    default: "Muhammad Taha | Applied Data Scientist & Backend Systems Engineer",
     template: "%s | Muhammad Taha",
   },
   description:
-    "Muhammad Taha is an Applied Data Scientist and Backend Engineer building ML-powered APIs, data-driven systems, and production-ready applications.",
+    "Muhammad Taha is an Applied Data Scientist and Backend Systems Engineer building ML-powered APIs, data-driven systems, and production-ready applications.",
   keywords: [
     "Muhammad Taha",
     "Software Engineer Pakistan",
     "Applied Data Scientist",
+    "Backend Systems Engineer",
     "Backend Engineer",
     "Machine Learning Engineer",
+    "Agentic AI",
     "FastAPI Developer",
     "Node.js Engineer",
     "ML Deployment",
@@ -66,25 +68,32 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: BASE_URL,
-    title: "Muhammad Taha | Applied Data Scientist & Backend Engineer",
+    title: "Muhammad Taha | Applied Data Scientist & Backend Systems Engineer",
     description:
-      "Muhammad Taha is an Applied Data Scientist and Backend Engineer building ML-powered APIs, data-driven systems, and production-ready applications.",
+      "Muhammad Taha is an Applied Data Scientist and Backend Systems Engineer building ML-powered APIs, data-driven systems, and production-ready applications.",
     siteName: "Muhammad Taha Portfolio",
     images: [
+      {
+        url: `${BASE_URL}/profile.png`,
+        width: 750,
+        height: 750,
+        alt: "Muhammad Taha | Applied Data Scientist & Backend Systems Engineer",
+        type: "image/png",
+      },
       {
         url: `${BASE_URL}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: "Muhammad Taha | Applied Data Scientist & Backend Engineer",
+        alt: "Muhammad Taha | Applied Data Scientist & Backend Systems Engineer",
         type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Muhammad Taha | Applied Data Scientist & Backend Engineer",
+    title: "Muhammad Taha | Applied Data Scientist & Backend Systems Engineer",
     description:
-      "Muhammad Taha is an Applied Data Scientist and Backend Engineer building ML-powered APIs, data-driven systems, and production-ready applications.",
+      "Muhammad Taha is an Applied Data Scientist and Backend Systems Engineer building ML-powered APIs, data-driven systems, and production-ready applications.",
     creator: "@M_Taha093589350",
     images: [`${BASE_URL}/og-image.png`],
   },
@@ -110,7 +119,7 @@ const jsonLd = {
       "@type": "Person",
       "@id": `${BASE_URL}/#person`,
       name: "Muhammad Taha",
-      jobTitle: "Software Engineer & Applied Data Scientist",
+      jobTitle: "Applied Data Scientist & Backend Systems Engineer",
       url: BASE_URL,
       email: "contact.taha2005@gmail.com",
       image: `${BASE_URL}/hero.png`,
@@ -150,7 +159,7 @@ const jsonLd = {
       "@id": `${BASE_URL}/#website`,
       url: BASE_URL,
       name: "Muhammad Taha Portfolio",
-      description: "Portfolio of Muhammad Taha - Applied Data Scientist & Backend Engineer building ML-powered APIs and data-driven systems.",
+      description: "Portfolio of Muhammad Taha - Applied Data Scientist & Backend Systems Engineer building ML-powered APIs and data-driven systems.",
       author: { "@id": `${BASE_URL}/#person` },
       potentialAction: {
         "@type": "SearchAction",
