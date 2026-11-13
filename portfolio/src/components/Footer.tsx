@@ -1,4 +1,3 @@
-import { Heart } from "lucide-react";
 import Link from "next/link";
 
 const QUICK_LINKS = [
@@ -61,15 +60,10 @@ export default function Footer() {
               style={{ color: "var(--color-text)" }}>
               M. Taha
             </Link>
-            <p className="text-sm leading-relaxed mb-6"
-              style={{ color: "var(--color-text-muted)", maxWidth: "28ch" }}>
-              Software Engineer &amp; Applied Data Scientist specializing in ML
-              pipelines and scalable backend architectures.
-            </p>
-            <p className="flex items-center gap-1.5 text-xs" style={{ color: "var(--color-text-muted)" }}>
-              Built with
-              <Heart className="w-3 h-3" style={{ color: "var(--color-text-secondary)" }} aria-hidden />
-              and <code style={{ fontFamily: "var(--font-mono)", color: "var(--color-text-secondary)" }}>&lt;code/&gt;</code>
+            <p className="text-sm leading-relaxed"
+              style={{ color: "var(--color-text-muted)", maxWidth: "32ch" }}>
+              Applied Data Scientist &amp; Backend Systems Engineer building ML-powered
+              APIs and scalable backend architectures.
             </p>
           </div>
 
